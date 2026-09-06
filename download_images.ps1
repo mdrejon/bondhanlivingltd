@@ -1,4 +1,4 @@
-$baseUrl = "https://html.themehour.net/konta/demo/"
+$baseUrl = "https://html.themehour.net/Bondhon/demo/"
 $files = Get-ChildItem -Filter *.html | Select-Object -ExpandProperty Name
 $imagePaths = @()
 
@@ -12,9 +12,9 @@ foreach ($file in $files) {
         $imgPath = $imgPath -replace "^/", ""
         $cleanPath = $imgPath -replace "//", "/"
         if ($cleanPath -notmatch "^http") {
-             if ($imagePaths -notcontains $cleanPath) {
-                 $imagePaths += $cleanPath
-             }
+            if ($imagePaths -notcontains $cleanPath) {
+                $imagePaths += $cleanPath
+            }
         }
     }
 }
@@ -40,10 +40,12 @@ foreach ($imgPath in $imagePaths) {
         Write-Host "[$count/$total] Downloading $url to $localPath"
         try {
             Invoke-WebRequest -Uri $url -OutFile $localPath -UseBasicParsing -TimeoutSec 15
-        } catch {
+        }
+        catch {
             Write-Host "Failed to download $url : $($_.Exception.Message)"
         }
-    } else {
+    }
+    else {
         Write-Host "[$count/$total] Exists: $localPath"
     }
 }

@@ -5630,7 +5630,7 @@ ol.wp-block-rss {
   display: block;
   position: relative;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--title-color);
   text-transform: uppercase;
   font-family: var(--body-font);
@@ -7018,7 +7018,7 @@ ol.wp-block-rss {
   color: var(--smoke-color);
 }
 .header-layout5 .header-button {
-  margin-left: 130px;
+  margin-left: 50px;
 }
 .header-layout5 .menu-area {
   background-color: var(--white-color);
