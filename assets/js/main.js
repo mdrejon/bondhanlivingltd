@@ -910,4 +910,48 @@
       (t(".th-accordion_images img").removeClass("active"),
         t(".th-accordion_images img").eq(s).addClass("active"));
     }));
+
+  // Hero Slider JS
+  $(document).ready(function() {
+    $(".hero-slider").owlCarousel({
+      items: 1,
+      loop: true,
+      margin: 0,
+      nav: true,
+      dots: false,
+      autoplay: true,
+      smartSpeed: 1000,
+      autoplayHoverPause: true,
+      animateOut: "fadeOut",
+      navText: [
+        "<i class='fal fa-arrow-left'></i>",
+        "<i class='fal fa-arrow-right'></i>",
+      ],
+    });
+    
+    // Partner Slider JS
+    $('.partner-slider').owlCarousel({
+      loop: true,
+      margin: 30,
+      nav: false,
+      dots: false,
+      autoplay: true,
+      smartSpeed: 1000,
+      autoplayHoverPause: true,
+      responsive:{
+        0:{
+          items: 2,
+        },
+        576:{
+          items: 3,
+        },
+        768:{
+          items: 4,
+        },
+        1200:{
+          items: 5,
+        }
+      }
+    });
+  });
 })(jQuery);
