@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html class="no-js" lang="zxx">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Bondhan Living Ltd</title>
+    <title>Loan Calculator - Bondhan Living Ltd</title>
     <meta name="author" content="Bondhan Living Ltd" />
     <meta
       name="description"
@@ -239,7 +239,11 @@
                             <a href="about.html">About Us</a>
                             <ul class="sub-menu">
                               <li><a href="#">Companey Profile</a></li>
-                              <li><a href="chairman-message.html">Chairman message</a></li>
+                              <li>
+                                <a href="chairman-message.html"
+                                  >Chairman message</a
+                                >
+                              </li>
                               <li><a href="history.html">History</a></li>
                               <li><a href="corporate-background.html">Corporate Background</a></li>
                             </ul>
@@ -301,262 +305,113 @@
     <div class="breadcumb-wrapper" data-bg-src="assets/img/bg/breadcumb-bg.jpg">
       <div class="container">
         <div class="breadcumb-content">
-          <h1 class="breadcumb-title">Project Style Two</h1>
+          <h1 class="breadcumb-title">Loan Calculator</h1>
           <ul class="breadcumb-menu">
             <li><a href="index.html">Home</a></li>
-            <li>Project Style Two</li>
+            <li>Loan Calculator</li>
           </ul>
         </div>
       </div>
     </div>
-    <div class="site-main">
-      <!--grid-section-->
-      <div class="ttm-row grid-section clearfix space">
-        <div class="container">
-          <!-- row -->
-          <div class="row g-4 ttm-boxes-spacing-30px">
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-1.png"
-                    alt="image"
-                  />
-                </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="benoit-architecture"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-1.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
-                </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3><a href="project-details.html">Interior Texture</a></h3>
-                  </div>
+
+    
+    
+    <div class="space" id="calculator-sec" style="background-color: #f8f9fa;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-6 col-lg-8 col-md-10">
+            <div class="calculator-card p-5" style="background: #fff; border: 1px solid #eaeaea; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-radius: 4px;">
+              
+              <div class="title-area mb-4 text-center">
+                <h2 class="sec-title text-uppercase" style="font-size: 32px; color: #231E41;">LOAN <span class="text-theme">CALCULATOR</span></h2>
+                <div style="width: 150px; height: 1px; background: #c0c0c0; margin: 0 auto 10px auto; position: relative;">
+                  <div style="width: 80px; height: 2px; background: var(--theme-color); position: absolute; left: 50%; top: -0.5px; transform: translateX(-50%);"></div>
                 </div>
               </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-2.png"
-                    alt="image"
-                  />
+              
+              <p class="text-center mb-4 text-muted" style="font-size: 15px;">We have Properties in these Areas View a list of Featured Properties.</p>
+              
+              <form id="loanForm" onsubmit="event.preventDefault(); calculateLoan();">
+                <div class="input-group mb-3" style="border: 1px solid #eee; border-radius: 4px; overflow: hidden;">
+                  <span class="input-group-text border-0 rounded-0" style="background-color: var(--theme-color, #36317A); color: white; width: 60px; justify-content: center;"><i class="fa-solid fa-dollar-sign"></i></span>
+                  <input type="number" step="any" class="form-control border-0 rounded-0" style="background-color: #f7f7f7; height: 50px; color: #555;" id="loan_amount" placeholder="Loan Amount" required>
                 </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="Benoit Architecture"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-2.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
+
+                <div class="input-group mb-3" style="border: 1px solid #eee; border-radius: 4px; overflow: hidden;">
+                  <span class="input-group-text border-0 rounded-0" style="background-color: var(--theme-color, #36317A); color: white; width: 60px; justify-content: center;"><i class="fa-solid fa-calendar-days"></i></span>
+                  <input type="number" class="form-control border-0 rounded-0" style="background-color: #f7f7f7; height: 50px; color: #555;" id="loan_months" placeholder="Months">
                 </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3>
-                      <a href="project-details.html">Benoit Architecture</a>
-                    </h3>
-                  </div>
+
+                <div class="input-group mb-3" style="border: 1px solid #eee; border-radius: 4px; overflow: hidden;">
+                  <span class="input-group-text border-0 rounded-0" style="background-color: var(--theme-color, #36317A); color: white; width: 60px; justify-content: center;"><i class="fa-solid fa-calendar"></i></span>
+                  <input type="number" class="form-control border-0 rounded-0" style="background-color: #f7f7f7; height: 50px; color: #555;" id="loan_years" placeholder="Years">
                 </div>
-              </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-3.png"
-                    alt="image"
-                  />
+
+                <div class="input-group mb-3" style="border: 1px solid #eee; border-radius: 4px; overflow: hidden;">
+                  <span class="input-group-text border-0 rounded-0" style="background-color: var(--theme-color, #36317A); color: white; width: 60px; justify-content: center;"><i class="fa-solid fa-percent"></i></span>
+                  <input type="number" step="any" class="form-control border-0 rounded-0" style="background-color: #f7f7f7; height: 50px; color: #555;" id="loan_interest" placeholder="Interest Rate" required>
                 </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="contemporary-cilla"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-3.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
+
+                <div class="input-group mb-4" style="border: 1px solid #eee; border-radius: 4px; overflow: hidden;">
+                  <span class="input-group-text border-0 rounded-0" style="background-color: var(--theme-color, #36317A); color: white; width: 60px; justify-content: center;"><i class="fa-solid fa-arrow-down"></i></span>
+                  <input type="number" step="any" class="form-control border-0 rounded-0" style="background-color: #f7f7f7; height: 50px; color: #555;" id="down_payment" placeholder="Down Payment">
                 </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3>
-                      <a href="project-details.html">Contemporary Villa</a>
-                    </h3>
-                  </div>
+
+                <button type="submit" class="btn w-100 mb-4 rounded-0" style="background-color: #3b366a; color: white; font-weight: 500; text-transform: capitalize; height: 50px; font-size: 16px;">Calculate</button>
+
+                <div class="mb-4">
+                  <input type="text" class="form-control rounded-0 text-center" style="border: 1px solid #ddd; height: 50px; font-size: 16px; color: #777; background-color: #fff;" id="monthly_payment" placeholder="Monthly Payment" readonly>
                 </div>
-              </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-4.png"
-                    alt="image"
-                  />
+
+                <div class="text-center">
+                  <button type="button" class="btn rounded-0" style="background-color: #3b366a; color: white; width: 140px; height: 45px; text-transform: capitalize; font-weight: 400;" onclick="resetCalculator()">Reset</button>
                 </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="house-of-cards"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-4.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
-                </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3><a href="project-details.html">House of Cards</a></h3>
-                  </div>
-                </div>
-              </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-5.png"
-                    alt="image"
-                  />
-                </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="benoit-architecture"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-5.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
-                </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3>
-                      <a href="project-details.html">Kitchen and Living</a>
-                    </h3>
-                  </div>
-                </div>
-              </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-1.png"
-                    alt="image"
-                  />
-                </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="contemporary-cilla"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-1.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
-                </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3>
-                      <a href="project-details.html">Contemporary Villa</a>
-                    </h3>
-                  </div>
-                </div>
-              </div>
-              <!-- featured-imagebox-portfolio -->
+              </form>
+              
             </div>
           </div>
-          <!-- row end -->
         </div>
       </div>
-      <!--grid-section end-->
-      <!--financial-strategies-section -->
-      <section class="ttm-row financial-section space-bottom clearfix">
-        <div class="container">
-          <div class="col-lg-12">
-            <div class="text-center bg-smoke p-5 rounded">
-              <h3 class="sec-title">
-                We Offer Financial Strategies &amp; Superior Services
-              </h3>
-              <div class="mt-4">
-                <a class="th-btn" href="contact.html"
-                  >Get A Quote<i class="fa-solid fa-long-arrow-right ms-2"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!--financial-strategies-section-End -->
     </div>
+
+    <script>
+      function calculateLoan() {
+          let loanAmount = parseFloat(document.getElementById('loan_amount').value) || 0;
+          let months = parseInt(document.getElementById('loan_months').value) || 0;
+          let years = parseInt(document.getElementById('loan_years').value) || 0;
+          let interestRate = parseFloat(document.getElementById('loan_interest').value) || 0;
+          let downPayment = parseFloat(document.getElementById('down_payment').value) || 0;
+
+          let principal = loanAmount - downPayment;
+          let totalMonths = (years * 12) + months;
+          let monthlyInterest = interestRate / 100 / 12;
+
+          let monthlyPayment = 0;
+
+          if (principal > 0 && totalMonths > 0) {
+              if (monthlyInterest > 0) {
+                  monthlyPayment = principal * (monthlyInterest * Math.pow(1 + monthlyInterest, totalMonths)) / (Math.pow(1 + monthlyInterest, totalMonths) - 1);
+              } else {
+                  monthlyPayment = principal / totalMonths;
+              }
+          }
+
+          if (monthlyPayment > 0) {
+              document.getElementById('monthly_payment').value = '$' + monthlyPayment.toFixed(2);
+          } else {
+              document.getElementById('monthly_payment').value = 'Invalid Input';
+          }
+      }
+
+      function resetCalculator() {
+          document.getElementById('loan_amount').value = '';
+          document.getElementById('loan_months').value = '';
+          document.getElementById('loan_years').value = '';
+          document.getElementById('loan_interest').value = '';
+          document.getElementById('down_payment').value = '';
+          document.getElementById('monthly_payment').value = '';
+      }
+    </script>
 
     <!-- Start Partner Area -->
     <div class="partner-area ptb-100">
