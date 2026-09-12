@@ -5649,7 +5649,7 @@ ol.wp-block-rss {
   margin-left: 5px;
 }
 .main-menu > ul > li {
-  margin: 0 13px;
+  margin: 0 8px;
 }
 .main-menu > ul > li > a {
   padding: 36.5px 0;
@@ -31401,13 +31401,13 @@ Hero Slider Area Style
 
 .hero-slider-content {
   max-width: 870px;
-  margin: 130px auto 0;
+  margin: 0px auto 0;
   text-align: center;
   position: relative;
   z-index: 1;
 }
 .hero-slider-content h1 {
-  font-size: 80px;
+  font-size: 60px;
   color: var(--white-color);
   margin-bottom: 10px;
 }

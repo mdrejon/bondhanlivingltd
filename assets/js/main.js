@@ -953,5 +953,26 @@
         }
       }
     });
+
+    // Project Main Slider JS
+    var projectMainSlider = $('.project-slider-main');
+    if(projectMainSlider.length > 0) {
+      projectMainSlider.owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 0,
+        nav: false,
+        dots: false,
+        autoplay: true,
+        smartSpeed: 1000,
+        autoplayHoverPause: true,
+      });
+
+      $('.thumb-gallery img').on('click', function() {
+         var index = $(this).parent().index();
+         projectMainSlider.trigger('to.owl.carousel', [index, 300]);
+      });
+    }
+
   });
 })(jQuery);
