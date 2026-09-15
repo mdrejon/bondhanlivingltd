@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(BdGeographySeeder::class);
         $this->call(GovernmentRoleSeeder::class);
+        $this->call(SliderSeeder::class);
+        $this->call(HomePageSeeder::class);
     }
 }

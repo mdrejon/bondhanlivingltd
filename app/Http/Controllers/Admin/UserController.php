@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Hotel;
+
 use App\Models\Role;
 use App\Models\User;
 use App\Support\CurrentHotel;
@@ -41,7 +41,7 @@ class UserController extends Controller
 
         return Inertia::render('Admin/Users/Create', [
             'roles'        => $this->assignableRoles($user),
-            'hotels'       => $user->isSuperAdmin() ? Hotel::orderBy('name')->get(['id', 'name']) : [],
+            'hotels'       => [],
             'isSuperAdmin' => $user->isSuperAdmin(),
         ]);
     }
@@ -62,7 +62,7 @@ class UserController extends Controller
         $this->authorizeRoleAssignment($user, $data['role_id'] ?? null);
 
         $hotelId = $user->isSuperAdmin()
-            ? ($data['hotel_id'] ?? (Hotel::primarySite()?->id ?: 1))
+            ? ($data['hotel_id'] ?? 0)
             : CurrentHotel::homeId();
 
         User::create([
@@ -86,7 +86,7 @@ class UserController extends Controller
         return Inertia::render('Admin/Users/Edit', [
             'user'         => $user->load('role'),
             'roles'        => $this->assignableRoles($actor),
-            'hotels'       => $actor->isSuperAdmin() ? Hotel::orderBy('name')->get(['id', 'name']) : [],
+            'hotels'       => [],
             'isSuperAdmin' => $actor->isSuperAdmin(),
         ]);
     }
@@ -108,7 +108,7 @@ class UserController extends Controller
         $this->authorizeRoleAssignment($actor, $data['role_id'] ?? null);
 
         $hotelId = $actor->isSuperAdmin()
-            ? ($data['hotel_id'] ?? (Hotel::primarySite()?->id ?: 1))
+            ? ($data['hotel_id'] ?? 0)
             : CurrentHotel::homeId();
 
         $update = [

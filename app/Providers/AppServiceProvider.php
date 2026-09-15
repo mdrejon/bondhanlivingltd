@@ -3,9 +3,7 @@
 namespace App\Providers;
 
 use App\Models\GlobalSetting;
-use App\Models\Hotel;
-use App\Models\Service;
-use App\Models\RoomType;
+
 use App\Support\EmailNotificationSettings;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
@@ -27,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     private function bootMailConfig(): void
     {
         try {
-            EmailNotificationSettings::applyMailConfigFor(Hotel::primarySite()?->id);
+            EmailNotificationSettings::applyMailConfigFor(0);
         } catch (\Throwable) {
             // DB not ready (e.g. during migrations) — fall back to .env
         }
@@ -113,21 +111,9 @@ class AppServiceProvider extends ServiceProvider
                 $popupSettings[$key] = $raw[$key] ?? null;
             }
 
-            $navServices = Service::where('is_active', true)
-                ->orderBy('sort_order')->orderBy('id')
-                ->select('title', 'slug')
-                ->get();
-
-            $navRoomTypes = RoomType::where('is_active', true)
-                ->orderBy('sort_order')->orderBy('id')
-                ->select('name', 'slug')
-                ->get();
-
             $view->with('headerSettings', $headerSettings);
             $view->with('footerSettings', $footerSettings);
             $view->with('popupSettings', $popupSettings);
-            $view->with('navServices', $navServices);
-            $view->with('navRoomTypes', $navRoomTypes);
         });
     }
 }

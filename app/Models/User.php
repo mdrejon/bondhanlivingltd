@@ -40,15 +40,6 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    /**
-     * The hotel this user works for. Null for platform/government accounts not tied
-     * to one hotel. Not global-scoped like the other tenant models — see
-     * App\Models\Concerns\BelongsToHotel's docblock for why.
-     */
-    public function hotel(): BelongsTo
-    {
-        return $this->belongsTo(Hotel::class);
-    }
 
     /** Jurisdiction fields below are set for government-role users matching their
      *  role's scope_type — see App\Support\HotelAccess. */

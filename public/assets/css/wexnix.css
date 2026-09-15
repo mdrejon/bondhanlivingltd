@@ -1,0 +1,244 @@
+/*
+ * wexnix.css — Custom Branding Styles
+ * Project  : Bondhan Living Ltd
+ * Client   : Bondhan Living Limited
+ * Agency   : Wexnix Technologies Ltd (https://www.wexnix.com)
+ * Version  : 1.0.0
+ * Build    : 2026
+ */
+
+/* ============================================================
+   WEXNIX — Site Wrapper
+   ============================================================ */
+.wexnix-site {
+  font-family: 'Public Sans', sans-serif;
+}
+
+/* ============================================================
+   WEXNIX — Brand Colors
+   ============================================================ */
+:root {
+  --wexnix-primary:    #e4392b;   /* brand red */
+  --wexnix-secondary:  #0d1b2a;   /* dark navy */
+  --wexnix-accent:     #f5a623;   /* warm gold */
+  --wexnix-white:      #ffffff;
+  --wexnix-light-bg:   #f9f9f9;
+  --wexnix-text:       #555555;
+  --wexnix-border:     #e5e5e5;
+  --wexnix-radius:     6px;
+}
+
+/* ============================================================
+   WEXNIX — Copyright Footer
+   ============================================================ */
+.wexnix-copyright {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+}
+
+.wexnix-copyright a {
+  color: var(--wexnix-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.wexnix-copyright a:hover {
+  color: var(--wexnix-accent);
+  text-decoration: underline;
+}
+
+.wexnix-copyright .wexnix-divider {
+  margin: 0 6px;
+  opacity: 0.5;
+}
+
+/* ============================================================
+   WEXNIX — Footer Brand Override
+   ============================================================ */
+.wexnix-footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wexnix-footer-brand .wexnix-brand-name {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+}
+
+.wexnix-footer-brand .wexnix-tagline {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ============================================================
+   WEXNIX — Badge / Credit Tag
+   ============================================================ */
+.wexnix-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.wexnix-badge:hover {
+  background: var(--wexnix-primary);
+  color: #fff;
+  border-color: var(--wexnix-primary);
+}
+
+.wexnix-badge i {
+  font-size: 11px;
+}
+
+/* ============================================================
+   WEXNIX — Header Overrides
+   ============================================================ */
+.wexnix-header-top {
+  background: var(--wexnix-secondary);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ============================================================
+   WEXNIX — Buttons
+   ============================================================ */
+.wexnix-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--wexnix-radius);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.wexnix-btn-primary {
+  background: var(--wexnix-primary);
+  color: var(--wexnix-white);
+}
+
+.wexnix-btn-primary:hover {
+  background: #c0251a;
+  color: var(--wexnix-white);
+}
+
+.wexnix-btn-outline {
+  background: transparent;
+  color: var(--wexnix-primary);
+  border: 2px solid var(--wexnix-primary);
+}
+
+.wexnix-btn-outline:hover {
+  background: var(--wexnix-primary);
+  color: var(--wexnix-white);
+}
+
+/* ============================================================
+   WEXNIX — Section Title
+   ============================================================ */
+.wexnix-section-title {
+  margin-bottom: 40px;
+}
+
+.wexnix-section-title .wexnix-subtitle {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--wexnix-primary);
+  margin-bottom: 10px;
+}
+
+.wexnix-section-title h2 {
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 700;
+  color: var(--wexnix-secondary);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.wexnix-section-title p {
+  color: var(--wexnix-text);
+  margin-top: 14px;
+  max-width: 620px;
+}
+
+/* ============================================================
+   WEXNIX — Card
+   ============================================================ */
+.wexnix-card {
+  background: var(--wexnix-white);
+  border-radius: 10px;
+  border: 1px solid var(--wexnix-border);
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.wexnix-card:hover {
+  box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+}
+
+.wexnix-card-body {
+  padding: 24px;
+}
+
+.wexnix-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--wexnix-secondary);
+  margin-bottom: 10px;
+}
+
+.wexnix-card-text {
+  font-size: 14px;
+  color: var(--wexnix-text);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   WEXNIX — Responsive Utilities
+   ============================================================ */
+@media (max-width: 767px) {
+  .wexnix-section-title h2 {
+    font-size: 26px;
+  }
+
+  .wexnix-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}
+
+/* ============================================================
+   WEXNIX — Copyright Text Override (inline)
+   ============================================================ */
+.copyright-text a[href="https://www.wexnix.com"] {
+  color: var(--wexnix-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.copyright-text a[href="https://www.wexnix.com"]:hover {
+  text-decoration: underline;
+  color: #fff;
+}

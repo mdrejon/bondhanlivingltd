@@ -23,17 +23,6 @@ class GlobalSetting extends Model
 {
     protected $fillable = ['hotel_id', 'key', 'value'];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope('hotel', function ($query) {
-            $query->where($query->getModel()->getTable() . '.hotel_id', CurrentHotel::homeId());
-        });
-
-        static::creating(function (self $setting) {
-            $setting->hotel_id ??= CurrentHotel::homeId();
-        });
-    }
-
     /** Get a setting value by key (current hotel), with optional default. */
     public static function get(string $key, mixed $default = null): mixed
     {
@@ -44,7 +33,7 @@ class GlobalSetting extends Model
     /** Set (upsert) a single setting for the current hotel. */
     public static function set(string $key, mixed $value): void
     {
-        static::updateOrCreate(['key' => $key], ['value' => $value]);
+        static::updateOrCreate(['key' => $key], ['value' => $value, 'hotel_id' => 0]);
     }
 
     /** Bulk-upsert an associative array of key => value pairs for the current hotel. */

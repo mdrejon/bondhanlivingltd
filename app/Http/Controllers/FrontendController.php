@@ -2,290 +2,204 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\InquiryConfirmationMail;
-use App\Mail\InquiryNotificationMail;
-use App\Models\Facility;
-use App\Models\Faq;
-use App\Models\GalleryImage;
-use App\Models\GlobalSetting;
-use App\Models\Blog;
-use App\Models\BlogCategory;
-use App\Models\BlogComment;
-use App\Models\Inquiry;
-use App\Models\RoomType;
-use App\Models\Service;
-use App\Models\Slider;
-use App\Models\Testimonial;
-use App\Support\EmailNotificationSettings;
-use App\Support\SpamGuard;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class FrontendController extends Controller
 {
-    public function home(): View
+    public function index()
     {
-        return view('frontend.home', [
-            'sliders'       => Slider::where('is_active', true)->orderBy('sort_order')->get(),
-            'featuredRooms' => RoomType::active()->where('is_featured', true)->take(6)->get(),
-            'allRooms'      => RoomType::active()->take(6)->get(),
-            'services'      => Service::active()->take(6)->get(),
-            'gallery'       => GalleryImage::where('is_active', true)->orderBy('sort_order')->take(9)->get(),
-            'testimonials'  => Testimonial::where('is_active', true)->orderBy('sort_order')->get(),
-            'faqs'          => Faq::forPage('home')->take(8)->get(),
-            'settings'      => GlobalSetting::allAsArray(),
-            'latestBlogs'   => Blog::published()->orderByDesc('published_at')->take(5)->get(),
-        ]);
-    }
-
-    public function rooms(): View
-    {
-        return view('frontend.rooms', [
-            'rooms'    => RoomType::active()->get(),
-            'settings' => GlobalSetting::allAsArray(),
-        ]);
-    }
-
-    public function roomDetail(string $slug): View
-    {
-        $room = RoomType::where('slug', $slug)->where('is_active', true)->firstOrFail();
-
-        return view('frontend.room-detail', [
-            'room'      => $room,
-            'related'   => RoomType::active()->where('id', '!=', $room->id)->get(),
-            'allRooms'  => RoomType::active()->get(),
-            'settings'  => GlobalSetting::allAsArray(),
-        ]);
-    }
-
-    public function about(): View
-    {
-        return view('frontend.about', [
-            'settings' => GlobalSetting::allAsArray(),
-            'faqs'     => Faq::forPage('about')->get(),
-        ]);
-    }
-
-    public function history(): View
-    {
-        $settings = GlobalSetting::allAsArray();
-
-        $timeline = [];
-        if (!empty($settings['hist_timeline'])) {
-            $decoded = json_decode($settings['hist_timeline'], true);
-            $timeline = is_array($decoded) ? $decoded : [];
+        $sliders = \App\Models\Slider::active()->get();
+        
+        $keys = [
+            'home_page_why_choose_us',
+            'home_page_service',
+            'home_page_cta',
+            'home_page_team',
+            'home_page_project',
+            'home_page_achievements',
+            'home_page_testimonial',
+            'home_page_blog',
+            'home_page_seo',
+        ];
+        
+        $homeContent = [];
+        foreach ($keys as $key) {
+            $raw = \App\Models\GlobalSetting::get($key);
+            $homeContent[$key] = $raw ? json_decode($raw, true) : null;
         }
 
-        return view('frontend.history', compact('settings', 'timeline'));
+        return view('frontend.pages.index', compact('sliders', 'homeContent'));
     }
 
-    public function services(): View
+    public function about()
     {
-        return view('frontend.services', [
-            'services' => Service::active()->get(),
-            'settings' => GlobalSetting::allAsArray(),
-        ]);
-    }
-
-    public function serviceDetail(string $slug): View
-    {
-        $service = Service::where('slug', $slug)->where('is_active', true)->firstOrFail();
-
-        return view('frontend.service-detail', [
-            'service'     => $service,
-            'allServices' => Service::active()->get(),
-            'settings'    => GlobalSetting::allAsArray(),
-        ]);
-    }
-
-    public function gallery(): View
-    {
-        return view('frontend.gallery', [
-            'images'   => GalleryImage::where('is_active', true)->orderBy('sort_order')->get(),
-            'settings' => GlobalSetting::allAsArray(),
-        ]);
-    }
-
-    public function faqs(): View
-    {
-        return view('frontend.faqs', [
-            'faqs'     => Faq::where('page', 'faq')->where('is_active', true)->orderBy('sort_order')->get(),
-            'settings' => GlobalSetting::allAsArray(),
-        ]);
-    }
-
-    public function facilities(): View
-    {
-        return view('frontend.facilities', [
-            'facilities' => Facility::active()->get(),
-            'settings'   => GlobalSetting::allAsArray(),
-        ]);
-    }
-
-    public function booking(): View
-    {
-        return view('frontend.booking', [
-            'rooms'    => RoomType::active()->orderBy('sort_order')->get(),
-            'settings' => GlobalSetting::allAsArray(),
-        ]);
-    }
-
-    public function contact(): View
-    {
-        return view('frontend.contact', [
-            'settings' => GlobalSetting::allAsArray(),
-        ]);
-    }
-
-    public function submitContact(Request $request): RedirectResponse|JsonResponse
-    {
-        $data = $request->validate([
-            'name'    => 'required|string|max:150',
-            'email'   => 'required|email|max:150',
-            'phone'   => 'nullable|string|max:30',
-            'subject' => 'nullable|string|max:200',
-            'message' => 'required|string|max:2000',
-        ]);
-
-        $message = 'Thank you! Your message has been sent. We will get back to you within 24 hours.';
-
-        if ($reason = SpamGuard::reason($request)) {
-            Log::info('Blocked spam contact submission', ['reason' => $reason, 'ip' => $request->ip(), 'email' => $data['email']]);
-
-            if ($request->expectsJson()) {
-                return response()->json(['success' => true, 'message' => $message]);
-            }
-
-            return back()->with('success', $message);
+        $keys = [
+            'about_page_hero',
+            'about_page_company',
+            'about_page_achievements',
+            'about_page_mission',
+            'about_page_process',
+            'about_page_seo',
+        ];
+        
+        $aboutContent = [];
+        foreach ($keys as $key) {
+            $raw = \App\Models\GlobalSetting::get($key);
+            $aboutContent[$key] = $raw ? json_decode($raw, true) : null;
         }
 
-        $inquiry = Inquiry::create([
-            'type'       => Inquiry::TYPE_CONTACT_PAGE,
-            'name'       => $data['name'],
-            'email'      => $data['email'],
-            'phone'      => $data['phone'] ?? null,
-            'subject'    => $data['subject'] ?? null,
-            'message'    => $data['message'],
-            'ip_address' => $request->ip(),
-        ]);
-
-        $this->sendInquiryEmails($inquiry);
-
-        if ($request->expectsJson()) {
-            return response()->json(['success' => true, 'message' => $message]);
-        }
-
-        return back()->with('success', $message);
+        return view('frontend.pages.about', compact('aboutContent'));
     }
 
-    public function submitInquiry(Request $request): JsonResponse
+    public function history()
     {
-        $data = $request->validate([
-            'type'    => 'required|in:quote,contact_widget',
-            'name'    => 'required|string|max:150',
-            'email'   => 'required|email|max:150',
-            'message' => 'required|string|max:2000',
-        ]);
+        $keys = [
+            'history_page_hero',
+            'history_page_main',
+            'history_page_timeline',
+            'history_page_seo',
+        ];
+        
+        $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
+            ->where('hotel_id', 0)
+            ->pluck('value', 'key')
+            ->toArray();
 
-        $message = 'Thank you! We have received your message and will get back to you within 24 hours.';
-
-        if ($reason = SpamGuard::reason($request)) {
-            Log::info('Blocked spam inquiry submission', ['reason' => $reason, 'ip' => $request->ip(), 'email' => $data['email']]);
-
-            return response()->json(['success' => true, 'message' => $message]);
+        $historyContent = [];
+        foreach ($keys as $key) {
+            $historyContent[$key] = isset($settings[$key]) ? json_decode($settings[$key], true) : null;
         }
 
-        $inquiry = Inquiry::create([
-            'type'       => $data['type'],
-            'name'       => $data['name'],
-            'email'      => $data['email'],
-            'message'    => $data['message'],
-            'ip_address' => $request->ip(),
-        ]);
-
-        $this->sendInquiryEmails($inquiry);
-
-        return response()->json(['success' => true, 'message' => $message]);
+        return view('frontend.pages.history', compact('historyContent'));
     }
 
-    public function blog(Request $request): View
+    public function chairmanMessage()
     {
-        $query = Blog::published()->with('category')->orderByDesc('published_at');
+        $keys = [
+            'chairman_page_hero',
+            'chairman_page_main',
+            'chairman_page_info',
+            'chairman_page_seo',
+        ];
+        
+        $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
+            ->where('hotel_id', 0)
+            ->pluck('value', 'key')
+            ->toArray();
 
-        if ($request->filled('category')) {
-            $query->whereHas('category', fn($q) => $q->where('slug', $request->category));
+        $chairmanContent = [];
+        foreach ($keys as $key) {
+            $chairmanContent[$key] = isset($settings[$key]) ? json_decode($settings[$key], true) : null;
         }
 
-        if ($request->filled('tag')) {
-            $query->whereJsonContains('tags', $request->tag);
-        }
-
-        $blogs      = $query->paginate(9)->withQueryString();
-        $categories = BlogCategory::active()->withCount(['blogs' => fn($q) => $q->published()])->get();
-        $recentPosts = Blog::published()->orderByDesc('published_at')->take(5)->get(['id', 'title', 'slug', 'feature_image', 'published_at']);
-        $popularTags = Blog::published()->get('tags')->flatMap(fn($b) => $b->tags ?? [])->countBy()->sortDesc()->take(20)->keys()->all();
-        $settings    = GlobalSetting::allAsArray();
-
-        return view('frontend.blog', compact('blogs', 'categories', 'recentPosts', 'popularTags', 'settings'));
+        return view('frontend.pages.chairman-message', compact('chairmanContent'));
     }
 
-    public function blogDetail(string $slug): View
+    public function corporateBackground()
     {
-        $blog = Blog::published()->where('slug', $slug)->with(['category', 'approvedComments.replies'])->firstOrFail();
-        $blog->increment('view_count');
+        $keys = [
+            'corporate_page_hero',
+            'corporate_page_main',
+            'corporate_page_seo',
+        ];
+        
+        $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
+            ->where('hotel_id', 0)
+            ->pluck('value', 'key')
+            ->toArray();
 
-        $prev = Blog::published()->where('published_at', '<', $blog->published_at)->orderByDesc('published_at')->first(['id', 'title', 'slug']);
-        $next = Blog::published()->where('published_at', '>', $blog->published_at)->orderBy('published_at')->first(['id', 'title', 'slug']);
-
-        $recentPosts = Blog::published()->where('id', '!=', $blog->id)->orderByDesc('published_at')->take(5)->get(['id', 'title', 'slug', 'feature_image', 'published_at']);
-        $categories  = BlogCategory::active()->withCount(['blogs' => fn($q) => $q->published()])->get();
-        $popularTags = Blog::published()->get('tags')->flatMap(fn($b) => $b->tags ?? [])->countBy()->sortDesc()->take(20)->keys()->all();
-
-        return view('frontend.blog-detail', compact('blog', 'prev', 'next', 'recentPosts', 'categories', 'popularTags'));
-    }
-
-    public function submitBlogComment(Request $request): RedirectResponse
-    {
-        $data = $request->validate([
-            'blog_id'   => 'required|exists:blogs,id',
-            'parent_id' => 'nullable|exists:blog_comments,id',
-            'name'      => 'required|string|max:100',
-            'email'     => 'required|email|max:150',
-            'message'   => 'required|string|max:2000',
-        ]);
-
-        $message = 'Thank you! Your comment is awaiting moderation.';
-
-        if ($reason = SpamGuard::reason($request)) {
-            Log::info('Blocked spam blog comment', ['reason' => $reason, 'ip' => $request->ip(), 'email' => $data['email']]);
-
-            return back()->with('comment_success', $message);
+        $corporateContent = [];
+        foreach ($keys as $key) {
+            $corporateContent[$key] = isset($settings[$key]) ? json_decode($settings[$key], true) : null;
         }
 
-        BlogComment::create([...$data, 'is_approved' => false]);
-
-        return back()->with('comment_success', $message);
+        return view('frontend.pages.corporate-background', compact('corporateContent'));
     }
 
-    private function sendInquiryEmails(Inquiry $inquiry): void
+    public function projectList()
     {
-        try {
-            // Always this inquiry's own hotel's SMTP config, not just whichever
-            // hotel is ambient — see EmailNotificationSettings::applyMailConfigFor().
-            EmailNotificationSettings::applyMailConfigFor($inquiry->hotel_id);
+        return view('frontend.pages.projects.index');
+    }
 
-            if (EmailNotificationSettings::enabled('email_toggle_new_inquiry_customer', true)) {
-                Mail::to($inquiry->email)->send(new InquiryConfirmationMail($inquiry));
-            }
-            if (EmailNotificationSettings::enabled('email_toggle_new_inquiry_admin', true)) {
-                EmailNotificationSettings::sendToAdmins(fn () => new InquiryNotificationMail($inquiry), 'Inquiry notification');
-            }
-        } catch (\Throwable $e) {
-            Log::error('Inquiry email failed for inquiry #' . $inquiry->id . ': ' . $e->getMessage());
+    public function runningProjects()
+    {
+        return view('frontend.pages.projects.running');
+    }
+
+    public function completedProjects()
+    {
+        return view('frontend.pages.projects.completed');
+    }
+
+    public function upcomingProjects()
+    {
+        return view('frontend.pages.projects.upcoming');
+    }
+
+    public function projectDetails($slug = null)
+    {
+        return view('frontend.pages.projects.show');
+    }
+
+    public function serviceList()
+    {
+        return view('frontend.pages.services.index');
+    }
+
+    public function serviceDetails($slug = null)
+    {
+        return view('frontend.pages.services.show');
+    }
+
+    public function featuresAmenities()
+    {
+        return view('frontend.pages.features-amenities');
+    }
+
+    public function gallery()
+    {
+        return view('frontend.pages.gallery');
+    }
+
+    public function team()
+    {
+        return view('frontend.pages.team');
+    }
+
+    public function blog()
+    {
+        return view('frontend.pages.blog');
+    }
+
+    public function loanCalculator()
+    {
+        return view('frontend.pages.loan-calculator');
+    }
+
+    public function termsAndConditions()
+    {
+        return view('frontend.pages.terms-condition');
+    }
+
+    public function contact()
+    {
+        $keys = [
+            'contact_page_hero',
+            'contact_page_info',
+            'contact_page_map',
+            'contact_page_seo',
+        ];
+        
+        $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
+            ->where('hotel_id', 0)
+            ->pluck('value', 'key')
+            ->toArray();
+
+        $contactContent = [];
+        foreach ($keys as $key) {
+            $contactContent[$key] = isset($settings[$key]) ? json_decode($settings[$key], true) : null;
         }
+
+        return view('frontend.pages.contact', compact('contactContent'));
     }
 }

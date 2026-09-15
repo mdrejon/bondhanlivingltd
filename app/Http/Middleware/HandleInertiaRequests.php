@@ -3,8 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\GlobalSetting;
-use App\Models\Hotel;
-use App\Support\CurrentHotel;
+
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -50,12 +49,7 @@ class HandleInertiaRequests extends Middleware
                 'youtube'   => GlobalSetting::get('footer_youtube', ''),
                 'copyright' => GlobalSetting::get('footer_copyright', '© ' . date('Y') . ' Hotel Beach Way. All rights reserved.'),
             ],
-            'actingHotel' => fn () => $user?->isSuperAdmin()
-                ? [
-                    'hotels'  => Hotel::orderBy('name')->get(['id', 'name']),
-                    'current' => CurrentHotel::homeId(),
-                ]
-                : null,
+
         ];
     }
 }

@@ -1,0 +1,173 @@
+<template>
+  <Head title="Chairman Message Content" />
+
+  <AdminLayout>
+    <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+      <div class="sm:flex sm:justify-between sm:items-center mb-8">
+        <div class="mb-4 sm:mb-0">
+          <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Chairman Message Content ✨</h1>
+        </div>
+        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+          <button @click="submitForm" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+            <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+              <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+            </svg>
+            <span class="hidden xs:block ml-2">Save Changes</span>
+          </button>
+        </div>
+      </div>
+
+      <div v-if="$page.props.flash.success" class="mb-4 p-4 bg-emerald-100 text-emerald-600 border border-emerald-200 rounded">
+        {{ $page.props.flash.success }}
+      </div>
+
+      <div class="bg-white shadow-lg rounded-sm border border-slate-200">
+        <div class="flex flex-wrap border-b border-slate-200">
+          <button @click="activeTab = 'hero'" :class="{'text-indigo-500 border-indigo-500': activeTab === 'hero', 'text-slate-600 hover:text-slate-800 border-transparent': activeTab !== 'hero'}" class="px-4 py-3 border-b-2 font-medium text-sm">Hero Section</button>
+          <button @click="activeTab = 'main'" :class="{'text-indigo-500 border-indigo-500': activeTab === 'main', 'text-slate-600 hover:text-slate-800 border-transparent': activeTab !== 'main'}" class="px-4 py-3 border-b-2 font-medium text-sm">Main Area</button>
+          <button @click="activeTab = 'info'" :class="{'text-indigo-500 border-indigo-500': activeTab === 'info', 'text-slate-600 hover:text-slate-800 border-transparent': activeTab !== 'info'}" class="px-4 py-3 border-b-2 font-medium text-sm">Chairman Info</button>
+          <button @click="activeTab = 'seo'" :class="{'text-indigo-500 border-indigo-500': activeTab === 'seo', 'text-slate-600 hover:text-slate-800 border-transparent': activeTab !== 'seo'}" class="px-4 py-3 border-b-2 font-medium text-sm">SEO Config</button>
+        </div>
+
+        <div class="p-6">
+          <form @submit.prevent="submitForm">
+            <!-- Hero Tab -->
+            <div v-show="activeTab === 'hero'">
+              <h2 class="text-xl font-bold text-slate-800 mb-4">Hero/Breadcrumb Section</h2>
+              <div class="grid gap-5">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Title</label>
+                  <input v-model="form.chairman_page_hero.title" type="text" class="form-input w-full" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Background Image</label>
+                  <input type="file" @change="e => form.chairman_page_hero.bg_image_file = e.target.files[0]" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
+                  <div class="mt-2" v-if="form.chairman_page_hero.bg_image">
+                    <img :src="getImgUrl(form.chairman_page_hero.bg_image)" class="w-32 h-auto rounded border" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Main Tab -->
+            <div v-show="activeTab === 'main'">
+              <h2 class="text-xl font-bold text-slate-800 mb-4">Main Content Area</h2>
+              <div class="grid gap-5">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Subtitle</label>
+                  <input v-model="form.chairman_page_main.subtitle" type="text" class="form-input w-full" />
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-sm font-medium mb-1">Title</label>
+                      <input v-model="form.chairman_page_main.title" type="text" class="form-input w-full" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium mb-1">Title Highlight (Red text)</label>
+                      <input v-model="form.chairman_page_main.highlight" type="text" class="form-input w-full" />
+                    </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Background Shape Image</label>
+                  <input type="file" @change="e => form.chairman_page_main.bg_image_file = e.target.files[0]" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700" />
+                  <div class="mt-2" v-if="form.chairman_page_main.bg_image">
+                    <img :src="getImgUrl(form.chairman_page_main.bg_image)" class="w-32 h-auto rounded border" />
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Message Description</label>
+                  <textarea v-model="form.chairman_page_main.description" rows="8" class="form-textarea w-full"></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Chairman Image</label>
+                  <input type="file" @change="e => form.chairman_page_main.image_file = e.target.files[0]" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700" />
+                  <div class="mt-2" v-if="form.chairman_page_main.image">
+                    <img :src="getImgUrl(form.chairman_page_main.image)" class="w-32 h-auto rounded border" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chairman Info Tab -->
+            <div v-show="activeTab === 'info'">
+              <h2 class="text-xl font-bold text-slate-800 mb-4">Chairman Info</h2>
+              <div class="grid gap-5">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Salutation (e.g. Thanking you.)</label>
+                  <input v-model="form.chairman_page_info.salutation" type="text" class="form-input w-full" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Name</label>
+                  <input v-model="form.chairman_page_info.name" type="text" class="form-input w-full" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Designation</label>
+                  <input v-model="form.chairman_page_info.designation" type="text" class="form-input w-full" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Company</label>
+                  <input v-model="form.chairman_page_info.company" type="text" class="form-input w-full" />
+                </div>
+              </div>
+            </div>
+
+            <!-- SEO Tab -->
+            <div v-show="activeTab === 'seo'">
+              <h2 class="text-xl font-bold text-slate-800 mb-4">SEO Configuration</h2>
+              <div class="grid gap-5">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Meta Title</label>
+                  <input v-model="form.chairman_page_seo.meta_title" type="text" class="form-input w-full" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Meta Description</label>
+                  <textarea v-model="form.chairman_page_seo.meta_description" rows="3" class="form-textarea w-full"></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Meta Keywords</label>
+                  <input v-model="form.chairman_page_seo.meta_keywords" type="text" class="form-input w-full" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Meta Author</label>
+                  <input v-model="form.chairman_page_seo.meta_author" type="text" class="form-input w-full" />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </AdminLayout>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { Head, useForm } from '@inertiajs/vue3';
+import AdminLayout from '@/Layouts/Admin/AdminLayout.vue';
+
+const props = defineProps({
+  content: Object
+});
+
+const activeTab = ref('hero');
+
+const form = useForm({
+  chairman_page_hero: props.content.chairman_page_hero || { title: '', bg_image: '', bg_image_file: null },
+  chairman_page_main: props.content.chairman_page_main || { subtitle: '', title: '', highlight: '', description: '', bg_image: '', image: '', bg_image_file: null, image_file: null },
+  chairman_page_info: props.content.chairman_page_info || { salutation: '', name: '', designation: '', company: '' },
+  chairman_page_seo: props.content.chairman_page_seo || { meta_title: '', meta_description: '', meta_keywords: '', meta_author: '' }
+});
+
+const submitForm = () => {
+  form.post(route('admin.website-settings.chairman-content.update'), {
+    preserveScroll: true,
+    forceFormData: true,
+  });
+};
+
+const getImgUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('assets/')) return '/' + path;
+  return '/storage/' + path;
+};
+</script>
