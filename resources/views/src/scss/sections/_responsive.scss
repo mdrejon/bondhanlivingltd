@@ -1,0 +1,45 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 13. RESPONSIVE ADJUSTMENTS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+@include respond-to($bp-md) {
+  .top-header {
+    .th-dark {
+      flex: 1;
+
+      .th-contact-items {
+        .th-item:nth-child(5),
+        .th-item:nth-child(6) { display: none; }
+        .th-sep:nth-child(4) { display: none; }
+      }
+    }
+  }
+}
+
+@include respond-to($bp-sm) {
+  .top-header {
+    .th-dark {
+      padding: 0 14px;
+
+      .th-contact-items {
+        .th-item:nth-child(3),
+        .th-item:nth-child(4) { display: none; }
+        .th-sep:nth-child(2) { display: none; }
+        .th-sep:nth-child(4) { display: none; }
+      }
+    }
+  }
+
+  .hero-swiper { height: 100svh; min-height: 500px; }
+
+  .slide-desc br { display: none; }
+}
+
+@include respond-to($bp-xs) {
+  .main-nav { padding: 0 14px; }
+
+  .nav-call { display: none; }
+
+  .nav-icon-btn:not(.hamburger-btn):not(.cart-btn) { display: none; }
+}
+
+

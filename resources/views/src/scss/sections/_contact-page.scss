@@ -1,0 +1,300 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// SECTION 28 â€“ CONTACT PAGE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.contact-section {
+  background: $white;
+  padding: 80px 0 110px;
+}
+
+.contact-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 50px;
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  gap: 44px;
+  align-items: start;
+
+  @include respond-to($bp-xl) { padding: 0 36px; grid-template-columns: 380px 1fr; gap: 34px; }
+  @include respond-to($bp-lg) { grid-template-columns: 1fr; padding: 0 30px; }
+  @include respond-to($bp-md) { padding: 0 22px; }
+}
+
+// â”€â”€ Left column â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.contact-left {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+// Info cards
+.ct-info-card {
+  @include flex(center, flex-start, 20px);
+  background: rgba($svc-section-bg, 0.45);
+  border: 1.5px solid rgba(0, 0, 0, 0.07);
+  border-radius: 14px;
+  padding: 20px 22px;
+  @include transition(all, 0.28s);
+
+  &:hover {
+    border-color: rgba($gold, 0.4);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+    transform: translateY(-2px);
+  }
+}
+
+.ct-info-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: $svc-card-bg;
+  color: $white;
+  @include flex(center, center);
+  flex-shrink: 0;
+  svg { width: 22px; height: 22px; }
+}
+
+.ct-info-label {
+  font-size: 12px;
+  color: #9CA3AF;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.ct-info-value {
+  font-family: $font-serif;
+  font-size: clamp(17px, 2vw, 22px);
+  font-weight: 700;
+  color: $text-dark;
+  line-height: 1.35;
+
+  a {
+    color: $text-dark;
+    text-decoration: none;
+    @include transition(color, 0.2s);
+    &:hover { color: $gold; }
+  }
+}
+
+// Divider
+.ct-divider {
+  height: 1.5px;
+  background: rgba(0, 0, 0, 0.08);
+  border: none;
+  margin: 6px 0;
+}
+
+// Social row
+.ct-social-row {
+  @include flex(center, flex-start, 14px);
+  flex-wrap: wrap;
+}
+
+.ct-social-label {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: $text-dark;
+  white-space: nowrap;
+}
+
+.ct-social-links {
+  @include flex(center, flex-start, 10px);
+}
+
+.ct-social-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: $svc-card-bg;
+  color: $white;
+  @include flex(center, center);
+  @include transition(all, 0.25s);
+
+  svg { width: 17px; height: 17px; }
+
+  &:hover {
+    background: $gold;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba($gold, 0.4);
+  }
+}
+
+// Agent section â€“ plain, no card box
+.ct-agent-card {
+  padding-top: 8px;
+}
+
+.ct-agent-avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+}
+
+.ct-agent-name {
+  font-family: $font-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: $text-dark;
+  margin-bottom: 12px;
+}
+
+.ct-agent-desc {
+  font-size: 14px;
+  line-height: 1.72;
+  color: #6B7280;
+  margin-bottom: 24px;
+  max-width: 380px;
+}
+
+.btn-whatsapp {
+  display: inline-block;
+  padding: 12px 28px;
+  background: $gold;
+  color: $white;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 50px;
+  font-family: $font-sans;
+  @include transition(all, 0.28s);
+
+  &:hover {
+    background: $svc-card-bg;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba($svc-card-bg, 0.3);
+  }
+}
+
+// â”€â”€ Right column â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+// Dark green email form card
+.ct-form-card {
+  background: $svc-card-bg;
+  border-radius: 20px;
+  padding: 40px 38px 44px;
+  margin-bottom: 30px;
+
+  @include respond-to($bp-md) { padding: 30px 24px 36px; }
+}
+
+.ct-form-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba($white, 0.12);
+  color: rgba($white, 0.9);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: 50px;
+  margin-bottom: 22px;
+}
+
+.ct-form-title {
+  font-family: $font-serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
+  color: $white;
+  font-style: italic;
+  padding-bottom: 18px;
+  margin-bottom: 30px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 44px;
+    height: 3px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+.ct-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  @include respond-to($bp-sm) { grid-template-columns: 1fr; }
+}
+
+.ct-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba($white, 0.85);
+    letter-spacing: 0.2px;
+  }
+
+  input,
+  textarea {
+    background: rgba($white, 0.08);
+    border: 1.5px solid rgba($white, 0.12);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: $white;
+    font-family: $font-sans;
+    width: 100%;
+    @include transition(border-color, 0.22s);
+
+    &::placeholder { color: rgba($white, 0.4); }
+    &:focus { outline: none; border-color: $gold; }
+  }
+
+  textarea { resize: vertical; min-height: 140px; }
+}
+
+.ct-field-full { grid-column: 1 / -1; }
+
+.btn-send-msg {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 14px 36px;
+  background: $gold;
+  color: $white;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-family: $font-sans;
+  @include transition(all, 0.28s);
+
+  &:hover {
+    background: #C9AC97;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba($gold, 0.45);
+  }
+}
+
+// Map
+.ct-map {
+  border-radius: 18px;
+  overflow: hidden;
+  height: 420px;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+  }
+
+  @include respond-to($bp-md) { height: 300px; }
+}
+
+

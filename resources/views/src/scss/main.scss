@@ -1,0 +1,42 @@
+﻿@use 'sass:color';
+
+// ─── Abstracts ──────────────────────────────────────
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// ─── Base ───────────────────────────────────────────
+@import 'base/reset';
+@import 'base/animations';
+
+// ─── Layout ─────────────────────────────────────────
+@import 'layout/top-header';
+@import 'layout/navigation';
+@import 'layout/footer';
+@import 'layout/chat-widget';
+
+// ─── Home Page Sections ─────────────────────────────
+@import 'sections/hero';
+@import 'sections/availability-bar';
+@import 'sections/gallery-strip';
+@import 'sections/about';
+@import 'sections/rooms';
+@import 'sections/services';
+@import 'sections/faq-booking';
+@import 'sections/booking-popup';
+@import 'sections/booking';
+@import 'sections/inquiry-popups';
+@import 'sections/blog';
+@import 'sections/hotel-gallery';
+@import 'sections/testimonials';
+
+// ─── Responsive ─────────────────────────────────────
+@import 'sections/responsive';
+
+// ─── Inner Pages ────────────────────────────────────
+@import 'sections/page-hero';
+@import 'sections/about-page';
+@import 'sections/history-page';
+@import 'sections/room-details';
+@import 'sections/facilities';
+@import 'sections/service-page';
+@import 'sections/contact-page';

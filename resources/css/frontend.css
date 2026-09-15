@@ -1,0 +1,70 @@
+/*
+ * Frontend CSS source.
+ * The compiled output lives at public/assets/main.css
+ * (restored from the original hotel design).
+ *
+ * Add new hotel-specific overrides here and run:
+ *   npm run build:frontend
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Flatpickr hotel theme ───────────────────────────────────────────────── */
+.flatpickr-calendar {
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+    border-radius: 12px;
+    box-shadow: 0 10px 48px rgba(15,42,66,0.22);
+    border: none;
+    overflow: hidden;
+    width: 307px;
+}
+.flatpickr-months { background: #0f2a42; padding: 2px 0; }
+.flatpickr-month  { background: #0f2a42; color: #fff; height: 44px; }
+.flatpickr-current-month { padding-top: 8px; font-size: 14px; font-weight: 600; }
+.flatpickr-current-month .cur-month,
+.flatpickr-current-month .numInputWrapper input { color: #fff; }
+.flatpickr-current-month select.flatpickr-monthDropdown-months {
+    color: #fff; background: #0f2a42;
+}
+.flatpickr-prev-month, .flatpickr-next-month { padding: 10px; }
+.flatpickr-prev-month svg, .flatpickr-next-month svg { fill: rgba(255,255,255,0.75); }
+.flatpickr-prev-month:hover svg, .flatpickr-next-month:hover svg { fill: #c9a47a; }
+.flatpickr-weekdays { background: #132030; padding: 4px 0; }
+span.flatpickr-weekday {
+    background: transparent; color: rgba(255,255,255,0.55);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+}
+.flatpickr-days { border: none; }
+.dayContainer { padding: 6px 4px; }
+.flatpickr-day {
+    border-radius: 8px; font-size: 13px; font-weight: 500;
+    color: #1a2a3a; border: 1.5px solid transparent;
+    height: 36px; line-height: 34px;
+}
+.flatpickr-day:hover {
+    background: rgba(201,164,122,0.15);
+    border-color: rgba(201,164,122,0.3); color: #1a2a3a;
+}
+.flatpickr-day.today { border-color: #c9a47a; font-weight: 700; }
+.flatpickr-day.today:hover { background: rgba(201,164,122,0.2); }
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover {
+    background: #c9a47a; border-color: #c9a47a; color: #fff;
+    font-weight: 700; box-shadow: 0 2px 10px rgba(201,164,122,0.4);
+}
+.flatpickr-day.inRange {
+    background: rgba(201,164,122,0.12); border-color: transparent;
+    box-shadow: -5px 0 0 rgba(201,164,122,0.12), 5px 0 0 rgba(201,164,122,0.12);
+    color: #1a2a3a; border-radius: 0;
+}
+.flatpickr-day.startRange { border-radius: 8px 0 0 8px; }
+.flatpickr-day.endRange   { border-radius: 0 8px 8px 0; }
+.flatpickr-day.disabled,
+.flatpickr-day.disabled:hover {
+    color: rgba(57,57,57,0.2); cursor: not-allowed; background: transparent;
+}
+.numInputWrapper:hover { background: rgba(255,255,255,0.08); }
+.numInput { color: #fff; }
+.flatpickr-input[readonly] { cursor: pointer; }

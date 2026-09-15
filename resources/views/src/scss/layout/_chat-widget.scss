@@ -1,0 +1,118 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 11. CHAT WIDGET
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+.chat-widget {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  z-index: 9999;
+
+  @include respond-to($bp-sm) { bottom: 20px; left: 16px; }
+}
+
+.chat-toggle-btn {
+  @include flex(center, center);
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background: $dark;
+  color: $white;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  @include transition(all);
+  position: relative;
+  z-index: 2;  
+
+  &:hover {
+    background: $gold;
+    transform: scale(1.05);
+  }
+
+  svg { width: 22px; height: 22px; } 
+}
+
+.chat-popup {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  width: 300px;
+  background: #1C1C32;
+  padding: 24px 24px 32px;
+  box-shadow: 4px 0 30px rgba(0,0,0,0.4);
+  transform: translateX(-100%);
+  @include transition(transform, 0.4s, cubic-bezier(0.25, 0.46, 0.45, 0.94));
+  display: flex;
+  flex-direction: column;
+  z-index: 9998;
+
+  &.open { transform: translateX(0); }
+
+  @include respond-to($bp-sm) { width: 280px; }
+}
+
+.chat-close {
+  @include flex(center, center);
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background: rgba($gold, 0.15);
+  color: $gold;
+  margin-bottom: 20px;
+  align-self: flex-start;
+  @include transition(all);
+
+  &:hover { background: $gold; color: $white; }
+
+  svg { width: 16px; height: 16px; }
+}
+
+.chat-popup-intro {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+  margin-bottom: 26px;
+  text-align: center;
+}
+
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+
+  input, textarea {
+    width: 100%;
+    padding: 13px 16px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    color: $white;
+    font-size: 13.5px;
+    outline: none;
+    @include transition(border-color);
+    resize: none;
+
+    &::placeholder { color: rgba(255,255,255,0.35); }
+    &:focus { border-color: $gold; }
+  }
+
+  textarea { flex: 1; min-height: 100px; }
+}
+
+.chat-submit {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: $gold;
+  color: $white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  @include transition(background);
+  border: none;
+  cursor: pointer;
+  margin-top: 4px;
+
+  &:hover { background: $gold-hover; }
+}
+

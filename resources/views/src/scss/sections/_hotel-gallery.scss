@@ -1,0 +1,235 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 14. HOTEL GALLERY + LIGHTBOX
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.hotel-gallery-section {
+  background: $gallery-bg;
+  padding: 0 0 110px;
+}
+
+.hg-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 50px 50px 0;
+
+  @include respond-to($bp-xl) { padding: 50px 36px 0; }
+  @include respond-to($bp-md) { padding: 30px 22px 0; }
+}
+
+// â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.hg-header {
+  text-align: center;
+  margin-bottom: 48px;
+
+  .section-badge { margin-bottom: 14px; }
+}
+
+.hg-title {
+  font-family: $font-serif;
+  font-size: clamp(28px, 3.5vw, 46px);
+  font-weight: 700;
+  color: $text-dark;
+  line-height: 1.15;
+}
+
+.hg-subtitle {
+  font-size: 15px;
+  line-height: 1.78;
+  color: #6B7280;
+  max-width: 600px;
+  margin: 16px auto 0;
+}
+
+// â”€â”€ Gallery item (shared) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.hg-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    @include transition(transform, 0.55s);
+    background: linear-gradient(135deg, #3a6cb3 0%, #0d2f7d 100%);
+  }
+
+  // Dark overlay + expand icon
+  .hg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    @include flex(center, center);
+    @include transition(background, 0.3s);
+    z-index: 2;
+
+    svg {
+      width: 42px;
+      height: 42px;
+      color: $white;
+      opacity: 0;
+      transform: scale(0.7);
+      @include transition(all, 0.3s);
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.5));
+    }
+  }
+
+  &:hover {
+    img { transform: scale(1.07); }
+
+    .hg-overlay {
+      background: rgba(0,0,0,0.38);
+
+      svg {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+// â”€â”€ Top grid: tall left + 2Ã—2 right â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.hg-grid-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 220px 220px;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  .hg-featured { grid-row: span 2; }
+
+  @include respond-to($bp-lg) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 220px 180px 180px;
+
+    .hg-featured { grid-row: 1; grid-column: span 2; height: 100%; }
+  }
+
+  @include respond-to($bp-sm) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+
+    .hg-item { height: 220px; }
+    .hg-featured { grid-row: auto; height: 260px; }
+  }
+}
+
+// â”€â”€ Bottom grid: 3 equal columns â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.hg-grid-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr 1fr;
+  gap: 16px;
+
+  .hg-item { height: 280px; }
+
+  @include respond-to($bp-lg) { grid-template-columns: 1fr 1fr; }
+
+  @include respond-to($bp-sm) {
+    grid-template-columns: 1fr;
+    .hg-item { height: 220px; }
+  }
+}
+
+// â”€â”€ Lightbox â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0,0,0,0.92);
+  @include flex(center, center);
+  opacity: 0;
+  visibility: hidden;
+  @include transition(all, 0.3s);
+  backdrop-filter: blur(4px);
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.lb-stage {
+  max-width: 88vw;
+  max-height: 88vh;
+  @include flex(center, center);
+
+  img {
+    max-width: 100%;
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    display: block;
+    @include transition(opacity, 0.2s);
+  }
+}
+
+.lb-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  @include flex(center, center);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  color: $white;
+  @include transition(all, 0.22s);
+  z-index: 2;
+
+  svg { width: 18px; height: 18px; }
+
+  &:hover {
+    background: rgba(255,255,255,0.22);
+    transform: rotate(90deg);
+  }
+}
+
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  @include flex(center, center);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  color: $white;
+  @include transition(all, 0.22s);
+  z-index: 2;
+
+  svg { width: 22px; height: 22px; }
+
+  &:hover {
+    background: $gold;
+    border-color: $gold;
+  }
+
+  &.lb-prev { left: 20px; }
+  &.lb-next { right: 20px; }
+
+  @include respond-to($bp-md) {
+    width: 40px;
+    height: 40px;
+    &.lb-prev { left: 10px; }
+    &.lb-next { right: 10px; }
+  }
+}
+
+.lb-counter {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+

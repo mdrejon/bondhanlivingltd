@@ -1,0 +1,656 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 5. MAIN NAVIGATION
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: $white;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  // overflow: hidden;
+ 
+}
+
+.main-nav {
+  @include flex(center, space-between);
+  height: $nav-h;
+  padding: 0 30px;
+  max-width: 100%;
+  margin: 0 auto;
+  gap: 20px;
+  overflow: visible;
+  position: relative;
+
+  @include respond-to($bp-lg) { height: 80px; }
+  @include respond-to($bp-md) { height: 72px; padding: 0 20px; gap: 12px; }
+  @include respond-to($bp-sm) { height: 64px; padding: 0 16px; gap: 10px; }
+  @include respond-to($bp-xs) { height: 60px; padding: 0 12px; gap: 8px; }
+
+    &::after {
+    position: absolute;
+    content: '';
+    left: -30px;
+    top: 0;
+    width: 240px;
+    background-color: $white;
+    z-index: -1;
+    height: 100%;
+    border-radius: 0 50px 50px 0;
+
+    @include respond-to($bp-md) { width: 160px; }
+    @include respond-to($bp-sm) { width: 160px; }
+    @include respond-to($bp-xs) { width: 160px; }
+  }
+    &::before {
+    position: absolute;
+      content: '';
+      left: -30px;
+      top: 0;
+      width: 250px;
+      background-color: $gold;
+      z-index: -1;
+      height: 100%;
+      border-radius: 0 50px 50px 0;
+
+      @include respond-to($bp-md) { width: 170px; }
+      @include respond-to($bp-sm) { width: 170px; }
+      @include respond-to($bp-xs) { width: 170px; }
+    }
+}
+
+// Logo â€” oval/ellipse pill that anchors the nav
+.nav-logo {
+  flex-shrink: 0;
+  position: relative;
+
+
+
+
+  position: relative;
+  z-index: 10;
+
+  .logo-oval {
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // width: 215px;
+    // height: 110px;  // taller than nav so it bleeds above/below slightly
+    // background: $off-white;
+    // border-radius: 50%;
+    // border: 1px solid rgba($gold, 0.18);
+    // box-shadow: 0 6px 28px rgba(0,0,0,0.10), 0 1px 4px rgba($gold, 0.12);
+    // overflow: hidden;
+    // @include transition(box-shadow, 0.3s);
+
+    &:hover {
+      box-shadow: 0 8px 36px rgba(0,0,0,0.14), 0 2px 8px rgba($gold, 0.22);
+    }
+
+    img {
+      width: 170px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    @include respond-to($bp-xl) {
+      width: 195px;
+      height: 100px;
+      img { width: 155px; }
+    }
+
+    @include respond-to($bp-lg) {
+      width: 175px;
+      height: 80px;
+      img { width: 138px; }
+    }
+
+    @include respond-to($bp-md) {
+      width: 150px;
+      height: 72px;
+      img { width: 115px; }
+    }
+
+    @include respond-to($bp-sm) {
+      width: 128px;
+      height: 64px;
+      img { width: 96px; }
+    }
+
+    @include respond-to($bp-xs) {
+      width: 112px;
+      height: 60px;
+      img { width: 84px; }
+    }
+  }
+}
+
+// Desktop menu
+.nav-menu {
+  @include flex(center, center, 0);
+  flex: 1;
+  justify-content: center;
+
+  @include respond-to($bp-lg) { display: none; }
+
+  .nav-item {
+    position: relative;
+
+    &.active > .nav-link {
+      color: $gold;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: $gold;
+        border-radius: 1px;
+      }
+    }
+
+    &:hover > .dropdown-menu { display: block; }
+  }
+
+  .nav-link {
+    @include flex(center, flex-start, 4px);
+    padding: 8px 14px;
+    font-size: 16.5px;
+    font-weight: 500;
+    color: $text-dark;
+    position: relative;
+    white-space: nowrap;
+    @include transition(color);
+
+    &:hover { color: $gold; }
+
+    .chevron {
+      width: 14px;
+      height: 14px;
+      @include transition(transform);
+    }
+  }
+
+  .nav-item:hover .nav-link .chevron {
+    transform: rotate(180deg);
+  }
+}
+
+// Dropdown
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100%);
+  left: 0;
+  min-width: 200px;
+  background: $white;
+  border-top: 3px solid $gold;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.14);
+  z-index: 9999;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+
+  li {
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+
+    &:last-child { border-bottom: none; }
+  }
+
+  a {
+    display: block;
+    padding: 12px 20px;
+    font-size: 14px;
+    color: $text-dark;
+    font-weight: 400;
+    @include transition(all);
+
+    &:hover {
+      background: $off-white;
+      color: $gold;
+      padding-left: 26px;
+    }
+  }
+}
+
+// Nav right controls
+.nav-right {
+  @include flex(center, flex-end, 12px);
+  flex-shrink: 0;
+
+  @include respond-to($bp-xl) { gap: 16px; }
+}
+
+.nav-call {
+  @include flex(center, flex-start, 10px);
+  margin-right: 16px;
+
+  @include respond-to($bp-xl) { margin-right: 8px; }
+  @include respond-to($bp-lg) { display: none; }
+
+  .nav-call-icon {
+    @include flex(center, center);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba($gold, 0.4);
+    color: $gold;
+
+    svg { width: 18px; height: 18px; }
+  }
+
+  .nav-call-text {
+    @include flex(flex-start, center);
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .call-label {
+    font-size: 11px;
+    color: $text-gray;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .call-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-dark;
+    white-space: nowrap;
+  }
+}
+
+.nav-icon-btn {
+  @include flex(center, center);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: $text-dark;
+  border: 1px solid rgba(0,0,0,0.1);
+  position: relative;
+  @include transition(all);
+
+  &:hover {
+    background: $off-white;
+    border-color: $gold;
+    color: $gold;
+  }
+
+  svg { width: 18px; height: 18px; }
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: $gold;
+  color: $white;
+  font-size: 9px;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  @include flex(center, center);
+}
+
+.hamburger-btn {
+  display: none; // shown only on mobile/tablet via media query below
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.1);
+  flex-shrink: 0;
+  @include transition(all);
+
+  @include respond-to($bp-lg) {
+    display: flex;
+  }
+
+  &:hover { border-color: $gold; }
+
+  span {
+    display: block;
+    height: 2px;
+    background: $text-dark;
+    border-radius: 2px;
+    @include transition(all);
+
+    &:nth-child(1) { width: 22px; }
+    &:nth-child(2) { width: 16px; }
+    &:nth-child(3) { width: 22px; }
+  }
+
+  &.active span {
+    &:nth-child(1) { transform: translateY(7px) rotate(45deg); width: 22px; }
+    &:nth-child(2) { opacity: 0; }
+    &:nth-child(3) { transform: translateY(-7px) rotate(-45deg); width: 22px; }
+  }
+}
+
+.btn-booking {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 22px;
+  background: $gold;
+  color: $white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  white-space: nowrap;
+  @include transition(background);
+
+  &:hover { background: $gold-hover; }
+
+  @include respond-to($bp-md) {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  @include respond-to($bp-sm) {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  @include respond-to($bp-xs) {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+}
+
+// â”€â”€â”€ Sidebar Toggle Button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.sidebar-toggle-btn {
+  @include flex(center, center);
+  flex-direction: column;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid rgba($gold, 0.45);
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  @include transition(all, 0.3s);
+
+  span {
+    display: block;
+    height: 2px;
+    background: $text-dark;
+    border-radius: 2px;
+    @include transition(all, 0.35s, cubic-bezier(0.68,-0.55,0.27,1.55));
+
+    &:nth-child(1) { width: 20px; }
+    &:nth-child(2) { width: 14px; }
+    &:nth-child(3) { width: 20px; }
+  }
+
+  &:hover {
+    background: $gold;
+    border-color: $gold;
+    transform: rotate(90deg);
+
+    span { background: $white; width: 18px !important; }
+  }
+
+  &.active {
+    background: $gold;
+    border-color: $gold;
+
+    span {
+      background: $white;
+      &:nth-child(1) { transform: translateY(7px) rotate(45deg); width: 20px; }
+      &:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      &:nth-child(3) { transform: translateY(-7px) rotate(-45deg); width: 20px; }
+    }
+  }
+
+  @include respond-to($bp-lg) { display: none; }
+}
+
+// â”€â”€â”€ Sidebar Overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// â”€â”€â”€ Sidebar Panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.sidebar-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 310px;
+  height: 100%;
+  background: $navy;
+  z-index: 1999;
+  overflow-y: auto;
+  padding: 60px 30px 40px;
+  transform: translateX(-100%);
+  transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+
+  @include respond-to($bp-sm) { width: 100%; }
+
+  &.active {
+    transform: translateX(0);
+  }
+
+  // Scrollbar styling
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: rgba($gold, 0.4); border-radius: 2px; }
+}
+
+.sidebar-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba($white, 0.25);
+  color: $white;
+  @include flex(center, center);
+  @include transition(all);
+
+  svg { width: 16px; height: 16px; }
+
+  &:hover {
+    background: $gold;
+    border-color: $gold;
+  }
+}
+
+.sidebar-block {
+  margin-bottom: 36px;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.sidebar-heading {
+  font-family: $font-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: $white;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba($gold, 0.3);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: $gold;
+    border-radius: 1px;
+  }
+}
+
+.sidebar-text {
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba($white, 0.72);
+}
+
+.sidebar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  input, textarea {
+    width: 100%;
+    background: rgba($white, 0.07);
+    border: 1px solid rgba($white, 0.15);
+    border-radius: 4px;
+    padding: 11px 14px;
+    font-size: 14px;
+    color: $white;
+    @include transition(border-color);
+
+    &::placeholder { color: rgba($white, 0.4); }
+    &:focus {
+      outline: none;
+      border-color: $gold;
+    }
+  }
+
+  textarea { resize: vertical; min-height: 100px; }
+}
+
+.sidebar-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: $gold;
+  color: $white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  @include transition(background);
+  align-self: flex-start;
+
+  &:hover { background: color.adjust($gold, $lightness: -10%); }
+}
+
+.sidebar-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: rgba($white, 0.72);
+
+    svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: $gold;
+      margin-top: 2px;
+    }
+
+    a {
+      color: rgba($white, 0.72);
+      @include transition(color);
+
+      &:hover { color: $gold; }
+    }
+  }
+}
+
+// Mobile menu
+.mobile-menu {
+  display: none;
+  background: $white;
+  border-top: 1px solid rgba(0,0,0,0.07);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+
+  @include respond-to($bp-lg) {
+    display: block;
+  }
+
+  &.open {
+    max-height: 70vh; // enough for full menu list
+    overflow-y: auto;
+  }
+
+  .mobile-nav-list { padding: 12px 0; }
+
+  .mobile-item {
+    > a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 24px;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: $text-dark;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      @include transition(color);
+
+      &:hover { color: $gold; }
+    }
+
+    &.active > a { color: $gold; }
+
+    // arrow indicator for sub-menu items
+    &.has-sub > a::after {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      flex-shrink: 0;
+      margin-top: -4px;
+      @include transition(transform);
+    }
+
+    &.has-sub.active > a::after {
+      transform: rotate(-135deg);
+      margin-top: 2px;
+    }
+  }
+
+  .mobile-sub {
+    background: $off-white;
+    display: none;
+
+    &.open { display: block; }
+
+    li a {
+      padding: 10px 36px;
+      font-size: 13.5px;
+      display: block;
+      color: $text-dark;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      @include transition(color);
+
+      &:hover { color: $gold; }
+    }
+  }
+}

@@ -1,0 +1,393 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 17. FOOTER (was 10â†’11â†’12â†’13â†’14â†’15)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+
+.site-footer {
+  position: relative;
+}
+
+// â€” Newsletter â€”
+.footer-newsletter {
+  background: $footer-dark;
+  padding: 52px 0;
+  border-top: 3px solid $gold;
+  position: relative;
+  overflow: hidden;
+
+  // Decorative background circle
+  &::before {
+    content: '';
+    position: absolute;
+    right: -120px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    border: 60px solid rgba($gold, 0.04);
+    pointer-events: none;
+  }
+
+  .fn-inner {
+    @include flex(center, space-between, 40px);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 50px;
+    flex-wrap: wrap;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+
+    @include respond-to($bp-lg) { padding: 0 30px; }
+    @include respond-to($bp-md) { flex-direction: column; align-items: flex-start; gap: 20px; }
+  }
+
+  .fn-text {
+    max-width: 500px;
+
+    h2 {
+      font-family: $font-serif;
+      font-size: clamp(22px, 2.8vw, 30px);
+      font-weight: 700;
+      color: $white;
+      line-height: 1.35;
+    }
+  }
+
+  .fn-form {
+    @include flex(stretch, flex-end, 0);
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+
+    input {
+      padding: 15px 22px;
+      background: rgba(255,255,255,0.08);
+      color: $white;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-right: none;
+      border-radius: 6px 0 0 6px;
+      outline: none;
+      width: 300px;
+
+      &::placeholder { color: rgba(255,255,255,0.4); }
+      &:focus { border-color: rgba($gold, 0.5); background: rgba(255,255,255,0.1); }
+
+      @include respond-to($bp-sm) { width: 200px; }
+      @include respond-to($bp-xs) { width: 150px; }
+    }
+
+    button {
+      padding: 15px 30px;
+      background: $gold;
+      color: $white;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      border-radius: 0 6px 6px 0;
+      letter-spacing: 0.3px;
+      @include transition(background);
+
+      &:hover { background: $gold-hover; }
+    }
+  }
+}
+
+// â€” Footer main â€”
+.footer-main {
+  background: $footer-bg;
+  padding: 80px 0 60px;
+  position: relative;
+  overflow: hidden;
+
+  // Decorative radial glow
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba($gold, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+  }
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.65fr 1fr 1fr 1.3fr;
+  gap: 50px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 50px;
+  position: relative;
+  z-index: 1;
+
+  @include respond-to($bp-xl) { gap: 36px; padding: 0 36px; }
+  @include respond-to($bp-lg) {
+    grid-template-columns: 1fr 1fr;
+    gap: 44px;
+    padding: 0 30px;
+  }
+  @include respond-to($bp-sm) {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 0 22px;
+  }
+}
+
+.footer-col-title {
+  font-family: $font-sans;
+  font-size: 16px;
+  font-weight: 700;
+  color: $white;
+  margin-bottom: 28px;
+  position: relative;
+  padding-bottom: 14px;
+  letter-spacing: 0.2px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 36px;
+    height: 2px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+
+  li a {
+    font-size: 14px;
+    line-height: 1.5;
+    color: $text-gray;
+    @include transition(all, 0.25s);
+    @include flex(center, flex-start, 10px);
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 1.5px solid rgba($gold, 0.5);
+      flex-shrink: 0;
+      @include transition(all, 0.25s);
+    }
+
+    &:hover {
+      color: $white;
+      padding-left: 4px;
+      &::before {
+        background: $gold;
+        border-color: $gold;
+      }
+    }
+  }
+}
+
+// Footer brand column
+.footer-brand {
+  .footer-logo-link {
+    @include flex(center, flex-start, 14px);
+    @include respond-to($bp-sm) { justify-content: center; }
+    margin-bottom: 22px;
+    text-decoration: none;
+
+    .footer-logo-icon {
+      width: 48px;
+      height: 56px;
+      flex-shrink: 0;
+    }
+  }
+
+  .footer-logo-name {
+    font-family: $font-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: $white;
+    display: block;
+    line-height: 1.1;
+
+    em { font-style: normal; color: $gold; }
+  }
+
+  .footer-logo-tagline {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.45);
+    display: block;
+    letter-spacing: 0.6px;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+
+  .footer-brand-desc {
+    font-size: 14px;
+    line-height: 1.75;
+    color: $text-gray;
+    margin-bottom: 26px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid $border-color;
+    max-width: 300px;
+  }
+
+  .footer-social {
+    @include flex(center, flex-start, 10px);
+    // responsve need flex-center, center on mobile
+    @include respond-to($bp-sm) { justify-content: center; }
+
+    a {
+      @include flex(center, center);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.55);
+      @include transition(all, 0.25s);
+
+      &:hover {
+        background: $gold;
+        border-color: $gold;
+        color: $white;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba($gold, 0.3);
+      }
+
+      svg { width: 15px; height: 15px; }
+    }
+  }
+}
+
+// Official info column
+.footer-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  li {
+    @include flex(flex-start, flex-start, 14px);
+  }
+
+  .fi-icon {
+    @include flex(center, center);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba($gold, 0.08);
+    border: 1px solid rgba($gold, 0.4);
+    color: $white;
+    flex-shrink: 0;
+    @include transition(all, 0.25s);
+
+    svg { width: 16px; height: 16px; }
+  }
+
+  li:hover .fi-icon {
+    background: $dark;
+    border-color: $gold;
+    color: $white;
+  }
+
+  div {
+    @include flex(flex-start, center);
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 2px;
+
+    a, span {
+      font-size: 14px;
+      color: $text-gray;
+      @include transition(color);
+      display: block;
+      line-height: 1.5;
+    }
+
+    a:hover { color: $gold; }
+  }
+}
+
+// â€” Footer Bottom â€”
+.footer-bottom {
+  background: $footer-dark;
+  border-top: 1px solid $border-color;
+  padding: 20px 0;
+  position: relative;
+
+  .fb-inner {
+    @include flex(center, space-between, 20px);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 50px;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    @include respond-to($bp-lg) { padding: 0 30px; }
+    @include respond-to($bp-md) { padding: 0 22px; }
+    @include respond-to($bp-sm) { flex-direction: column;  }
+  }
+
+  .fb-copy {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.45);
+
+    a {
+      color: $gold;
+      font-weight: 500;
+      &:hover { text-decoration: underline; }
+    }
+  }
+
+  .fb-nav {
+    @include flex(center, flex-end, 0);
+    flex-wrap: wrap;
+    gap: 4px 0;
+    @include respond-to($bp-sm) { justify-content: center;  }
+    a {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.45);
+      @include transition(color);
+      padding: 0 16px;
+      border-right: 1px solid rgba(255,255,255,0.15);
+
+      &:last-child { border-right: none; padding-right: 0; }
+      &:hover { color: $gold; }
+    }
+  }
+}
+
+.back-to-top {
+  position: fixed;
+  right: -38px;
+  bottom: 120px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  @include transition(all, 0.4s);
+  z-index: 500;
+  opacity: 0;
+  pointer-events: none;
+
+  &.visible {
+    right: 8px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &:hover { color: $gold; }
+}

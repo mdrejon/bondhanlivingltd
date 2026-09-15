@@ -1,0 +1,306 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 6. HERO SLIDER
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-swiper {
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+
+  @include respond-to($bp-lg) {
+    height: 80vh;
+    min-height: 520px;
+  }
+
+  @include respond-to($bp-md) {
+    height: 70vh;
+    min-height: 460px;
+  }
+
+  @include respond-to($bp-sm) {
+    height: 60vh;
+    min-height: 380px;
+  }
+}
+
+// Slide background â€” replace URLs with real hotel images
+.slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+
+// Slide-specific gradient placeholders (replace background-image with real photos)
+ 
+ 
+
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(12, 12, 30, 0.8) 0%,
+    rgba(12, 12, 30, 0.5) 60%,
+    rgba(12, 12, 30, 0.3) 100%
+  );
+  z-index: 1;
+}
+
+// Fallback: show first slide content before Swiper initialises (no swiper-slide-active yet)
+.hero-swiper:not(.swiper-initialized) .swiper-slide:first-child {
+  .slide-bg { animation: bgZoom 8s ease-out forwards; }
+  .slide-label { animation: slideInUp 0.7s ease-out 0.15s forwards; }
+  .slide-title { animation: slideInUp 0.7s ease-out 0.4s forwards; }
+  .slide-desc { animation: slideInUp 0.7s ease-out 0.65s forwards; }
+  .slide-actions { animation: slideInUp 0.7s ease-out 0.85s forwards; }
+}
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 80px;
+  height: 100%;
+  @include flex(center, flex-start);
+
+  @include respond-to($bp-xl) { padding: 0 60px; }
+  @include respond-to($bp-lg) { padding: 0 40px; }
+  @include respond-to($bp-md) { padding: 0 24px; }
+}
+
+.slide-content {
+  padding-bottom: 40px;
+
+  @include respond-to($bp-md) {
+    max-width: 100%;
+    padding-bottom: 24px;
+  }
+
+  @include respond-to($bp-sm) {
+    padding-bottom: 16px;
+  }
+}
+
+// Text stagger animation on active slide
+.swiper-slide .slide-label,
+.swiper-slide .slide-title,
+.swiper-slide .slide-desc,
+.swiper-slide .slide-actions {
+  opacity: 0;
+  transform: translateY(45px);
+}
+
+.swiper-slide-active {
+  .slide-bg {
+    animation: bgZoom 8s ease-out forwards;
+  }
+
+  .slide-label {
+    animation: slideInUp 0.75s ease-out 0.2s forwards;
+  }
+  .slide-title {
+    animation: slideInUp 0.75s ease-out 0.45s forwards;
+  }
+  .slide-desc {
+    animation: slideInUp 0.75s ease-out 0.7s forwards;
+  }
+  .slide-actions {
+    animation: slideInUp 0.75s ease-out 0.9s forwards;
+  }
+}
+
+.slide-label {
+  font-family: $font-sans;
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+
+  @include respond-to($bp-md) { font-size: 13px; }
+}
+
+.slide-title {
+  font-family: $font-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: $white;
+  margin-bottom: 22px;
+
+  .accent { color: $gold-light; }
+}
+
+.slide-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 34px;
+
+  @include respond-to($bp-md) { font-size: 14px; }
+}
+
+.slide-actions {
+  @include flex(center, flex-start, 28px);
+  flex-wrap: wrap;
+}
+
+.btn-discover {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 30px;
+  background: rgba(255,255,255,0.12);
+  border: 2px solid rgba(255,255,255,0.6);
+  color: $white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  @include transition(all);
+  backdrop-filter: blur(4px);
+
+  &:hover {
+    background: $gold;
+    border-color: $gold;
+  }
+}
+
+.slide-reviews {
+  @include flex(center, flex-start, 10px);
+
+  .stars {
+    @include flex(center, flex-start, 2px);
+    svg {
+      width: 16px;
+      height: 16px;
+      color: $gold;
+    }
+  }
+
+  span {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+}
+
+// Decorative SVG arrow â€” sits between slide text and Watch Video button
+.slide-deco-arrow {
+  position: absolute;
+  top: 40%;
+  left: 66%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 280px;
+  pointer-events: none;
+
+  svg { width: 100%; height: auto; }
+
+  @include respond-to($bp-xl) { left: 46%; }
+  @include respond-to($bp-lg) { display: none; }
+}
+
+// Watch Video button
+.watch-video {
+  position: absolute;
+  right: 120px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  @include flex(center, flex-start, 16px);
+
+  @include respond-to($bp-xl) { right: 80px; }
+  @include respond-to($bp-lg) { right: 40px; }
+  @include respond-to($bp-md) {
+    right: 20px;
+    bottom: 60px;
+    top: auto;
+    transform: none;
+  }
+}
+
+.watch-play-btn {
+  @include flex(center, center);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  color: $text-dark;
+  @include transition(transform);
+  animation: watchPulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    transform: translateX(2px);
+    animation: playFlip 4s ease-in-out infinite;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    background: $gold;
+    color: $white;
+    animation: none;
+  }
+
+  @include respond-to($bp-md) { width: 56px; height: 56px; }
+}
+
+.watch-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: $white;
+  letter-spacing: 0.5px;
+
+  @include respond-to($bp-sm) { display: none; }
+}
+
+// Custom hero pagination â€” right side, vertical
+// Override Swiper's default horizontal/bottom-center positioning
+.hero-pagination {
+  position: absolute !important;
+  right: 28px !important;
+  left: auto !important;
+  bottom: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: auto !important;
+  text-align: unset !important;
+  z-index: 10;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  @include respond-to($bp-md) { right: 14px !important; }
+
+  .swiper-pagination-bullet {
+    display: block !important;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    cursor: pointer;
+    @include transition(all, 0.3s);
+    border: 1.5px solid transparent;
+    opacity: 1 !important;
+    margin: 0 !important;
+
+    &:hover { background: rgba(255,255,255,0.75); }
+  }
+
+  .swiper-pagination-bullet-active {
+    background: $white !important;
+    transform: scale(1.35);
+    border-color: rgba(255,255,255,0.4);
+  }
+}
+

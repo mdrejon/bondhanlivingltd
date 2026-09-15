@@ -1,0 +1,224 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 15. TESTIMONIALS SECTION
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.testimonials-section {
+  position: relative;
+  background: $testi-bg;
+  padding: 0 0 120px;
+  overflow: hidden;
+
+  // World-map-style dot grid background
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba($svc-card-bg, 0.13) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// â”€â”€ 2-column grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.testi-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  gap: 70px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 50px 50px 0;
+  align-items: center;
+
+  @include respond-to($bp-xl) { padding: 50px 36px 0; gap: 50px; }
+  @include respond-to($bp-lg) {
+    grid-template-columns: 1fr;
+    padding: 50px 30px 0;
+    gap: 44px;
+  }
+  @include respond-to($bp-md) { padding: 0 22px; }
+}
+
+// â”€â”€ Left: person image â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.testi-left {
+  @include respond-to($bp-lg) { display: none; }
+}
+
+.testi-img-wrap {
+  border-radius: 20px;
+  overflow: hidden;
+  height: 430px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.14);
+    background: linear-gradient(135deg, #5d8bd1 0%, #113C99 100%);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    font-size: 0; // hide alt text when image missing
+    color: transparent;
+  }
+}
+
+// â”€â”€ Right: text + swiper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.testi-right {
+  overflow: hidden;
+  .section-badge { margin-bottom: 16px; }
+}
+
+.testi-title {
+  font-family: $font-serif;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.22;
+  color: $text-dark;
+  margin-bottom: 36px;
+}
+
+// â”€â”€ Testimonial swiper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.testi-swiper {
+  overflow: hidden;
+}
+
+// â”€â”€ Testimonial card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.testi-card {
+  background: rgba(255,255,255,0.58);
+  border: 1.5px solid rgba(255,255,255,0.7);
+  border-radius: 16px;
+  padding: 36px 36px 30px;
+  position: relative;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.07);
+}
+
+// Quote icon â€” overlaps top-right corner
+.testi-quote-icon {
+  position: absolute;
+  top: -18px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: $svc-card-bg;
+  @include flex(center, center);
+  color: $white;
+  box-shadow: 0 4px 14px rgba($svc-card-bg, 0.35);
+
+  svg { width: 20px; height: 20px; }
+}
+
+.testi-text {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #5A6472;
+  font-style: normal;
+  margin-bottom: 28px;
+
+  &::before { content: none; } // reset blockquote
+}
+
+// â”€â”€ Author row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.testi-author {
+  @include flex(center, flex-start, 18px);
+}
+
+.testi-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+}
+
+.testi-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 3px solid $white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    background: linear-gradient(135deg, #5d8bd1 0%, #113C99 100%);
+}
+
+// Star rating badge â€” overlaps bottom of avatar
+.testi-rating-badge {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  @include flex(center, center, 4px);
+  background: $svc-card-bg;
+  color: $white;
+  border-radius: 50px;
+  padding: 3px 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba($svc-card-bg, 0.4);
+
+  svg {
+    width: 10px;
+    height: 10px;
+    color: $gold;
+    flex-shrink: 0;
+  }
+}
+
+.testi-author-info {
+  @include flex(flex-start, center);
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 6px; // offset for rating badge
+}
+
+.testi-name {
+  font-family: $font-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: $text-dark;
+  line-height: 1.2;
+}
+
+.testi-role {
+  font-size: 13px;
+  color: $text-gray;
+}
+
+// â”€â”€ Footer: pagination + scroll dot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.testi-footer {
+  @include flex(center, space-between);
+  margin-top: 32px;
+}
+
+// â”€â”€ Pagination dots (reuse blog style) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.testi-pagination {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+
+  .swiper-pagination-bullet {
+    display: block !important;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.22);
+    opacity: 1 !important;
+    margin: 0 !important;
+    @include transition(all, 0.25s);
+    cursor: pointer;
+
+    &:hover { background: rgba(0,0,0,0.4); }
+  }
+
+  .swiper-pagination-bullet-active {
+    background: transparent !important;
+    border: 2px solid $text-dark;
+    width: 12px !important;
+    height: 12px !important;
+  }
+}
+
+

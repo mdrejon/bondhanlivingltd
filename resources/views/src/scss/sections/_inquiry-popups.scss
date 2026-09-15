@@ -1,0 +1,307 @@
+// ═══════════════════════════════════════
+// SIDEBAR POPUP (About Us + Get A Free Quote)
+// ═══════════════════════════════════════
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1100;
+  opacity: 0;
+  pointer-events: none;
+  @include transition(opacity);
+
+  &.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.sidebar-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 360px;
+  max-width: 90vw;
+  background: #0f2a42;
+  z-index: 1200;
+  transform: translateX(-100%);
+  @include transition(transform);
+  overflow-y: auto;
+
+  &.is-open {
+    transform: translateX(0);
+  }
+
+  @include respond-to($bp-sm) {
+    width: 320px;
+  }
+}
+
+.sidebar-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  @include transition();
+
+  svg { width: 18px; height: 18px; }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: $white;
+  }
+}
+
+.sidebar-body {
+  padding: 70px 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.sidebar-section-title {
+  font-family: $font-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $white;
+  margin-bottom: 10px;
+}
+
+.sidebar-divider {
+  width: 40px;
+  height: 2px;
+  background: $gold;
+  margin-bottom: 16px;
+}
+
+.sidebar-about-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.75;
+}
+
+// Quote form
+.sidebar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sf-field {
+  input,
+  textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: $white;
+    font-size: 0.875rem;
+    font-family: $font-sans;
+    @include transition(border-color, background);
+    resize: none;
+
+    &::placeholder { color: rgba(255, 255, 255, 0.35); }
+
+    &:focus {
+      outline: none;
+      border-color: $gold;
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.sf-submit {
+  padding: 13px 20px;
+  background: $gold;
+  color: $white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  @include transition();
+  font-family: $font-sans;
+
+  &:hover { background: color.adjust($gold, $lightness: -8%); }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+
+
+// ═══════════════════════════════════════
+// CONTACT WIDGET POPUP (Floating)
+// ═══════════════════════════════════════
+
+.cw-trigger {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: $gold;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 16px rgba(201, 164, 122, 0.45);
+  z-index: 900;
+  @include transition();
+
+  svg { width: 22px; height: 22px; }
+
+  &:hover {
+    background: color.adjust($gold, $lightness: -8%);
+    transform: scale(1.06);
+  }
+
+  @include respond-to($bp-sm) {
+    bottom: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.cw-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 950;
+  opacity: 0;
+  pointer-events: none;
+  @include transition(opacity);
+
+  &.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.cw-popup {
+  position: fixed;
+  bottom: 92px;
+  right: 28px;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  background: $white;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(12px) scale(0.97);
+  pointer-events: none;
+  @include transition(opacity, transform);
+
+  &.is-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  @include respond-to($bp-sm) {
+    right: 16px;
+    bottom: 76px;
+  }
+}
+
+.cw-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f0f3f7;
+  border: none;
+  color: #6b7f96;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  @include transition();
+
+  svg { width: 14px; height: 14px; }
+
+  &:hover { background: #e0e6ee; color: $dark; }
+}
+
+.cw-body {
+  padding: 24px 22px 22px;
+}
+
+.cw-title {
+  font-family: $font-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: $dark;
+  margin-bottom: 6px;
+  padding-right: 24px;
+}
+
+.cw-subtitle {
+  font-size: 0.82rem;
+  color: #6b7f96;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.cw-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cw-field {
+  input,
+  textarea {
+    width: 100%;
+    background: #f6f8fc;
+    border: 1px solid #dde4ee;
+    border-radius: 8px;
+    padding: 10px 13px;
+    color: $dark;
+    font-size: 0.85rem;
+    font-family: $font-sans;
+    @include transition(border-color);
+    resize: none;
+
+    &::placeholder { color: #a0aec0; }
+
+    &:focus {
+      outline: none;
+      border-color: $gold;
+      background: $white;
+    }
+  }
+}
+
+.cw-submit {
+  padding: 11px 16px;
+  background: $dark;
+  color: $white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  @include transition();
+  font-family: $font-sans;
+  width: 100%;
+
+  &:hover { background: color.adjust($dark, $lightness: 8%); }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}

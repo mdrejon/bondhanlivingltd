@@ -1,0 +1,62 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 7. GALLERY STRIP
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+.gallery-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  height: 200px;
+  overflow: hidden;
+
+  @include respond-to($bp-lg) { grid-template-columns: repeat(3, 1fr); height: 300px; }
+  @include respond-to($bp-sm) { grid-template-columns: repeat(2, 1fr); height: 240px; }
+}
+
+.gallery-strip-item {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  @include transition(all, 0.5s);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba($dark, 0.3);
+    @include transition(background, 0.3s);
+  }
+
+  &:hover {
+    transform: scale(1.03);
+
+    &::after { background: rgba($dark, 0.1); }
+    .gi-overlay { opacity: 1; }
+  }
+
+  // Gradient placeholders â€” replace with real images
+  &.gi-1 { background-image: url('/assets/images/gallery-1.jpg'), linear-gradient(135deg, #1a2a4a, #0d1a30); }
+  &.gi-2 { background-image: url('/assets/images/gallery-2.jpg'), linear-gradient(135deg, #0a2030, #162840); }
+  &.gi-3 { background-image: url('/assets/images/gallery-3.jpg'), linear-gradient(135deg, #1a1030, #0d0820); }
+  &.gi-4 { background-image: url('/assets/images/gallery-4.jpg'), linear-gradient(135deg, #101a30, #0a1420); }
+  &.gi-5 { background-image: url('/assets/images/gallery-5.jpg'), linear-gradient(135deg, #1a0e08, #2a1810); }
+  &.gi-6 { background-image: url('/assets/images/gallery-6.jpg'), linear-gradient(135deg, #0e1a20, #162530); }
+}
+
+.gi-overlay {
+  position: absolute;
+  inset: 0;
+  @include flex(center, center);
+  z-index: 2;
+  opacity: 0;
+  @include transition(opacity);
+  background: rgba($gold, 0.2);
+
+  svg {
+    width: 30px;
+    height: 30px;
+    color: $white;
+    stroke: $white;
+  }
+}
+

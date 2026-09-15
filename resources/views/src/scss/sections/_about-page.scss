@@ -1,0 +1,766 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 19. ABOUT PAGE â€“ CONTENT SECTION
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.about-page-section {
+  background: $white;
+  padding: 100px 0 110px;
+
+  @include respond-to($bp-md) { padding: 70px 0 80px; }
+}
+
+.about-page-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 50px;
+  display: grid;
+  grid-template-columns: 48fr 52fr;
+  gap: 70px;
+  align-items: center;
+
+  @include respond-to($bp-xl) { padding: 0 36px; gap: 50px; }
+  @include respond-to($bp-lg) {
+    grid-template-columns: 1fr;
+    padding: 0 30px;
+    gap: 50px;
+  }
+  @include respond-to($bp-md) { padding: 0 22px; }
+}
+
+// â”€â”€ Image cluster â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.about-page-imgs {
+  position: relative;
+}
+
+.about-page-img-main {
+  width: 100%;
+  height: 420px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.14);
+
+  @include respond-to($bp-md) { height: 300px; }
+  @include respond-to($bp-sm) { height: 260px; }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    @include transition(transform, 0.55s);
+  }
+
+  &:hover img { transform: scale(1.04); }
+}
+
+.about-page-img-float {
+  position: absolute;
+  bottom: -36px;
+  right: -30px;
+  width: 200px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 5px solid $white;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    @include transition(transform, 0.55s);
+  }
+
+  &:hover img { transform: scale(1.05); }
+
+  @include respond-to($bp-lg) { right: 0; bottom: -28px; }
+  @include respond-to($bp-sm) { display: none; }
+}
+
+.about-img-dots {
+  position: absolute;
+  bottom: -50px;
+  left: -28px;
+  width: 120px;
+  height: 120px;
+  background-image: radial-gradient(circle, $gold 1.5px, transparent 1.5px);
+  background-size: 14px 14px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+
+  @include respond-to($bp-sm) { display: none; }
+}
+
+.about-exp-badge {
+  position: absolute;
+  top: 30px;
+  left: -24px;
+  @include flex(center, flex-start, 12px);
+  background: $gold;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 12px 36px rgba($gold, 0.45);
+  z-index: 4;
+
+  strong {
+    font-family: $font-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: $white;
+    line-height: 1;
+
+    sup { font-size: 18px; vertical-align: super; }
+  }
+
+  span {
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.4;
+    max-width: 60px;
+  }
+
+  @include respond-to($bp-lg) { left: 0; }
+  @include respond-to($bp-sm) { display: none; }
+}
+
+// â”€â”€ Right content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.about-page-content {
+  padding-bottom: 40px;
+
+  @include respond-to($bp-lg) { padding-bottom: 0; }
+}
+
+.about-page-title {
+  font-family: $font-serif;
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 700;
+  line-height: 1.18;
+  color: $text-dark;
+  margin-bottom: 22px;
+}
+
+.about-page-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #6B7280;
+  margin-bottom: 36px;
+}
+
+// â”€â”€ Feature list â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.about-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.about-feature-item {
+  @include flex(flex-start, flex-start, 18px);
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.afi-icon {
+  @include flex(center, center);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba($gold, 0.1);
+  border: 1.5px solid rgba($gold, 0.25);
+  color: $gold;
+  flex-shrink: 0;
+
+  svg { width: 24px; height: 24px; }
+}
+
+.afi-text {
+  h4 {
+    font-family: $font-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 6px;
+  }
+
+  p {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: #6B7280;
+  }
+}
+
+// â”€â”€ CTA row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.about-cta-row {
+  @include flex(center, flex-start, 28px);
+  flex-wrap: wrap;
+}
+
+.btn-about-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 36px;
+  background: $gold;
+  color: $white;
+  font-size: 14.5px;
+  font-weight: 600;
+  border-radius: 50px;
+  @include transition(all, 0.3s);
+  box-shadow: 0 6px 22px rgba($gold, 0.35);
+
+  &:hover {
+    background: $gold-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba($gold, 0.4);
+  }
+}
+
+.about-cta-phone {
+  @include flex(center, flex-start, 12px);
+}
+
+.acp-icon {
+  @include flex(center, center);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid rgba($gold, 0.4);
+  color: $gold;
+
+  svg { width: 18px; height: 18px; }
+}
+
+.acp-text {
+  small {
+    display: block;
+    font-size: 11px;
+    color: $text-gray;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: $text-dark;
+  }
+}
+
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 20. ABOUT PAGE â€“ STATS ROW
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.about-stats-section {
+  background: $faq-bg;
+  padding: 50px 50px 80px; 
+
+  // Wave breaks out of horizontal section padding to span full width
+  .section-wave { margin: 0 -50px; }
+
+  @include respond-to($bp-xl) {
+    padding: 50px 36px 70px; 
+    .section-wave { margin: 0 -36px; }
+  }
+  @include respond-to($bp-lg) {
+    padding: 30px 30px 60px; 
+    .section-wave { margin: 0 -30px; }
+  }
+  @include respond-to($bp-md) {
+    padding: 20px 20px 50px; 
+    .section-wave { margin: 0 -20px; }
+  }
+}
+
+// Dark green rounded card wrapping all stats
+.about-stats-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: $svc-card-bg;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+
+  // Diamond crosshatch texture overlay
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 12px
+      ),
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 12px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @include respond-to($bp-lg) { grid-template-columns: repeat(2, 1fr); }
+  @include respond-to($bp-sm) { grid-template-columns: repeat(2, 1fr); border-radius: 16px; }
+}
+
+.stat-card {
+  text-align: center;
+  padding: 52px 30px;
+  position: relative;
+  z-index: 1;
+  @include transition(background, 0.3s);
+
+  // Vertical divider between items
+  &:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 24px;
+    right: 0;
+    height: calc(100% - 48px);
+    width: 1px;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  // On tablet 2-col grid, bottom divider for top row
+  @include respond-to($bp-lg) {
+    &:nth-child(1)::after,
+    &:nth-child(3)::after {
+      top: 24px;
+      height: calc(100% - 48px);
+    }
+    &:nth-child(2)::after { display: none; }
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    &:nth-child(3), &:nth-child(4) { border-bottom: none; }
+  }
+
+  @include respond-to($bp-sm) { padding: 36px 20px; }
+}
+
+.stat-number {
+  font-family: $font-serif;
+  font-size: clamp(48px, 6vw, 72px);
+  font-weight: 700;
+  color: $white;
+  line-height: 1;
+  margin-bottom: 12px;
+
+  sup {
+    font-size: 0.45em;
+    vertical-align: super;
+    font-weight: 400;
+  }
+}
+
+.stat-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.3px;
+}
+
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 21. ABOUT PAGE â€“ VIDEO CTA SECTION
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.video-cta-section {
+  background: $faq-bg;
+  padding: 0 50px 80px;
+  padding-top: 50px;
+
+  .section-wave { margin: 0 -50px; }
+
+  @include respond-to($bp-xl) {
+    padding: 0 50px 70px;
+    padding-top: 50px;
+    .section-wave { margin: 0 -36px; }
+  }
+  @include respond-to($bp-lg) {
+    padding: 0 30px 60px;
+    padding-top: 30px;
+    .section-wave { margin: 0 -30px; }
+  }
+  @include respond-to($bp-md) {
+    padding: 0 20px 50px;
+    padding-top: 20px;
+    .section-wave { margin: 0 -20px; }
+  }
+}
+
+.video-cta-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  height: 520px;
+
+  @include respond-to($bp-lg)  { height: 420px; }
+  @include respond-to($bp-md)  { height: 320px; border-radius: 16px; }
+  @include respond-to($bp-sm)  { height: 260px; }
+}
+
+.video-cta-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    url('images/slider-2.jpg'),
+    linear-gradient(160deg, #1a3a5c 0%, #2d6490 100%);
+  background-size: cover;
+  background-position: center;
+  @include transition(transform, 6s, ease-out);
+
+  .video-cta-inner:hover & { transform: scale(1.04); }
+}
+
+.video-cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.42) 100%
+  );
+}
+
+.video-cta-play {
+  position: absolute;
+  inset: 0;
+  @include flex(center, center);
+  z-index: 2;
+}
+
+.video-play-btn {
+  @include flex(center, center);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: $text-dark;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+  @include transition(all, 0.3s);
+  animation: watchPulse 2.4s ease-in-out infinite;
+  cursor: pointer;
+  border: none;
+
+  svg {
+    width: 26px;
+    height: 26px;
+    transform: translateX(3px);
+  }
+
+  &:hover {
+    background: $gold;
+    color: $white;
+    transform: scale(1.12);
+    animation: none;
+    box-shadow: 0 12px 50px rgba($gold, 0.5);
+  }
+
+  @include respond-to($bp-md) { width: 70px; height: 70px; svg { width: 20px; height: 20px; } }
+  @include respond-to($bp-sm) { width: 58px; height: 58px; svg { width: 17px; height: 17px; } }
+}
+
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 22. ABOUT PAGE â€“ WHY CHOOSE US
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.why-us-section {
+  background: $gallery-bg;
+  padding: 0 0 110px;
+
+  @include respond-to($bp-md) { padding: 0 0 80px; }
+}
+
+.why-us-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 70px 50px 0;
+
+  @include respond-to($bp-xl) { padding: 70px 36px 0; }
+  @include respond-to($bp-lg) { padding: 60px 30px 0; }
+  @include respond-to($bp-md) { padding: 44px 22px 0; }
+}
+
+
+.why-us-header {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 56px;
+
+  @include respond-to($bp-md) { margin-bottom: 40px; }
+}
+
+.why-us-title {
+  font-family: $font-serif;
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 700;
+  line-height: 1.18;
+  color: $text-dark;
+  margin-bottom: 16px;
+}
+
+.why-us-desc {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #6B7280;
+}
+
+.why-us-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+
+  @include respond-to($bp-lg) { grid-template-columns: repeat(2, 1fr); }
+  @include respond-to($bp-sm) { grid-template-columns: 1fr; }
+}
+
+.why-card {
+  padding: 44px 32px 40px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  background: $white;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  @include transition(all, 0.35s);
+  text-align: center;
+  cursor: default;
+
+  // Active / hover state â€” dark green
+  &:hover,
+  &.is-active {
+    background: $svc-card-bg;
+    border-color: $svc-card-bg;
+    box-shadow: 0 20px 60px rgba($svc-card-bg, 0.35);
+    transform: translateY(-6px);
+
+    .wc-icon {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: $white;
+    }
+
+    .wc-title { color: $white; }
+
+    .wc-underline { background: $gold; }
+
+    .wc-desc { color: rgba(255, 255, 255, 0.68); }
+  }
+
+  @include respond-to($bp-md) { padding: 36px 24px 32px; }
+}
+
+// Circular icon
+.wc-icon {
+  @include flex(center, center);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba($svc-card-bg, 0.07);
+  border: 1.5px solid rgba($svc-card-bg, 0.12);
+  color: $svc-card-bg;
+  margin: 0 auto 26px;
+  @include transition(all, 0.35s);
+
+  svg { width: 32px; height: 32px; }
+}
+
+.wc-title {
+  font-family: $font-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: $text-dark;
+  margin-bottom: 14px;
+  @include transition(color, 0.35s);
+}
+
+// Short gold underline below title
+.wc-underline {
+  width: 40px;
+  height: 3px;
+  background: $gold;
+  border-radius: 2px;
+  margin: 0 auto 18px;
+  @include transition(background, 0.35s);
+}
+
+.wc-desc {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #6B7280;
+  @include transition(color, 0.35s);
+}
+
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 23. ABOUT PAGE â€“ FAQ SECTION
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.about-faq-section {
+  background: $svc-section-bg;
+  padding: 0 0 110px;
+
+  @include respond-to($bp-md) { padding: 0 0 80px; }
+}
+
+.about-faq-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 70px 50px 0;
+  display: grid;
+  grid-template-columns: 44fr 56fr;
+  gap: 70px;
+  align-items: center;
+
+  @include respond-to($bp-xl) { padding: 70px 36px 0; gap: 50px; }
+  @include respond-to($bp-lg) {
+    grid-template-columns: 1fr;
+    padding: 60px 30px 0;
+    gap: 44px;
+  }
+  @include respond-to($bp-md) { padding: 44px 22px 0; }
+}
+
+// â”€â”€ Left: image â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.about-faq-img {
+  border-radius: 20px;
+  overflow: hidden;
+  height: 540px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.14);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    @include transition(transform, 0.55s);
+    background: linear-gradient(135deg, #3a6cb3 0%, #113C99 100%);
+  }
+
+  &:hover img { transform: scale(1.03); }
+
+  @include respond-to($bp-lg) { height: 420px; }
+  @include respond-to($bp-md) { height: 320px; }
+  @include respond-to($bp-sm) { height: 260px; }
+}
+
+// â”€â”€ Right: content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.about-faq-content {
+  .section-badge { margin-bottom: 20px; }
+}
+
+.about-faq-title {
+  font-family: $font-serif;
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: $text-dark;
+  margin-bottom: 18px;
+}
+
+.about-faq-desc {
+  font-size: 15px;
+  line-height: 1.78;
+  color: #6B7280;
+  margin-bottom: 36px;
+}
+
+// â”€â”€ Accordion list â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.afaq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.afaq-item {
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba($svc-card-bg, 0.05);
+  border: 1.5px solid transparent;
+  @include transition(all, 0.3s);
+
+  &:hover:not(.active) {
+    background: rgba($svc-card-bg, 0.08);
+  }
+
+  &.active {
+    background: $svc-card-bg;
+    border-color: $svc-card-bg;
+    box-shadow: 0 12px 40px rgba($svc-card-bg, 0.28);
+
+    .afaq-question {
+      color: $white;
+    }
+
+    .afaq-icon {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: $white;
+
+      .icon-plus  { display: none; }
+      .icon-minus { display: block; }
+    }
+  }
+}
+
+.afaq-question {
+  width: 100%;
+  @include flex(center, space-between, 16px);
+  padding: 20px 24px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: $text-dark;
+  line-height: 1.4;
+  cursor: pointer;
+  @include transition(color, 0.25s);
+
+  &:hover { color: $svc-card-bg; }
+  .afaq-item.active & { color: $white; &:hover { color: $white; } }
+}
+
+.afaq-icon {
+  @include flex(center, center);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  color: $text-dark;
+  flex-shrink: 0;
+  @include transition(all, 0.25s);
+
+  svg { width: 14px; height: 14px; }
+
+  .icon-minus { display: none; }
+  .icon-plus  { display: block; }
+}
+
+.afaq-answer {
+  display: none;
+  padding: 0 24px 22px;
+
+  p {
+    font-size: 14.5px;
+    line-height: 1.78;
+    color: rgba(255, 255, 255, 0.78);
+
+    // Closed (non-active) items: dark text on mint bg
+    .afaq-item:not(.active) & { color: #6B7280; }
+  }
+}

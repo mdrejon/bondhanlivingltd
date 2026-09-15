@@ -1,0 +1,273 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 11. SERVICES SECTION
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+$svc-card-bg:  #0d2f7d;
+$svc-section-bg: #E1EDE8;
+
+.services-section {
+  position: relative;
+  background: $svc-section-bg;
+  padding: 0 0 130px;
+  // overflow:clip clips decorative overflow without creating a scroll container,
+  // so position:sticky on children still works (overflow:hidden would break it)
+  overflow: clip;
+}
+
+// â”€â”€ Generic section wave separator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.section-wave {
+  position: relative;
+  z-index: 1;
+  line-height: 0;
+
+  svg {
+    width: 100%;
+    height: 80px;
+    display: block;
+
+    @include respond-to($bp-md) { height: 50px; }
+  }
+}
+
+// â”€â”€ Wave top (rooms-cream â†’ mint) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.services-wave-top {
+  position: relative;
+  z-index: 1;
+  line-height: 0;
+
+  svg {
+    width: 100%;
+    height: 80px;
+    display: block;
+  }
+}
+
+// â”€â”€ Botanical lotus bg deco â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.services-bg-deco {
+  position: absolute;
+  left: -90px;
+  top: 50%;
+  transform: translateY(-48%);
+  width: 480px;
+  height: 480px;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+
+  svg { width: 100%; height: 100%; }
+
+  @include respond-to($bp-lg) { display: none; }
+}
+
+// â”€â”€ 2-col grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.services-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 42fr 58fr;
+  gap: 64px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 50px 50px 0;
+  // align-items:start is required for sticky to work inside CSS Grid
+  align-items: start;
+
+  @include respond-to($bp-xl) { padding: 50px 36px 0; gap: 44px; }
+  @include respond-to($bp-lg) {
+    grid-template-columns: 1fr;
+    padding: 50px 30px 0;
+    gap: 40px;
+  }
+  @include respond-to($bp-md) { padding: 50px 22px 0; }
+}
+
+// â”€â”€ LEFT: sticky â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.services-left {
+  position: sticky;
+  top: 100px;
+  // align-self:start prevents the grid cell from stretching, required for sticky
+  align-self: start;
+
+  @include respond-to($bp-lg) {
+    position: static;
+    align-self: auto;
+  }
+
+  .section-badge { margin-bottom: 18px; }
+}
+
+.services-title {
+  font-family: $font-serif;
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: $text-dark;
+  margin-bottom: 20px;
+}
+
+.services-desc {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: #6B7280;
+  margin-bottom: 34px;
+  max-width: 340px;
+
+  @include respond-to($bp-lg) { max-width: 100%; }
+}
+
+.btn-services-all {
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 32px;
+  background: $gold;
+  color: $white;
+  font-size: 14.5px;
+  font-weight: 600;
+  border-radius: 50px;
+  @include transition(all, 0.28s);
+  box-shadow: 0 6px 20px rgba($gold, 0.3);
+
+  &:hover {
+    background: $gold-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba($gold, 0.38);
+  }
+}
+
+.svc-dot {
+  margin-top: 40px;
+}
+
+// â”€â”€ RIGHT: stacking cards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.services-right {
+  display: flex;
+  flex-direction: column;
+  // Must NOT have overflow:hidden/auto â€” would break sticky on child cards
+  overflow: visible;
+  align-self: start;
+}
+
+.service-card {
+  position: sticky;
+  top: 100px;
+  background: $svc-card-bg;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 36px 32px 36px 40px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  @include transition(box-shadow, 0.3s);
+
+  // Stacking z-index â€” each new card sits above the previous
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) { z-index: $i; }
+  }
+
+  &:last-child { margin-bottom: 0; }
+
+  // Hover: shadow lift + image zoom + button ghost
+  &:hover {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+
+    .svc-img-wrap img {
+      transform: scale(1.08);
+    }
+
+    .btn-view-service {
+      background: transparent;
+      border-color: rgba(255,255,255,0.55);
+      color: $white;
+      box-shadow: none;
+    }
+  }
+
+  @include respond-to($bp-md) {
+    flex-direction: column;
+    padding: 28px;
+    position: static; // disable sticky on mobile
+    margin-bottom: 20px;
+  }
+}
+
+// â”€â”€ Card content (left side) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.svc-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.svc-title {
+  font-family: $font-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: $white;
+  margin-bottom: 14px;
+  position: relative;
+  padding-bottom: 14px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 36px;
+    height: 2.5px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+.svc-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.68);
+  margin-top: 16px;
+  margin-bottom: 26px;
+}
+
+.btn-view-service {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 28px;
+  background: $white;
+  color: $dark;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: 2px solid $gold;
+  @include transition(all, 0.25s);
+  box-shadow: 0 4px 14px rgba($gold, 0.28);
+
+  &:hover {
+    background: $gold-hover;
+    border-color: $gold-hover;
+  }
+}
+
+// â”€â”€ Card image (right side) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.svc-img-wrap {
+  flex-shrink: 0;
+  width: 210px;
+  height: 175px;
+  border-radius: 12px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    @include transition(transform, 0.55s);
+    // Gradient fallback
+    background: linear-gradient(135deg, #3a7a60 0%, #1a4a35 100%);
+  }
+
+  @include respond-to($bp-xl) { width: 180px; height: 155px; }
+
+  @include respond-to($bp-md) {
+    width: 100%;
+    height: 200px;
+  }
+}
+

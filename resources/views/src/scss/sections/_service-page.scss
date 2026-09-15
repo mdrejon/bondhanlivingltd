@@ -1,0 +1,544 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// SECTION 26 â€“ SERVICE PAGE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.svc-page-section {
+  background: $white;
+  padding: 80px 0 110px;
+}
+
+.svc-page-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 50px;
+
+  @include respond-to($bp-xl) { padding: 0 36px; }
+  @include respond-to($bp-lg) { padding: 0 30px; }
+  @include respond-to($bp-md) { padding: 0 22px; }
+}
+
+.svc-page-header {
+  text-align: center;
+  margin-bottom: 52px;
+
+  .section-badge { margin-bottom: 14px; }
+}
+
+.svc-page-heading {
+  font-family: $font-serif;
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 700;
+  color: $text-dark;
+  line-height: 1.15;
+}
+
+.svc-page-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @include respond-to($bp-lg) { grid-template-columns: repeat(2, 1fr); }
+  @include respond-to($bp-sm) { grid-template-columns: 1fr; }
+}
+
+.svc-page-card {
+  background: rgba($svc-section-bg, 0.45);
+  border: 1.5px solid rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+  overflow: hidden;
+  @include transition(all, 0.35s);
+
+  &:hover {
+    box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    border-color: rgba($gold, 0.4);
+
+    .svc-card-img img { transform: scale(1.06); }
+  }
+}
+
+.svc-card-img {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    @include transition(transform, 0.5s, ease);
+  }
+
+  @include respond-to($bp-md) { height: 190px; }
+}
+
+.svc-card-body {
+  padding: 26px 24px 30px;
+}
+
+.svc-card-meta {
+  @include flex(center, flex-start, 14px);
+  margin-bottom: 16px;
+}
+
+.svc-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba($svc-card-bg, 0.1);
+  color: $svc-card-bg;
+  @include flex(center, center);
+  flex-shrink: 0;
+
+  svg { width: 22px; height: 22px; }
+}
+
+.svc-card-title {
+  font-family: $font-serif;
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 700;
+  color: $text-dark;
+  position: relative;
+  padding-bottom: 10px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 34px;
+    height: 2.5px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+.svc-card-desc {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: #6B7280;
+  margin-bottom: 22px;
+}
+
+.btn-view-svc {
+  display: inline-block;
+  padding: 10px 24px;
+  background: $gold;
+  color: $white;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: 50px;
+  font-family: $font-sans;
+  @include transition(all, 0.28s);
+
+  &:hover {
+    background: $svc-card-bg;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba($svc-card-bg, 0.3);
+  }
+}
+
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// SECTION 27 â€“ SERVICE DETAILS PAGE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.sd-section {
+  background: $white;
+  padding: 80px 0 110px;
+}
+
+.sd-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 50px;
+  display: grid;
+  grid-template-columns: 370px 1fr;
+  gap: 40px;
+  align-items: start;
+
+  @include respond-to($bp-xl) { padding: 0 36px; grid-template-columns: 330px 1fr; gap: 32px; }
+  @include respond-to($bp-lg) { grid-template-columns: 1fr; padding: 0 30px; }
+  @include respond-to($bp-md) { padding: 0 22px; }
+}
+
+// â”€â”€ Left sticky sidebar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.sd-left {
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @include respond-to($bp-lg) { position: static; }
+}
+
+.sd-sidebar-box {
+  background: rgba($svc-section-bg, 0.4);
+  border: 1.5px solid rgba(0, 0, 0, 0.07);
+  border-radius: 18px;
+  padding: 28px 26px;
+}
+
+.sd-box-title {
+  font-family: $font-serif;
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 700;
+  color: $text-dark;
+  padding-bottom: 14px;
+  margin-bottom: 22px;
+  position: relative;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.07);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1.5px;
+    left: 0;
+    width: 36px;
+    height: 2.5px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+// Categories list
+.sd-cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sd-cat-item {
+  @include flex(center, space-between, 10px);
+  padding: 13px 18px;
+  border-radius: 10px;
+  background: $white;
+  border: 1.5px solid rgba(0, 0, 0, 0.07);
+  cursor: pointer;
+  text-decoration: none;
+  @include transition(all, 0.25s);
+
+  span:first-child {
+    font-size: 14px;
+    font-weight: 500;
+    color: $text-dark;
+  }
+
+  .sd-cat-count {
+    font-size: 13px;
+    color: #9CA3AF;
+    font-weight: 500;
+  }
+
+  &:hover {
+    background: rgba($svc-card-bg, 0.06);
+    border-color: rgba($svc-card-bg, 0.2);
+    span:first-child { color: $svc-card-bg; }
+  }
+
+  &.active {
+    background: $svc-card-bg;
+    border-color: $svc-card-bg;
+
+    span:first-child { color: $white; font-weight: 600; }
+    .sd-cat-count { color: rgba($white, 0.7); }
+
+    &:hover { background: $svc-card-bg; }
+  }
+}
+
+// Service profile download buttons
+.sd-profile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sd-profile-item {
+  @include flex(center, flex-start, 14px);
+  padding: 13px 16px;
+  border-radius: 10px;
+  background: $white;
+  border: 1.5px solid rgba(0, 0, 0, 0.07);
+  text-decoration: none;
+  @include transition(all, 0.25s);
+
+  .sd-pi-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: rgba($svc-card-bg, 0.08);
+    color: $svc-card-bg;
+    @include flex(center, center);
+    flex-shrink: 0;
+    svg { width: 18px; height: 18px; }
+  }
+
+  .sd-pi-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  &:hover {
+    border-color: rgba($gold, 0.5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    .sd-pi-icon { background: $gold; color: $white; }
+    .sd-pi-label { color: $gold; }
+  }
+}
+
+// Needs help box
+.sd-help-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.sd-help-item {
+  @include flex(center, flex-start, 14px);
+}
+
+.sd-help-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba($svc-card-bg, 0.09);
+  color: $svc-card-bg;
+  @include flex(center, center);
+  flex-shrink: 0;
+  svg { width: 18px; height: 18px; }
+}
+
+.sd-help-label { font-size: 11.5px; color: #9CA3AF; margin-bottom: 2px; }
+.sd-help-value { font-size: 14.5px; font-weight: 700; color: $text-dark; }
+
+// â”€â”€ Right content area â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+.sd-main-img {
+  border-radius: 18px;
+  overflow: hidden;
+  height: 420px;
+  margin-bottom: 36px;
+  position: relative;
+
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .sd-img-dots {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    @include flex(center, center, 6px);
+  }
+
+  .sd-img-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba($white, 0.5);
+    border: none;
+    cursor: pointer;
+    @include transition(all, 0.25s);
+    padding: 0;
+
+    &.active {
+      background: $white;
+      width: 22px;
+      border-radius: 4px;
+    }
+  }
+
+  @include respond-to($bp-md) { height: 280px; }
+  @include respond-to($bp-sm) { height: 220px; }
+}
+
+.sd-content-title {
+  font-family: $font-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  color: $text-dark;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 44px;
+    height: 3px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+.sd-content-sub {
+  font-family: $font-serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 700;
+  color: $text-dark;
+  padding-bottom: 14px;
+  margin: 36px 0 18px;
+  position: relative;
+  font-style: italic;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2.5px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+.sd-text {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #6B7280;
+  margin-bottom: 20px;
+}
+
+.sd-img-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 26px 0 30px;
+
+  img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 14px;
+    display: block;
+  }
+
+  @include respond-to($bp-sm) {
+    grid-template-columns: 1fr;
+    img { height: 200px; }
+  }
+}
+
+// Why choose list
+.sd-why-list {
+  list-style: none;
+  margin: 18px 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  li {
+    font-size: 14.5px;
+    color: $text-dark;
+    padding: 9px 0 9px 22px;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    &:last-child { border-bottom: none; }
+
+    &::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: $gold;
+      font-size: 20px;
+      line-height: 1;
+      top: 8px;
+    }
+  }
+}
+
+// FAQ accordion
+.sd-faq-section { margin-top: 42px; }
+
+.sd-faq-title {
+  font-family: $font-serif;
+  font-size: clamp(22px, 2.8vw, 32px);
+  font-weight: 700;
+  color: $text-dark;
+  padding-bottom: 14px;
+  margin-bottom: 22px;
+  position: relative;
+  font-style: italic;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2.5px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+.sd-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sd-faq-item {
+  border-radius: 12px;
+  background: rgba($svc-section-bg, 0.4);
+  border: 1.5px solid rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  @include transition(border-color, 0.25s);
+
+  &.active { border-color: rgba($svc-card-bg, 0.25); }
+}
+
+.sd-faq-question {
+  @include flex(center, space-between, 12px);
+  padding: 18px 22px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: $font-sans;
+
+  span {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  .sd-faq-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: $white;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    @include flex(center, center);
+    flex-shrink: 0;
+    @include transition(all, 0.25s);
+    font-size: 18px;
+    color: $text-dark;
+    line-height: 1;
+  }
+
+  &[aria-expanded="true"] .sd-faq-icon {
+    background: $svc-card-bg;
+    border-color: $svc-card-bg;
+    color: $white;
+    transform: rotate(45deg);
+  }
+}
+
+.sd-faq-answer {
+  display: none;
+  padding: 0 22px 18px;
+  font-size: 14px;
+  line-height: 1.78;
+  color: #6B7280;
+}
+

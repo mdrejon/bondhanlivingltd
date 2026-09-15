@@ -1,0 +1,253 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 10. ROOMS & SUITES SECTION
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.rooms-section {
+  padding: 0 0 110px;
+  background: $rooms-bg;
+}
+
+// â”€â”€ Section header (centered) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.rooms-header {
+  text-align: center;
+  padding-top: 50px;
+  margin-bottom: 56px;
+
+  .section-badge {
+    margin-bottom: 18px;
+    display: inline-flex;
+  }
+}
+
+.rooms-title {
+  font-family: $font-serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 700;
+  line-height: 1.18;
+  color: $text-dark;
+}
+
+// â”€â”€ Card grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 50px;
+
+  @include respond-to($bp-xl) { padding: 0 36px; gap: 22px; }
+  @include respond-to($bp-lg) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 30px;
+  }
+  @include respond-to($bp-sm) {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+}
+
+// â”€â”€ Individual card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.room-card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: $white;
+  border: 1.5px solid rgba(0,0,0,0.07);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  @include transition(all, 0.35s);
+  cursor: default;
+
+  &:hover {
+    border-color: rgba($gold, 0.35);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.13);
+    transform: translateY(-6px);
+
+    .room-amenities {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .room-card-img img {
+      transform: scale(1.06);
+    }
+  }
+}
+
+// â”€â”€ Card image area â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.room-card-img {
+  position: relative;
+  overflow: hidden;
+  height: 240px;
+
+  @include respond-to($bp-md) { height: 210px; }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    @include transition(transform, 0.55s);
+    // Gradient fallback while images load
+    background: linear-gradient(135deg, #3a6cb3 0%, #113C99 60%, #0d2f7d 100%);
+  }
+}
+
+// â”€â”€ Rating badge (top-left) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.room-rating {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px 5px 8px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  color: $text-dark;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+
+  svg {
+    width: 13px;
+    height: 13px;
+    color: $gold;
+    flex-shrink: 0;
+  }
+}
+
+// â”€â”€ Amenity icons bar (slides up on hover) â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.room-amenities {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+  opacity: 0;
+  transform: translateY(12px);
+  @include transition(all, 0.35s, cubic-bezier(0.25, 0.46, 0.45, 0.94));
+}
+
+.ram-icon {
+  @include flex(center, center);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: $white;
+  flex-shrink: 0;
+  @include transition(all, 0.22s);
+  cursor: pointer;
+
+  svg { width: 16px; height: 16px; }
+
+  &:hover {
+    background: rgba(255,255,255,0.32);
+    border-color: rgba(255,255,255,0.6);
+    transform: scale(1.12);
+  }
+
+  &--active {
+    background: $gold;
+    border-color: $gold;
+
+    &:hover {
+      background: $gold-hover;
+      border-color: $gold-hover;
+    }
+  }
+}
+
+// â”€â”€ Card body â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.room-card-body {
+  padding: 24px 24px 20px;
+}
+
+.room-card-title {
+  font-family: $font-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: $text-dark;
+  margin-bottom: 10px;
+  position: relative;
+  padding-bottom: 12px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 38px;
+    height: 2.5px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+.room-card-desc {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #6B7280;
+  margin-bottom: 20px;
+  margin-top: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// â”€â”€ Card footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.room-card-footer {
+  @include flex(center, space-between);
+  padding-top: 16px;
+  border-top: 1px solid rgba(0,0,0,0.07);
+  gap: 12px;
+}
+
+.room-price {
+  font-family: $font-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: $text-dark;
+
+  span {
+    font-family: $font-sans;
+    font-size: 12px;
+    font-weight: 400;
+    color: $text-gray;
+    margin-left: 2px;
+  }
+}
+
+.btn-room-details {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  background: $gold;
+  color: $white;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: 50px;
+  white-space: nowrap;
+  @include transition(all, 0.25s);
+  box-shadow: 0 4px 14px rgba($gold, 0.28);
+
+  &:hover {
+    background: $gold-hover;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 20px rgba($gold, 0.36);
+  }
+}
+
+

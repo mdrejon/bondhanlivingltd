@@ -1,0 +1,92 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 18. ABOUT PAGE â€“ BREADCRUMB HERO
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.page-hero {
+  position: relative;
+  height: 380px;
+  @include flex(center, center);
+  overflow: hidden;
+
+  @include respond-to($bp-md) { height: 300px; }
+  @include respond-to($bp-sm) { height: 240px; }
+}
+
+.page-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    url('images/slider-1.jpg'),
+    linear-gradient(160deg, #1a3a5c 0%, #2d6490 35%, #1e4d72 65%, #0f2a42 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(12, 12, 30, 0.72) 0%,
+    rgba(12, 12, 30, 0.55) 70%,
+    rgba(12, 12, 30, 0.45) 100%
+  );
+}
+
+.page-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.page-hero-title {
+  font-family: $font-serif;
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 700;
+  color: $white;
+  line-height: 1.1;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+}
+
+.page-breadcrumb {
+  @include flex(center, center, 10px);
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+
+  a {
+    color: rgba(255, 255, 255, 0.78);
+    @include transition(color);
+    &:hover { color: $off-white }
+  }
+
+  .bc-sep {
+    @include flex(center, center);
+    color: rgba(255, 255, 255, 0.45);
+    svg { width: 14px; height: 14px; }
+  }
+
+  .bc-current {
+    color: $white;
+    font-weight: 600;
+  }
+}
+
+.page-hero-wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  line-height: 0;
+
+  svg {
+    width: 100%;
+    height: 80px;
+    display: block;
+
+    @include respond-to($bp-md) { height: 50px; }
+  }
+}
+

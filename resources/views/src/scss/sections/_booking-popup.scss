@@ -1,0 +1,408 @@
+// ═══════════════════════════════════════════════════
+// BOOKING POPUP MODAL
+// ═══════════════════════════════════════════════════
+
+.bk-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  background: rgba($dark, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+
+  &.is-open {
+    opacity: 1;
+    pointer-events: all;
+
+    .bk-modal {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+.bk-modal {
+  background: $white;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 780px;
+  max-height: 92vh;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0.9) translateY(40px);
+  opacity: 0;
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1),
+    opacity 0.35s ease;
+  box-shadow: 0 40px 100px rgba($dark, 0.5);
+  scrollbar-width: thin;
+  scrollbar-color: rgba($gold, 0.4) transparent;
+
+  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($gold, 0.35);
+    border-radius: 10px;
+  }
+}
+
+// ── Modal Header (dark gradient) ───────────────────
+.bk-modal-header {
+  background: linear-gradient(135deg, $dark 0%, #1a2a4a 100%);
+  border-radius: 24px 24px 0 0;
+  padding: 36px 44px 32px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(-45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px),
+      repeating-linear-gradient( 45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px);
+    pointer-events: none;
+  }
+
+  > * { position: relative; z-index: 1; }
+
+  @include respond-to($bp-sm) { padding: 28px 24px 24px; }
+}
+
+.bk-modal-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.bk-modal-title {
+  font-family: $font-serif;
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 700;
+  color: $white;
+  line-height: 1.15;
+  margin-bottom: 24px;
+
+  span {
+    display: block;
+    width: 44px;
+    height: 3px;
+    background: $gold;
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+}
+
+// ── Summary Pills ───────────────────────────────────
+.bk-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.bk-summary-pill {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 12px;
+  padding: 12px 16px;
+  min-width: 120px;
+  flex: 1;
+  @include transition(border-color, 0.2s);
+
+  &:focus-within {
+    border-color: rgba($gold, 0.6);
+    background: rgba(255,255,255,0.11);
+  }
+
+  @include respond-to($bp-sm) { min-width: 100px; padding: 10px 12px; }
+}
+
+.bk-sum-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  cursor: default;
+  user-select: none;
+}
+
+.bk-sum-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: $white;
+  font-family: $font-sans;
+  width: 100%;
+  padding: 0;
+  color-scheme: dark;
+  cursor: pointer;
+
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(1) opacity(0.5);
+    cursor: pointer;
+    margin-left: -2px;
+  }
+}
+
+.bk-sum-select {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: $white;
+  font-family: $font-sans;
+  width: 100%;
+  padding: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0px center;
+  background-size: 14px;
+  padding-right: 18px;
+
+  option {
+    background: $dark;
+    color: $white;
+  }
+}
+
+// ── Close Button ────────────────────────────────────
+.bk-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  @include transition(all, 0.25s);
+
+  svg { width: 18px; height: 18px; pointer-events: none; }
+
+  &:hover {
+    background: rgba(255,255,255,0.2);
+    transform: rotate(90deg);
+  }
+}
+
+// ── Form Body ───────────────────────────────────────
+.bk-form-body {
+  padding: 36px 44px 40px;
+
+  @include respond-to($bp-sm) { padding: 24px 20px 28px; }
+}
+
+.bk-form-section-title {
+  font-family: $font-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: $text-dark;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid #F0F4F8;
+}
+
+.bk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 24px;
+  margin-bottom: 18px;
+
+  @include respond-to($bp-sm) { grid-template-columns: 1fr; }
+}
+
+.bk-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  &.bk-full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: $text-dark;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 13px 16px;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: $font-sans;
+    color: $text-dark;
+    background: #FAFBFC;
+    outline: none;
+    @include transition(border-color, 0.25s);
+    width: 100%;
+
+    &::placeholder { color: #A8B4C0; }
+    &:focus { border-color: $gold; background: $white; }
+  }
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 15px;
+    background-color: #FAFBFC;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  textarea {
+    min-height: 110px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+}
+
+// ── Submit Row ──────────────────────────────────────
+.bk-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1.5px solid #F0F4F8;
+  flex-wrap: wrap;
+
+  p {
+    font-size: 12.5px;
+    color: $text-gray;
+    line-height: 1.5;
+    flex: 1;
+    min-width: 180px;
+  }
+}
+
+.bk-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 38px;
+  background: $gold;
+  color: $white;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-family: $font-sans;
+  letter-spacing: 0.3px;
+  @include transition(all, 0.3s);
+  flex-shrink: 0;
+
+  svg { width: 18px; height: 18px; }
+
+  &:hover {
+    background: $dark;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba($gold, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// ── Success State ───────────────────────────────────
+.bk-success-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 40px 52px;
+  gap: 16px;
+
+  &.is-visible { display: flex; }
+}
+
+.bk-success-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(74, 222, 128, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+
+  svg {
+    width: 36px;
+    height: 36px;
+    color: #22c55e;
+  }
+}
+
+.bk-success-title {
+  font-family: $font-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: $text-dark;
+}
+
+.bk-success-desc {
+  font-size: 14.5px;
+  color: $text-gray;
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+.bk-success-close {
+  margin-top: 8px;
+  padding: 13px 36px;
+  background: $gold;
+  color: $white;
+  font-size: 14.5px;
+  font-weight: 700;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-family: $font-sans;
+  @include transition(all, 0.3s);
+
+  &:hover { background: $dark; }
+}
+
+

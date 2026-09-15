@@ -1,0 +1,382 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 12. FAQ + BOOKING SECTION
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.faq-booking-section {
+  position: relative;
+  background: $faq-bg;
+  padding: 0 0 120px;
+  overflow: hidden;
+}
+
+// â”€â”€ Decorative cross-dot grid (top) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.faq-deco-crosses {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(4, 18px);
+  gap: 10px;
+  opacity: 0.35;
+  pointer-events: none;
+
+  span {
+    display: block;
+    width: 18px;
+    height: 18px;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      background: $svc-card-bg;
+      border-radius: 1px;
+    }
+    &::before { width: 2px; height: 100%; left: 50%; transform: translateX(-50%); }
+    &::after  { width: 100%; height: 2px; top: 50%; transform: translateY(-50%); }
+  }
+}
+
+// â”€â”€ Right photo (bleeds to viewport edge) â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.faq-bg-photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 36%;
+  height: 100%;
+  z-index: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    background: linear-gradient(135deg, #2a6070 0%, #1a4050 100%);
+  }
+
+  @include respond-to($bp-lg) { display: none; }
+}
+
+// â”€â”€ Inner grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.faq-booking-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 54fr 46fr;
+  gap: 60px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 50px 50px 0;
+  align-items: start;
+
+  @include respond-to($bp-xl) { padding: 50px 36px 0; gap: 44px; }
+  @include respond-to($bp-lg) {
+    grid-template-columns: 1fr;
+    padding: 50px 30px 0;
+  }
+  @include respond-to($bp-md) { padding: 30px 22px 0; }
+}
+
+// â”€â”€ FAQ left column â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.faq-left {
+  .section-badge { margin-bottom: 18px; }
+}
+
+.faq-section-title {
+  font-family: $font-serif;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: $text-dark;
+  margin-bottom: 12px;
+}
+
+.faq-title-bar {
+  width: 48px;
+  height: 3px;
+  background: $gold;
+  border-radius: 2px;
+  margin-bottom: 38px;
+}
+
+// â”€â”€ FAQ accordion list â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.faq-item {
+  border-radius: 10px;
+  overflow: hidden;
+  @include transition(box-shadow, 0.3s);
+
+  // Closed state
+  background: $white;
+  border: 1.5px solid rgba(0,0,0,0.07);
+
+  &:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); }
+
+  // Open / active state
+  &.active {
+    background: $svc-card-bg;
+    border-color: $svc-card-bg;
+    box-shadow: 0 8px 30px rgba($svc-card-bg, 0.25);
+
+    .faq-question {
+      color: $white;
+    }
+
+    .icon-minus { display: block; }
+    .icon-plus  { display: none; }
+
+    .faq-answer { display: block; }
+  }
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: $text-dark;
+  line-height: 1.4;
+  cursor: pointer;
+  @include transition(color, 0.2s);
+
+  &:hover { color: $svc-card-bg; }
+
+  .faq-item.active & { color: $white; &:hover { color: $white; } }
+}
+
+.faq-icon {
+  @include flex(center, center);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  flex-shrink: 0;
+  color: $text-dark;
+  @include transition(all, 0.25s);
+
+  .faq-item.active & {
+    border-color: rgba(255,255,255,0.3);
+    color: $white;
+  }
+
+  svg { width: 14px; height: 14px; }
+}
+
+// Show/hide icons based on state
+.icon-minus { display: none; }
+.icon-plus  { display: block; }
+
+.faq-answer {
+  display: none;
+  padding: 0 24px 22px;
+
+  p {
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.72);
+  }
+}
+
+// â”€â”€ Booking card (right column) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.faq-right {
+  @include respond-to($bp-lg) { width: 100%; }
+}
+
+.booking-card {
+  background: $svc-card-bg;
+  border-radius: 20px;
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba($svc-card-bg, 0.35);
+
+  // Diamond cross texture overlay
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.025) 0px,
+        rgba(255,255,255,0.025) 1px,
+        transparent 1px,
+        transparent 10px
+      ),
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.025) 0px,
+        rgba(255,255,255,0.025) 1px,
+        transparent 1px,
+        transparent 10px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * { position: relative; z-index: 1; }
+}
+
+.booking-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: 50px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.booking-title {
+  font-family: $font-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: $white;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+
+// Gold underline below title
+.booking-title + .booking-form,
+.booking-title {
+  position: relative;
+  padding-bottom: 18px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 42px;
+    height: 3px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+// â”€â”€ Form grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.booking-form {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.bf-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @include respond-to($bp-sm) { grid-template-columns: 1fr; }
+}
+
+.bf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+  }
+
+  input[type="date"] {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid rgba(255,255,255,0.2);
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: $white;
+    font-family: $font-sans;
+    outline: none;
+    color-scheme: dark;
+    @include transition(border-color, 0.25s);
+
+    &:focus { border-color: $gold; }
+  }
+}
+
+// Select wrapper for custom chevron
+.bf-select-wrap {
+  position: relative;
+
+  select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid rgba(255,255,255,0.2);
+    padding: 10px 28px 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    font-family: $font-sans;
+    outline: none;
+    cursor: pointer;
+    @include transition(border-color, 0.25s);
+
+    option {
+      background: $svc-card-bg;
+      color: $white;
+    }
+
+    &:focus { border-color: $gold; color: $white; }
+  }
+
+  .bf-chevron {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: rgba(255,255,255,0.45);
+    pointer-events: none;
+  }
+}
+
+// â”€â”€ Check Availability button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.btn-check-avail {
+  width: 100%;
+  padding: 16px;
+  background: $white;
+  color: $dark;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  @include transition(all, 0.28s);
+  box-shadow: 0 6px 22px rgba($gold, 0.35);
+  margin-top: 8px;
+
+  &:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba($gold, 0.42);
+  }
+}
+

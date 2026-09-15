@@ -1,0 +1,70 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 12. KEYFRAME ANIMATIONS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+@keyframes bgZoom {
+  from { transform: scale(1.15); }
+  to   { transform: scale(1);    }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(45px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes watchPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
+  70%  { box-shadow: 0 0 0 16px rgba(255,255,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+
+@keyframes playFlip {
+  0%   { transform: translateX(2px) rotateY(0deg); }
+  40%  { transform: translateX(2px) rotateY(0deg); }
+  60%  { transform: translateX(2px) rotateY(360deg); }
+  100% { transform: translateX(2px) rotateY(360deg); }
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// SCROLL REVEAL ANIMATIONS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+[data-reveal] {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal="up"]    { transform: translateY(50px); }
+[data-reveal="left"]  { transform: translateX(-50px); }
+[data-reveal="right"] { transform: translateX(50px); }
+[data-reveal="scale"] { transform: scale(0.9); }
+[data-reveal="fade"]  { transform: none; }
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+// Stagger delays for grouped elements
+@for $i from 1 through 8 {
+  [data-reveal][data-reveal-delay="#{$i}"] {
+    transition-delay: #{$i * 0.12}s;
+  }
+}
+
+// Respect reduced-motion preference
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

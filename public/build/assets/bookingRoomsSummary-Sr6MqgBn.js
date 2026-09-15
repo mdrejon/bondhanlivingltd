@@ -1,0 +1,1 @@
+function m(e){var n;const r=e.rooms??[];if(!r.length)return"—";const o=((n=r[0].room_type)==null?void 0:n.name)??"Unassigned";return r.length>1?`${o} +${r.length-1} more`:o}function t(e){var n;const r=e.rooms??[];if(!r.length)return"—";const o=(n=r[0].room)==null?void 0:n.room_number;return o?r.length>1?`${o} +${r.length-1}`:o:"—"}export{m as a,t as r};

@@ -1,0 +1,474 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 24. ROOM DETAILS PAGE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+.room-details-section {
+  background: $white;
+  padding: 80px 0 110px;
+}
+
+.rd-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 50px;
+  display: grid;
+  grid-template-columns: 1fr 390px;
+  gap: 50px;
+  align-items: start;
+
+  @include respond-to($bp-xl) { padding: 0 36px; gap: 36px; grid-template-columns: 1fr 360px; }
+  @include respond-to($bp-lg) { grid-template-columns: 1fr; padding: 0 30px; gap: 44px; }
+  @include respond-to($bp-md) { padding: 0 22px; }
+}
+
+// â”€â”€ Left column â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.rd-title {
+  font-family: $font-serif;
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 700;
+  color: $text-dark;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  position: relative;
+  padding-bottom: 18px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 46px;
+    height: 3px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+.rd-price-row {
+  @include flex(center, space-between, 12px);
+  margin: 22px 0 26px;
+}
+
+.rd-price {
+  font-size: 21px;
+  font-weight: 700;
+  color: $text-dark;
+
+  span { font-size: 14px; font-weight: 400; color: #9CA3AF; margin-left: 2px; }
+}
+
+.rd-rating {
+  @include flex(center, flex-end, 5px);
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-dark;
+
+  svg { width: 15px; height: 15px; fill: #F59E0B; }
+}
+
+.rd-main-img {
+  border-radius: 18px;
+  overflow: hidden;
+  height: 430px;
+  margin-bottom: 14px;
+  background: #ddd;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    @include transition(transform, 0.55s);
+    &:hover { transform: scale(1.03); }
+  }
+
+  @include respond-to($bp-md) { height: 300px; }
+  @include respond-to($bp-sm) { height: 240px; }
+}
+
+.rd-thumbs {
+  @include flex(stretch, flex-start, 12px);
+  margin-bottom: 36px;
+}
+
+.rd-thumb {
+  flex: 1;
+  height: 86px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2.5px solid transparent;
+  @include transition(all, 0.25s);
+
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  &.active { border-color: $gold; }
+  &:hover { border-color: rgba($gold, 0.6); transform: translateY(-2px); }
+}
+
+.rd-desc {
+  font-size: 15px;
+  line-height: 1.82;
+  color: #6B7280;
+  margin-bottom: 20px;
+}
+
+// Room specs row
+.rd-specs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 32px 0 36px;
+
+  @include respond-to($bp-md) { grid-template-columns: repeat(2, 1fr); }
+}
+
+.rd-spec-card {
+  text-align: center;
+  padding: 22px 14px;
+  border-radius: 14px;
+  background: rgba($svc-section-bg, 0.65);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.rd-spec-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba($svc-card-bg, 0.09);
+  color: $svc-card-bg;
+  @include flex(center, center);
+  margin: 0 auto 12px;
+
+  svg { width: 21px; height: 21px; }
+}
+
+.rd-spec-value {
+  font-family: $font-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: $text-dark;
+  margin-bottom: 3px;
+}
+
+.rd-spec-label {
+  font-size: 11.5px;
+  color: #9CA3AF;
+  letter-spacing: 0.2px;
+}
+
+// Section headings inside left column
+.rd-section-title {
+  font-family: $font-serif;
+  font-size: clamp(19px, 2.2vw, 25px);
+  font-weight: 700;
+  color: $text-dark;
+  margin: 42px 0 0;
+  padding-bottom: 14px;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.07);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1.5px;
+    left: 0;
+    width: 38px;
+    height: 2.5px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+// Included/Exclude
+.rd-include-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 28px;
+  margin-top: 18px;
+
+  @include respond-to($bp-sm) { grid-template-columns: 1fr; }
+}
+
+.rd-include-col {
+  list-style: none;
+
+  li {
+    font-size: 14px;
+    color: $text-dark;
+    padding: 9px 0 9px 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    &:last-child { border-bottom: none; }
+
+    &::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: $gold;
+      font-size: 20px;
+      line-height: 1;
+      top: 8px;
+    }
+  }
+}
+
+// Amenities
+.rd-amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+
+  @include respond-to($bp-md) { grid-template-columns: repeat(2, 1fr); }
+  @include respond-to($bp-sm) { grid-template-columns: 1fr; }
+}
+
+.rd-amenity-item {
+  @include flex(center, flex-start, 12px);
+  padding: 13px 16px;
+  border-radius: 10px;
+  background: rgba($svc-section-bg, 0.55);
+  font-size: 13px;
+  color: $text-dark;
+  font-weight: 500;
+}
+
+.rd-am-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba($svc-card-bg, 0.1);
+  color: $svc-card-bg;
+  @include flex(center, center);
+  flex-shrink: 0;
+
+  svg { width: 16px; height: 16px; }
+}
+
+// Room rules
+.rd-rules-list {
+  list-style: none;
+  margin-top: 18px;
+
+  li {
+    font-size: 14px;
+    color: $text-dark;
+    padding: 9px 0 9px 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    &:last-child { border-bottom: none; }
+
+    &::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: $gold;
+      font-size: 20px;
+      line-height: 1;
+      top: 8px;
+    }
+  }
+}
+
+// â”€â”€ Right: Sticky sidebar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.rd-right {
+  position: sticky;
+  top: 96px;
+}
+
+.rd-sidebar-card {
+  background: rgba($svc-section-bg, 0.45);
+  border: 1.5px solid rgba(0, 0, 0, 0.07);
+  border-radius: 18px;
+  padding: 26px 24px;
+  margin-bottom: 22px;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.rd-card-title {
+  font-family: $font-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: $text-dark;
+  padding-bottom: 14px;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.07);
+  margin-bottom: 14px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1.5px;
+    left: 0;
+    width: 30px;
+    height: 2.5px;
+    background: $gold;
+    border-radius: 2px;
+  }
+}
+
+.rd-card-desc {
+  font-size: 13.5px;
+  color: #6B7280;
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+
+.rd-book-form { display: flex; flex-direction: column; gap: 10px; }
+
+.rd-field {
+  @include flex(center, space-between, 10px);
+  background: $white;
+  border-radius: 10px;
+  padding: 11px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  @include transition(border-color, 0.2s);
+
+  &:focus-within { border-color: $gold; }
+
+  label {
+    font-size: 12.5px;
+    color: #6B7280;
+    font-weight: 500;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  input[type="date"],
+  select {
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-dark;
+    background: transparent;
+    border: none;
+    outline: none;
+    text-align: right;
+    cursor: pointer;
+    font-family: $font-sans;
+    max-width: 130px;
+  }
+}
+
+// Extra services
+.rd-extra-services { margin: 4px 0 18px; }
+
+.rd-extra-item {
+  @include flex(center, space-between, 8px);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+
+  &:last-child { border-bottom: none; }
+
+  .rd-ei-left {
+    @include flex(center, flex-start, 9px);
+    font-size: 13.5px;
+    color: $text-dark;
+  }
+
+  .rd-ei-price {
+    font-size: 12.5px;
+    color: #9CA3AF;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: $svc-card-bg;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+}
+
+.rd-total-row {
+  @include flex(center, space-between);
+  padding: 14px 0 18px;
+  border-top: 1.5px solid rgba(0, 0, 0, 0.07);
+
+  span { font-size: 13.5px; font-weight: 600; color: $text-dark; }
+  strong { font-family: $font-serif; font-size: 24px; font-weight: 700; color: $text-dark; }
+}
+
+.btn-book-now {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: $gold;
+  color: $white;
+  font-size: 14.5px;
+  font-weight: 700;
+  border-radius: 50px;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-family: $font-sans;
+  letter-spacing: 0.5px;
+  @include transition(all, 0.3s);
+
+  &:hover {
+    background: $svc-card-bg;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba($svc-card-bg, 0.3);
+  }
+}
+
+// Reservation support
+.rd-support-list { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
+
+.rd-support-item {
+  @include flex(center, flex-start, 14px);
+}
+
+.rd-si-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba($svc-card-bg, 0.09);
+  color: $svc-card-bg;
+  @include flex(center, center);
+  flex-shrink: 0;
+
+  svg { width: 18px; height: 18px; }
+}
+
+.rd-si-label { font-size: 11.5px; color: #9CA3AF; margin-bottom: 3px; }
+.rd-si-value { font-size: 14px; font-weight: 700; color: $text-dark; }
+
+// â”€â”€ Room Gallery â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.rd-gallery-section {
+  background: $svc-section-bg;
+  padding: 0 0 110px;
+}
+
+.rd-gallery-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 70px 50px 0;
+
+  @include respond-to($bp-xl) { padding: 70px 36px 0; }
+  @include respond-to($bp-lg) { padding: 60px 30px 0; }
+  @include respond-to($bp-md) { padding: 44px 22px 0; }
+}
+
+.rd-gallery-header {
+  text-align: center;
+  margin-bottom: 44px;
+
+  .section-badge { margin-bottom: 14px; }
+}
+
+.rd-gallery-title {
+  font-family: $font-serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
+  color: $text-dark;
+  line-height: 1.15;
+}
+

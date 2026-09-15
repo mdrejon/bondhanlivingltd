@@ -1,0 +1,175 @@
+﻿// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// CHECK AVAILABILITY BAR
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+.check-avail-bar {
+  position: relative;
+  z-index: 20;
+  margin-top: -68px; // overlaps bottom of hero slider
+  padding: 0 30px 0;
+
+  @include respond-to($bp-xl) { padding: 0 24px; }
+  @include respond-to($bp-lg) { margin-top: -56px; }
+  @include respond-to($bp-md) { margin-top: 0; padding: 0; }
+}
+
+.check-avail-inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background: $gold;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 6px;
+  padding: 28px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+
+  @include respond-to($bp-xl) { padding: 24px 30px; gap: 24px; }
+  @include respond-to($bp-lg) { padding: 22px 26px; gap: 18px; }
+  @include respond-to($bp-md) {
+    flex-direction: column;
+    border-radius: 0;
+    padding: 28px 24px;
+    gap: 20px;
+    align-items: stretch;
+    backdrop-filter: none; 
+  }
+}
+
+.check-avail-title {
+  flex-shrink: 0;
+
+  h3 {
+    font-family: $font-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: $white;
+    line-height: 1.15;
+    white-space: nowrap;
+
+    @include respond-to($bp-lg) { font-size: 22px; }
+    @include respond-to($bp-md) { white-space: normal; font-size: 24px; }
+  }
+
+  @include respond-to($bp-md) { text-align: center; }
+}
+
+// // thin vertical divider between title and form
+// .check-avail-title::after {
+//   content: '';
+//   display: inline-block;
+//   width: 2px;
+//   height: 52px;
+//   background: rgba($dark, 0.18);
+//   vertical-align: middle;
+//   margin-left: 32px;
+
+//   @include respond-to($bp-md) { display: none; }
+// }
+
+.check-avail-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex: 1;
+  flex-wrap: wrap;
+
+  @include respond-to($bp-sm) { gap: 10px; }
+}
+
+.caf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 110px;
+
+  label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: $white;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  input[type="date"],
+  select {
+    height: 46px;
+    padding: 0 12px; 
+    border-radius: 4px;
+    font-size: 13.5px;
+    font-family: $font-sans;
+    color: $text-dark;
+    outline: none;
+    width: 100%;
+    @include transition(border-color, 0.2s);
+
+    &:focus {
+      border-color: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.62);
+    }
+
+    &::placeholder { color: rgba($text-dark, 0.5); }
+  }
+
+  // custom select arrow
+  &.caf-select-wrap {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 12px;
+      bottom: 17px;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid $dark;
+      border-bottom: 2px solid $dark;
+      transform: rotate(45deg);
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 30px;
+      cursor: pointer;
+    }
+  }
+}
+
+.caf-btn {
+  height: 46px;
+  padding: 0 30px;
+  background: $white;
+  color: $dark;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: $font-sans;
+  letter-spacing: 0.3px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin: 0 auto;
+  align-self: flex-end;
+  @include transition(background, 0.25s);
+
+  &:hover { background: $off-white; }
+
+  @include respond-to($bp-sm) {
+    width: 100%;
+    margin-top: 4px;
+  }
+}
+
+// JS submission feedback
+#checkAvailForm.submitting .caf-btn {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
