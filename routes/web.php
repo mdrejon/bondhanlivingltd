@@ -112,6 +112,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'module.
         Route::get('/contact-content', [ContactPageContentController::class, 'edit'])->name('contact-content.edit');
         Route::post('/contact-content', [ContactPageContentController::class, 'update'])->name('contact-content.update');
 
+        Route::get('/service-content', [App\Http\Controllers\Admin\WebsiteSettings\ServicePageContentController::class, 'edit'])->name('service-content.edit');
+        Route::post('/service-content', [App\Http\Controllers\Admin\WebsiteSettings\ServicePageContentController::class, 'update'])->name('service-content.update');
+
+        Route::resource('services', App\Http\Controllers\Admin\WebsiteSettings\ServiceController::class)->except(['show']);
+        Route::patch('services/{service}/toggle', [App\Http\Controllers\Admin\WebsiteSettings\ServiceController::class, 'toggleStatus'])->name('services.toggle');
+
         // Mail / SMTP Settings
         Route::get('/mail',       [MailSettingController::class, 'edit'])->name('mail.edit');
         Route::post('/mail',      [MailSettingController::class, 'update'])->name('mail.update');

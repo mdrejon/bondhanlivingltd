@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GlobalSetting extends Model
 {
-    protected $fillable = ['hotel_id', 'key', 'value'];
+    protected $fillable = ['key', 'value'];
 
     /** Get a setting value by key (current hotel), with optional default. */
     public static function get(string $key, mixed $default = null): mixed
@@ -33,7 +33,7 @@ class GlobalSetting extends Model
     /** Set (upsert) a single setting for the current hotel. */
     public static function set(string $key, mixed $value): void
     {
-        static::updateOrCreate(['key' => $key], ['value' => $value, 'hotel_id' => 0]);
+        static::updateOrCreate(['key' => $key], ['value' => $value]);
     }
 
     /** Bulk-upsert an associative array of key => value pairs for the current hotel. */

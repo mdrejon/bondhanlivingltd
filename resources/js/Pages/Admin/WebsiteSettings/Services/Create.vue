@@ -1,9 +1,9 @@
 <template>
-    <Head title="Edit Service" />
+    <Head title="Create Service" />
 
     <AdminLayout>
         <div class="flex justify-between items-center bg-white p-6 shadow-sm sm:rounded-lg mb-6 max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit Service</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Create Service</h2>
         </div>
 
         <div class="py-12">
@@ -48,18 +48,12 @@
                                 <div>
                                     <InputLabel for="icon" value="Icon (SVG/Image for card)" />
                                     <input type="file" id="icon" @change="e => form.icon = e.target.files[0]" class="mt-1 block w-full" />
-                                    <div v-if="service.icon" class="mt-2">
-                                        <img :src="`/storage/${service.icon}`" class="h-12 object-contain" />
-                                    </div>
                                     <InputError class="mt-2" :message="form.errors.icon" />
                                 </div>
 
                                 <div>
                                     <InputLabel for="image" value="Main Image (for details page)" />
                                     <input type="file" id="image" @change="e => form.image = e.target.files[0]" class="mt-1 block w-full" />
-                                    <div v-if="service.image" class="mt-2">
-                                        <img :src="`/storage/${service.image}`" class="h-20 object-cover rounded" />
-                                    </div>
                                     <InputError class="mt-2" :message="form.errors.image" />
                                 </div>
                             </div>
@@ -95,7 +89,7 @@
                             </div>
 
                             <div class="flex items-center gap-4">
-                                <PrimaryButton :disabled="form.processing">Update Service</PrimaryButton>
+                                <PrimaryButton :disabled="form.processing">Create Service</PrimaryButton>
                                 <Link :href="route('admin.website-settings.services.index')" class="text-gray-600 hover:text-gray-900">Cancel</Link>
                             </div>
                         </form>
@@ -114,30 +108,20 @@ import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
-const props = defineProps({
-    service: Object,
-});
-
 const form = useForm({
-    title: props.service.title || '',
-    category: props.service.category || '',
-    short_description: props.service.short_description || '',
-    description: props.service.description || '',
+    title: '',
+    category: '',
+    short_description: '',
+    description: '',
     icon: null,
     image: null,
-    seo_title: props.service.seo_title || '',
-    seo_description: props.service.seo_description || '',
-    seo_keywords: props.service.seo_keywords || '',
-    status: !!props.service.status,
-    _method: 'PUT', // Needed for file uploads via PUT
+    seo_title: '',
+    seo_description: '',
+    seo_keywords: '',
+    status: true,
 });
 
 const submit = () => {
-    form.post(route('admin.website-settings.services.update', props.service.id), {
-        onSuccess: () => {
-            form.icon = null;
-            form.image = null;
-        }
-    });
+    form.post(route('admin.website-settings.services.store'));
 };
 </script>

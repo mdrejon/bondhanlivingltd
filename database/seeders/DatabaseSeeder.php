@@ -14,15 +14,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('Password'), // Default password Password
+        ]);
 
-        $this->call(RoomAmenitySeeder::class);
+        // $this->call(RoomAmenitySeeder::class);
         $this->call(RoleSeeder::class);
-        $this->call(BdGeographySeeder::class);
-        $this->call(GovernmentRoleSeeder::class);
+        // $this->call(BdGeographySeeder::class);
+        // $this->call(GovernmentRoleSeeder::class);
         $this->call(SliderSeeder::class);
         $this->call(HomePageSeeder::class);
     }

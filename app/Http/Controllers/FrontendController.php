@@ -28,7 +28,10 @@ class FrontendController extends Controller
             $homeContent[$key] = $raw ? json_decode($raw, true) : null;
         }
 
-        return view('frontend.pages.index', compact('sliders', 'homeContent'));
+        $services = \App\Models\Service::where('status', true)->get();
+        $servicesByCategory = $services->groupBy('category');
+
+        return view('frontend.pages.index', compact('sliders', 'homeContent', 'servicesByCategory'));
     }
 
     public function about()
@@ -143,12 +146,35 @@ class FrontendController extends Controller
 
     public function serviceList()
     {
-        return view('frontend.pages.services.index');
+        $keys = [
+            'service_page_hero',
+            'service_page_seo',
+        ];
+        
+        $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
+            ->pluck('value', 'key')
+            ->toArray();
+
+        $serviceContent = [];
+        foreach ($keys as $key) {
+            $serviceContent[$key] = isset($settings[$key]) ? json_decode($settings[$key], true) : null;
+        }
+
+        $services = \App\Models\Service::where('status', true)->get();
+
+        return view('frontend.pages.services.index', compact('serviceContent', 'services'));
     }
 
     public function serviceDetails($slug = null)
     {
-        return view('frontend.pages.services.show');
+        if (!$slug) {
+            abort(404);
+        }
+
+        $service = \App\Models\Service::where('slug', $slug)->where('status', true)->firstOrFail();
+        $allServices = \App\Models\Service::where('status', true)->get();
+
+        return view('frontend.pages.services.show', compact('service', 'allServices'));
     }
 
     public function featuresAmenities()

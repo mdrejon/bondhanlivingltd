@@ -1,0 +1,143 @@
+<template>
+    <Head title="Service Page Content" />
+
+    <AdminLayout>
+        <div class="flex justify-between items-center bg-white p-6 shadow-sm sm:rounded-lg mb-6 max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Service Page Content</h2>
+        </div>
+
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        <form @submit.prevent="submit" class="space-y-8">
+
+                            <!-- Hero Section -->
+                            <div class="border p-4 rounded bg-gray-50">
+                                <h3 class="text-lg font-bold mb-4">Hero Section (Breadcrumb)</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="col-span-2">
+                                        <InputLabel for="hero_title" value="Hero Title" />
+                                        <TextInput
+                                            id="hero_title"
+                                            v-model="form.service_page_hero.title"
+                                            type="text"
+                                            class="mt-1 block w-full"
+                                            placeholder="E.g. Our Services"
+                                        />
+                                    </div>
+
+                                    <div class="col-span-2">
+                                        <InputLabel for="hero_bg_image" value="Background Image" />
+                                        <input
+                                            type="file"
+                                            id="hero_bg_image"
+                                            @change="e => form.service_page_hero.bg_image_file = e.target.files[0]"
+                                            class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        />
+                                        <div v-if="form.service_page_hero.bg_image" class="mt-2">
+                                            <img :src="`/storage/${form.service_page_hero.bg_image}`" class="h-20 object-cover rounded" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SEO Settings -->
+                            <div class="border p-4 rounded bg-gray-50">
+                                <h3 class="text-lg font-bold mb-4">SEO Settings</h3>
+                                
+                                <div class="grid grid-cols-1 gap-4">
+                                    <div>
+                                        <InputLabel for="meta_title" value="Meta Title" />
+                                        <TextInput
+                                            id="meta_title"
+                                            v-model="form.service_page_seo.meta_title"
+                                            type="text"
+                                            class="mt-1 block w-full"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel for="meta_keywords" value="Meta Keywords" />
+                                        <TextInput
+                                            id="meta_keywords"
+                                            v-model="form.service_page_seo.meta_keywords"
+                                            type="text"
+                                            class="mt-1 block w-full"
+                                            placeholder="Comma separated"
+                                        />
+                                    </div>
+                                    
+                                    <div>
+                                        <InputLabel for="meta_author" value="Meta Author" />
+                                        <TextInput
+                                            id="meta_author"
+                                            v-model="form.service_page_seo.meta_author"
+                                            type="text"
+                                            class="mt-1 block w-full"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel for="meta_description" value="Meta Description" />
+                                        <textarea
+                                            id="meta_description"
+                                            v-model="form.service_page_seo.meta_description"
+                                            class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                            rows="3"
+                                        ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4">
+                                <PrimaryButton :disabled="form.processing">Save Changes</PrimaryButton>
+                                <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
+                                    <p v-if="form.recentlySuccessful" class="text-sm text-green-600">Saved.</p>
+                                </Transition>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </AdminLayout>
+</template>
+
+<script setup>
+import { useForm, Head } from '@inertiajs/vue3';
+import AdminLayout from '@/Layouts/Admin/AdminLayout.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+
+const props = defineProps({
+    content: Object,
+});
+
+const defaultContent = props.content || {};
+
+const form = useForm({
+    service_page_hero: {
+        title: defaultContent.service_page_hero?.title || '',
+        bg_image: defaultContent.service_page_hero?.bg_image || '',
+        bg_image_file: null,
+    },
+    service_page_seo: {
+        meta_title: defaultContent.service_page_seo?.meta_title || '',
+        meta_description: defaultContent.service_page_seo?.meta_description || '',
+        meta_keywords: defaultContent.service_page_seo?.meta_keywords || '',
+        meta_author: defaultContent.service_page_seo?.meta_author || '',
+    }
+});
+
+const submit = () => {
+    form.post(route('admin.website-settings.service-content.update'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            form.service_page_hero.bg_image_file = null;
+        }
+    });
+};
+</script>

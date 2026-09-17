@@ -142,6 +142,14 @@ const navItems = [
                 name: "Contact Page Content",
                 route: "admin.website-settings.contact-content.edit",
             },
+            {
+                name: "Services",
+                route: "admin.website-settings.services.index",
+            },
+            {
+                name: "Service Page Content",
+                route: "admin.website-settings.service-content.edit",
+            },
         ],
     },
 
