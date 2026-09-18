@@ -1,137 +1,98 @@
+<script setup>
+import { Head, useForm } from '@inertiajs/vue3';
+import AdminLayout from '@/Layouts/Admin/AdminLayout.vue';
+
+const props = defineProps({
+    settings: Object,
+});
+
+const form = useForm({
+    header_phone: props.settings.header_phone || '',
+    header_email: props.settings.header_email || '',
+    social_facebook: props.settings.social_facebook || '',
+    social_twitter: props.settings.social_twitter || '',
+    social_linkedin: props.settings.social_linkedin || '',
+    social_instagram: props.settings.social_instagram || '',
+});
+
+const submit = () => {
+    form.post(route('admin.website-settings.header.update'), {
+        preserveScroll: true,
+    });
+};
+</script>
+
 <template>
+    <Head title="Header Settings" />
+
     <AdminLayout>
-        <div class="max-w-3xl space-y-4">
-            <h1 class="text-lg font-semibold text-gray-800">Header Settings</h1>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Header Settings
+            </h2>
+        </template>
 
-            <div v-if="$page.props.flash?.success" class="px-4 py-3 bg-green-50 border border-green-200 text-green-700 text-sm rounded">
-                {{ $page.props.flash.success }}
-            </div>
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        <form @submit.prevent="submit" class="space-y-6">
+                            
+                            <!-- Contact Info -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 mb-4 border-b pb-2">Contact Information</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="header_phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                        <input type="text" id="header_phone" v-model="form.header_phone" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" />
+                                        <div v-if="form.errors.header_phone" class="text-red-500 text-sm mt-1">{{ form.errors.header_phone }}</div>
+                                    </div>
+                                    <div>
+                                        <label for="header_email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                                        <input type="email" id="header_email" v-model="form.header_email" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" />
+                                        <div v-if="form.errors.header_email" class="text-red-500 text-sm mt-1">{{ form.errors.header_email }}</div>
+                                    </div>
+                                </div>
+                            </div>
 
-            <form @submit.prevent="submit" class="space-y-6">
+                            <!-- Social Links -->
+                            <div class="mt-8">
+                                <h3 class="text-lg font-medium text-gray-900 mb-4 border-b pb-2">Social Media Links</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="social_facebook" class="block text-sm font-medium text-gray-700">Facebook URL</label>
+                                        <input type="url" id="social_facebook" v-model="form.social_facebook" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" />
+                                        <div v-if="form.errors.social_facebook" class="text-red-500 text-sm mt-1">{{ form.errors.social_facebook }}</div>
+                                    </div>
+                                    <div>
+                                        <label for="social_twitter" class="block text-sm font-medium text-gray-700">Twitter URL</label>
+                                        <input type="url" id="social_twitter" v-model="form.social_twitter" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" />
+                                        <div v-if="form.errors.social_twitter" class="text-red-500 text-sm mt-1">{{ form.errors.social_twitter }}</div>
+                                    </div>
+                                    <div>
+                                        <label for="social_linkedin" class="block text-sm font-medium text-gray-700">LinkedIn URL</label>
+                                        <input type="url" id="social_linkedin" v-model="form.social_linkedin" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" />
+                                        <div v-if="form.errors.social_linkedin" class="text-red-500 text-sm mt-1">{{ form.errors.social_linkedin }}</div>
+                                    </div>
+                                    <div>
+                                        <label for="social_instagram" class="block text-sm font-medium text-gray-700">Instagram URL</label>
+                                        <input type="url" id="social_instagram" v-model="form.social_instagram" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" />
+                                        <div v-if="form.errors.social_instagram" class="text-red-500 text-sm mt-1">{{ form.errors.social_instagram }}</div>
+                                    </div>
+                                </div>
+                            </div>
 
-                <!-- Logo -->
-                <section class="bg-white rounded-lg shadow-sm p-6 space-y-4">
-                    <h2 class="text-sm font-semibold text-gray-700 border-b pb-2">Logo</h2>
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">Logo Image</label>
-                        <DropZone @change="onLogoChange" hint="JPEG / PNG / WebP — max 5 MB" preview-class="w-full h-28 object-contain p-2 bg-gray-50"
-                            :existing-preview="currentLogo ? '/storage/' + currentLogo : null" />
-                        <InputError :message="form.errors.header_logo" />
+                            <div class="flex items-center justify-end mt-4">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" :disabled="form.processing">
+                                    Save Settings
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                </section>
-
-                <!-- Contact info -->
-                <section class="bg-white rounded-lg shadow-sm p-6 space-y-4">
-                    <h2 class="text-sm font-semibold text-gray-700 border-b pb-2">Contact Info (Top Bar)</h2>
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">Phone</label>
-                        <input v-model="form.header_phone" type="text" class="input" placeholder="+88 01777-909595" />
-                        <InputError :message="form.errors.header_phone" />
-                    </div>
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">Email</label>
-                        <input v-model="form.header_email" type="email" class="input" placeholder="info@hotelbeachway.com" />
-                        <InputError :message="form.errors.header_email" />
-                    </div>
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">Address</label>
-                        <input v-model="form.header_address" type="text" class="input" placeholder="Kolatoli Road, Cox's Bazar, Bangladesh" />
-                        <InputError :message="form.errors.header_address" />
-                    </div>
-                </section>
-
-                <!-- Social links -->
-                <section class="bg-white rounded-lg shadow-sm p-6 space-y-4">
-                    <h2 class="text-sm font-semibold text-gray-700 border-b pb-2">Social Links (Top Bar)</h2>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Facebook URL</label>
-                            <input v-model="form.header_facebook_url" type="text" class="input" placeholder="https://facebook.com/..." />
-                            <InputError :message="form.errors.header_facebook_url" />
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Twitter / X URL</label>
-                            <input v-model="form.header_twitter_url" type="text" class="input" placeholder="https://twitter.com/..." />
-                            <InputError :message="form.errors.header_twitter_url" />
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Instagram URL</label>
-                            <input v-model="form.header_instagram_url" type="text" class="input" placeholder="https://instagram.com/..." />
-                            <InputError :message="form.errors.header_instagram_url" />
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Pinterest URL</label>
-                            <input v-model="form.header_pinterest_url" type="text" class="input" placeholder="https://pinterest.com/..." />
-                            <InputError :message="form.errors.header_pinterest_url" />
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Book button -->
-                <section class="bg-white rounded-lg shadow-sm p-6 space-y-4">
-                    <h2 class="text-sm font-semibold text-gray-700 border-b pb-2">Book Online Button (Navbar)</h2>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Button Text</label>
-                            <input v-model="form.header_book_btn_text" type="text" class="input" placeholder="Book Online" />
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-600 mb-1">Button URL</label>
-                            <input v-model="form.header_book_btn_url" type="text" class="input" placeholder="#contact" />
-                        </div>
-                    </div>
-                </section>
-
-                <div class="flex justify-end">
-                    <button type="submit" :disabled="form.processing" class="px-6 py-2.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 disabled:opacity-60">
-                        {{ form.processing ? 'Saving...' : 'Save Header Settings' }}
-                    </button>
                 </div>
-            </form>
+            </div>
         </div>
     </AdminLayout>
 </template>
-
-<script setup>
-import { ref } from 'vue';
-import { useForm } from '@inertiajs/vue3';
-import AdminLayout from '@/Layouts/Admin/AdminLayout.vue';
-import InputError  from '@/Components/InputError.vue';
-import DropZone from '@/Components/Admin/Shared/DropZone.vue';
-
-const props = defineProps({
-    settings: { type: Object, required: true },
-});
-
-const currentLogo = ref(props.settings.header_logo);
-
-const form = useForm({
-    header_phone:         props.settings.header_phone ?? '',
-    header_email:         props.settings.header_email ?? '',
-    header_address:       props.settings.header_address ?? '',
-    header_facebook_url:  props.settings.header_facebook_url ?? '',
-    header_twitter_url:   props.settings.header_twitter_url ?? '',
-    header_instagram_url: props.settings.header_instagram_url ?? '',
-    header_pinterest_url: props.settings.header_pinterest_url ?? '',
-    header_book_btn_text: props.settings.header_book_btn_text ?? 'Book Online',
-    header_book_btn_url:  props.settings.header_book_btn_url ?? '#contact',
-    header_logo:          null,
-});
-
-function onLogoChange(file) {
-    if (!file) return;
-    form.header_logo = file;
-}
-
-function submit() {
-    form.post(route('admin.website-settings.header.update'), {
-        forceFormData: true,
-    });
-}
-</script>
-
-<style scoped>
-.input {
-    @apply w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-blue-400 focus:outline-none;
-}
-</style>

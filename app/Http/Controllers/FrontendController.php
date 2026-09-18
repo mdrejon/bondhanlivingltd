@@ -31,7 +31,13 @@ class FrontendController extends Controller
         $services = \App\Models\Service::where('status', true)->get();
         $servicesByCategory = $services->groupBy('category');
 
-        return view('frontend.pages.index', compact('sliders', 'homeContent', 'servicesByCategory'));
+        $projects = \App\Models\Project::active()->latest()->take(6)->get();
+        
+        $teams = \App\Models\Team::active()->orderBy('order', 'asc')->get();
+        
+        $testimonials = \App\Models\Testimonial::active()->latest()->get();
+
+        return view('frontend.pages.index', compact('sliders', 'homeContent', 'servicesByCategory', 'projects', 'teams', 'testimonials'));
     }
 
     public function about()
@@ -50,8 +56,11 @@ class FrontendController extends Controller
             $raw = \App\Models\GlobalSetting::get($key);
             $aboutContent[$key] = $raw ? json_decode($raw, true) : null;
         }
+        
+        $teams = \App\Models\Team::active()->orderBy('order', 'asc')->get();
+        $testimonials = \App\Models\Testimonial::active()->latest()->get();
 
-        return view('frontend.pages.about', compact('aboutContent'));
+        return view('frontend.pages.about', compact('aboutContent', 'teams', 'testimonials'));
     }
 
     public function history()
@@ -64,7 +73,6 @@ class FrontendController extends Controller
         ];
         
         $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
-            ->where('hotel_id', 0)
             ->pluck('value', 'key')
             ->toArray();
 
@@ -86,7 +94,6 @@ class FrontendController extends Controller
         ];
         
         $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
-            ->where('hotel_id', 0)
             ->pluck('value', 'key')
             ->toArray();
 
@@ -107,7 +114,6 @@ class FrontendController extends Controller
         ];
         
         $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
-            ->where('hotel_id', 0)
             ->pluck('value', 'key')
             ->toArray();
 
@@ -119,29 +125,59 @@ class FrontendController extends Controller
         return view('frontend.pages.corporate-background', compact('corporateContent'));
     }
 
+    private function getProjectContent()
+    {
+        $keys = [
+            'project_page_hero',
+            'project_page_seo',
+        ];
+        
+        $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
+            ->pluck('value', 'key')
+            ->toArray();
+
+        $projectContent = [];
+        foreach ($keys as $key) {
+            $projectContent[$key] = isset($settings[$key]) ? json_decode($settings[$key], true) : null;
+        }
+        return $projectContent;
+    }
+
     public function projectList()
     {
-        return view('frontend.pages.projects.index');
+        $projectContent = $this->getProjectContent();
+        $projects = \App\Models\Project::active()->latest()->paginate(12);
+        return view('frontend.pages.projects.index', compact('projects', 'projectContent'));
     }
 
     public function runningProjects()
     {
-        return view('frontend.pages.projects.running');
+        $projectContent = $this->getProjectContent();
+        $projects = \App\Models\Project::running()->latest()->paginate(12);
+        return view('frontend.pages.projects.running', compact('projects', 'projectContent'));
     }
 
     public function completedProjects()
     {
-        return view('frontend.pages.projects.completed');
+        $projectContent = $this->getProjectContent();
+        $projects = \App\Models\Project::completed()->latest()->paginate(12);
+        return view('frontend.pages.projects.completed', compact('projects', 'projectContent'));
     }
 
     public function upcomingProjects()
     {
-        return view('frontend.pages.projects.upcoming');
+        $projectContent = $this->getProjectContent();
+        $projects = \App\Models\Project::upcoming()->latest()->paginate(12);
+        return view('frontend.pages.projects.upcoming', compact('projects', 'projectContent'));
     }
 
     public function projectDetails($slug = null)
     {
-        return view('frontend.pages.projects.show');
+        if (!$slug) {
+            abort(404);
+        }
+        $project = \App\Models\Project::where('slug', $slug)->active()->firstOrFail();
+        return view('frontend.pages.projects.show', compact('project'));
     }
 
     public function serviceList()
@@ -179,7 +215,10 @@ class FrontendController extends Controller
 
     public function featuresAmenities()
     {
-        return view('frontend.pages.features-amenities');
+        $features = json_decode(\App\Models\GlobalSetting::get('features_list', '[]'), true) ?? [];
+        $amenities = json_decode(\App\Models\GlobalSetting::get('amenities_list', '[]'), true) ?? [];
+
+        return view('frontend.pages.features-amenities', compact('features', 'amenities'));
     }
 
     public function gallery()
@@ -189,7 +228,8 @@ class FrontendController extends Controller
 
     public function team()
     {
-        return view('frontend.pages.team');
+        $teams = \App\Models\Team::active()->orderBy('order', 'asc')->get();
+        return view('frontend.pages.team', compact('teams'));
     }
 
     public function blog()
@@ -217,7 +257,6 @@ class FrontendController extends Controller
         ];
         
         $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
-            ->where('hotel_id', 0)
             ->pluck('value', 'key')
             ->toArray();
 

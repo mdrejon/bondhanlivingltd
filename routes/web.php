@@ -13,6 +13,10 @@ use App\Http\Controllers\Admin\WebsiteSettings\HistoryPageContentController;
 use App\Http\Controllers\Admin\WebsiteSettings\ChairmanMessageContentController;
 use App\Http\Controllers\Admin\WebsiteSettings\CorporateBackgroundContentController;
 use App\Http\Controllers\Admin\WebsiteSettings\ContactPageContentController;
+use App\Http\Controllers\Admin\WebsiteSettings\HeaderSettingController;
+use App\Http\Controllers\Admin\WebsiteSettings\FooterSettingController;
+use App\Http\Controllers\Admin\WebsiteSettings\FeatureAmenitySettingController;
+use App\Http\Controllers\Admin\WebsiteSettings\ProjectPageContentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -83,6 +87,18 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'module.
     Route::put('/roles/{role}',         [RoleController::class, 'update'])->name('roles.update');
     Route::delete('/roles/{role}',      [RoleController::class, 'destroy'])->name('roles.destroy');
 
+    // Projects Management
+    Route::resource('projects', \App\Http\Controllers\Admin\ProjectController::class)->except(['show']);
+
+    // Teams Management
+    Route::resource('teams', \App\Http\Controllers\Admin\TeamController::class)->except(['show']);
+    Route::patch('teams/{team}/toggle', [\App\Http\Controllers\Admin\TeamController::class, 'toggleStatus'])->name('teams.toggle');
+
+    // Testimonials Management
+    Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class)->except(['show']);
+    Route::put('testimonials/{testimonial}/toggle-status', [\App\Http\Controllers\Admin\TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
+
+
     // Website Settings
     Route::prefix('website-settings')->name('website-settings.')->group(function () {
         // Hero Slider CRUD
@@ -118,10 +134,23 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'module.
         Route::resource('services', App\Http\Controllers\Admin\WebsiteSettings\ServiceController::class)->except(['show']);
         Route::patch('services/{service}/toggle', [App\Http\Controllers\Admin\WebsiteSettings\ServiceController::class, 'toggleStatus'])->name('services.toggle');
 
-        // Mail / SMTP Settings
         Route::get('/mail',       [MailSettingController::class, 'edit'])->name('mail.edit');
         Route::post('/mail',      [MailSettingController::class, 'update'])->name('mail.update');
         Route::post('/mail/test', [MailSettingController::class, 'sendTest'])->name('mail.test');
+
+        // Header & Footer Settings
+        Route::get('/header', [HeaderSettingController::class, 'edit'])->name('header.edit');
+        Route::post('/header', [HeaderSettingController::class, 'update'])->name('header.update');
+        
+        Route::get('/footer', [FooterSettingController::class, 'edit'])->name('footer.edit');
+        Route::post('/footer', [FooterSettingController::class, 'update'])->name('footer.update');
+
+        Route::get('/features-amenities', [FeatureAmenitySettingController::class, 'edit'])->name('features-amenities.edit');
+        Route::post('/features-amenities', [FeatureAmenitySettingController::class, 'update'])->name('features-amenities.update');
+        
+        // Project Page Content Settings
+        Route::get('/project-content', [ProjectPageContentController::class, 'edit'])->name('project-content.edit');
+        Route::post('/project-content', [ProjectPageContentController::class, 'update'])->name('project-content.update');
     });
 
     // Database Backup

@@ -24,330 +24,40 @@
           <h2 class="sec-title">Our Professional Team</h2>
         </div>
         <div class="row gy-4">
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_1.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Mishel Marsh</a>
-                </h3>
-                <span class="team-desig">Founder</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
+          @if(isset($teams) && $teams->count() > 0)
+            @foreach($teams as $team)
+            <div class="col-xl-3 col-lg-4 col-md-6">
+              <div class="team-card style2">
+                <div class="team-img">
+                  <img src="{{ getImgUrl($team->image, 'assets/img/team/team_2_1.jpg') }}" alt="{{ $team->name }}" />
+                </div>
+                <div class="team-content">
+                  <h3 class="box-title">
+                    <a href="#">{{ $team->name }}</a>
+                  </h3>
+                  <span class="team-desig">{{ $team->designation }}</span>
+                  <div class="team-social">
+                    <button class="icon-btn"><i class="far fa-plus"></i></button>
+                    <div class="th-social">
+                      @if($team->facebook)
+                      <a target="_blank" href="{{ $team->facebook }}"><i class="fab fa-facebook-f"></i></a>
+                      @endif
+                      @if($team->twitter)
+                      <a target="_blank" href="{{ $team->twitter }}"><i class="fab fa-twitter"></i></a>
+                      @endif
+                      @if($team->linkedin)
+                      <a target="_blank" href="{{ $team->linkedin }}"><i class="fab fa-linkedin-in"></i></a>
+                      @endif
+                      @if($team->instagram)
+                      <a target="_blank" href="{{ $team->instagram }}"><i class="fab fa-instagram"></i></a>
+                      @endif
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_2.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Michel Richard</a>
-                </h3>
-                <span class="team-desig">Architecture</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_3.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Famhida Ruko</a>
-                </h3>
-                <span class="team-desig">Engineer</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_4.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Alex Anfantino</a>
-                </h3>
-                <span class="team-desig">Site Manager</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_5.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Taylor Smith</a>
-                </h3>
-                <span class="team-desig">Founder</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_6.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Ava Linda</a>
-                </h3>
-                <span class="team-desig">Architecture</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_7.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Byrne Davis</a>
-                </h3>
-                <span class="team-desig">Engineer</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_8.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Emily Susan</a>
-                </h3>
-                <span class="team-desig">Site Manager</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_9.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Davies Miller</a>
-                </h3>
-                <span class="team-desig">Engineer</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_10.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Evans Garcia</a>
-                </h3>
-                <span class="team-desig">Constructor</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_11.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Isla Bethany</a>
-                </h3>
-                <span class="team-desig">Site Manager</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="team-card style2">
-              <div class="team-img">
-                <img src="assets/img/team/team_2_12.jpg" alt="Team" />
-              </div>
-              <div class="team-content">
-                <h3 class="box-title">
-                  <a href="team-details.html">Wilson Byrne</a>
-                </h3>
-                <span class="team-desig">Architecture</span>
-                <div class="team-social">
-                  <button class="icon-btn"><i class="far fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            @endforeach
+          @endif
         </div>
       </div>
     </section>

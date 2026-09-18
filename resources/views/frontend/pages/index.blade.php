@@ -272,141 +272,40 @@
           data-sm-slide-show="2"
           data-arrows="true"
         >
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="th-team team-grid">
-              <div class="team-img">
-                <img src="assets/img/update1/team/team_3_1.jpg" alt="Team" />
-                <div class="team-social">
-                  <button class="play-btn"><i class="fal fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
+          @if(isset($teams) && $teams->count() > 0)
+            @foreach($teams as $team)
+            <div class="col-md-6 col-lg-4 col-xl-3">
+              <div class="th-team team-grid">
+                <div class="team-img">
+                  <img src="{{ getImgUrl($team->image, 'assets/img/update1/team/team_3_1.jpg') }}" alt="{{ $team->name }}" />
+                  <div class="team-social">
+                    <button class="play-btn"><i class="fal fa-plus"></i></button>
+                    <div class="th-social">
+                      @if($team->facebook)
+                      <a target="_blank" href="{{ $team->facebook }}"><i class="fab fa-facebook-f"></i></a>
+                      @endif
+                      @if($team->twitter)
+                      <a target="_blank" href="{{ $team->twitter }}"><i class="fab fa-twitter"></i></a>
+                      @endif
+                      @if($team->linkedin)
+                      <a target="_blank" href="{{ $team->linkedin }}"><i class="fab fa-linkedin-in"></i></a>
+                      @endif
+                      @if($team->instagram)
+                      <a target="_blank" href="{{ $team->instagram }}"><i class="fab fa-instagram"></i></a>
+                      @endif
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="team-content">
-                <h3 class="team-title box-title">
-                  <a href="team-details.html">Mishel Marsh</a>
-                </h3>
-                <span class="team-desig">Founder</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="th-team team-grid">
-              <div class="team-img">
-                <img src="assets/img/update1/team/team_3_2.jpg" alt="Team" />
-                <div class="team-social">
-                  <button class="play-btn"><i class="fal fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
+                <div class="team-content">
+                  <h3 class="team-title box-title">
+                    <a href="#">{{ $team->name }}</a>
+                  </h3>
+                  <span class="team-desig">{{ $team->designation }}</span>
                 </div>
               </div>
-              <div class="team-content">
-                <h3 class="team-title box-title">
-                  <a href="team-details.html">Michel Richard</a>
-                </h3>
-                <span class="team-desig">Architecture</span>
-              </div>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="th-team team-grid">
-              <div class="team-img">
-                <img src="assets/img/update1/team/team_3_3.jpg" alt="Team" />
-                <div class="team-social">
-                  <button class="play-btn"><i class="fal fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <div class="team-content">
-                <h3 class="team-title box-title">
-                  <a href="team-details.html">Famhida Ruko</a>
-                </h3>
-                <span class="team-desig">Engineer</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="th-team team-grid">
-              <div class="team-img">
-                <img src="assets/img/update1/team/team_3_4.jpg" alt="Team" />
-                <div class="team-social">
-                  <button class="play-btn"><i class="fal fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <div class="team-content">
-                <h3 class="team-title box-title">
-                  <a href="team-details.html">Alex Anfantino</a>
-                </h3>
-                <span class="team-desig">Site Manager</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="th-team team-grid">
-              <div class="team-img">
-                <img src="assets/img/update1/team/team_3_5.jpg" alt="Team" />
-                <div class="team-social">
-                  <button class="play-btn"><i class="fal fa-plus"></i></button>
-                  <div class="th-social">
-                    <a target="_blank" href="https://facebook.com/"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-                    <a target="_blank" href="https://twitter.com/"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                    <a target="_blank" href="https://linkedin.com/"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-              <div class="team-content">
-                <h3 class="team-title box-title">
-                  <a href="team-details.html">Jackline Farah</a>
-                </h3>
-                <span class="team-desig">Engineer</span>
-              </div>
-            </div>
-          </div>
+            @endforeach
+          @endif
         </div>
       </div>
     </section>
@@ -461,111 +360,35 @@
           data-md-slide-show="2"
           data-sm-slide-show="1"
         >
-          <div class="col-md-6 col-lg-4">
-            <div class="project-block">
-              <div class="project-img">
-                <img
-                  src="assets/img/update1//project/project_4_1.jpg"
-                  alt="project image"
-                />
-              </div>
-              <div class="project-content">
-                <div class="media-body">
-                  <p class="project-subtitle">Constructions</p>
-                  <h3 class="project-title">
-                    <a href="project-details.html">Contemporary Villa</a>
-                  </h3>
+          @if(isset($projects) && $projects->count() > 0)
+            @foreach($projects as $project)
+            <div class="col-md-6 col-lg-4">
+              <div class="project-block">
+                <div class="project-img">
+                  <img
+                    src="{{ getImgUrl($project->thumbnail, 'assets/img/update1//project/project_4_1.jpg') }}"
+                    alt="{{ $project->title }}"
+                  />
                 </div>
-                <a href="project-details.html" class="project-icon"
-                  ><i class="far fa-arrow-right"></i
-                ></a>
+                <div class="project-content">
+                  <div class="media-body">
+                    <p class="project-subtitle">{{ $project->category ?? 'Constructions' }}</p>
+                    <h3 class="project-title">
+                      <a href="{{ route('projects.show', $project->slug) }}">{{ $project->title }}</a>
+                    </h3>
+                  </div>
+                  <a href="{{ route('projects.show', $project->slug) }}" class="project-icon"
+                    ><i class="far fa-arrow-right"></i
+                  ></a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="project-block">
-              <div class="project-img">
-                <img
-                  src="assets/img/update1//project/project_4_2.jpg"
-                  alt="project image"
-                />
-              </div>
-              <div class="project-content">
-                <div class="media-body">
-                  <p class="project-subtitle">Constructions</p>
-                  <h3 class="project-title">
-                    <a href="project-details.html">Bridge Trangle Core</a>
-                  </h3>
-                </div>
-                <a href="project-details.html" class="project-icon"
-                  ><i class="far fa-arrow-right"></i
-                ></a>
-              </div>
+            @endforeach
+          @else
+            <div class="col-12 text-center text-white">
+              <p>No projects found.</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="project-block">
-              <div class="project-img">
-                <img
-                  src="assets/img/update1//project/project_4_3.jpg"
-                  alt="project image"
-                />
-              </div>
-              <div class="project-content">
-                <div class="media-body">
-                  <p class="project-subtitle">Constructions</p>
-                  <h3 class="project-title">
-                    <a href="project-details.html">Rowson Construction</a>
-                  </h3>
-                </div>
-                <a href="project-details.html" class="project-icon"
-                  ><i class="far fa-arrow-right"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="project-block">
-              <div class="project-img">
-                <img
-                  src="assets/img/update1//project/project_4_4.jpg"
-                  alt="project image"
-                />
-              </div>
-              <div class="project-content">
-                <div class="media-body">
-                  <p class="project-subtitle">Constructions</p>
-                  <h3 class="project-title">
-                    <a href="project-details.html">Interior Decoration</a>
-                  </h3>
-                </div>
-                <a href="project-details.html" class="project-icon"
-                  ><i class="far fa-arrow-right"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="project-block">
-              <div class="project-img">
-                <img
-                  src="assets/img/update1//project/project_4_5.jpg"
-                  alt="project image"
-                />
-              </div>
-              <div class="project-content">
-                <div class="media-body">
-                  <p class="project-subtitle">Constructions</p>
-                  <h3 class="project-title">
-                    <a href="project-details.html">Construction Planning</a>
-                  </h3>
-                </div>
-                <a href="project-details.html" class="project-icon"
-                  ><i class="far fa-arrow-right"></i
-                ></a>
-              </div>
-            </div>
-          </div>
+          @endif
         </div>
       </div>
     </section>
@@ -641,105 +464,40 @@
           data-lg-slide-show="2"
           data-md-slide-show="1"
         >
-          <div class="col-lg-6">
-            <div class="testi-grid">
-              <p class="testi-grid_text">
-                â€œEfficiently administrate effective outsourcing before
-                process-centric deliverables. Phosfluorescently grow exceptional
-                quality vectors and excellent core competency. Objectively mesh
-                client-centric interfaces with tactical platforms. Progressively
-                benchmark frictionless.â€
-              </p>
-              <div class="testi-grid_author">
-                <div class="testi-grid_avater">
-                  <img
-                    src="assets/img/update1/testimonial/testi_1_1.jpg"
-                    alt="Avater"
-                  />
-                </div>
-                <div>
-                  <div class="testi-grid_review">
-                    <i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i>
+          @if(isset($testimonials) && $testimonials->count() > 0)
+            @foreach($testimonials as $testimonial)
+            <div class="col-lg-6">
+              <div class="testi-grid">
+                <p class="testi-grid_text">
+                  â€œ{{ $testimonial->text }}â€ 
+                </p>
+                <div class="testi-grid_author">
+                  <div class="testi-grid_avater">
+                    <img
+                      src="{{ getImgUrl($testimonial->image, 'assets/img/update1/testimonial/testi_1_1.jpg') }}"
+                      alt="Avater"
+                    />
                   </div>
-                  <h3 class="testi-grid_name">Mary Cruzleen</h3>
-                  <span class="testi-grid_desig">CEO of Maithon</span>
+                  <div>
+                    <div class="testi-grid_review">
+                      @for($i = 0; $i < $testimonial->rating; $i++)
+                        <i class="fa-solid fa-star-sharp"></i>
+                      @endfor
+                      @for($i = $testimonial->rating; $i < 5; $i++)
+                        <i class="fa-regular fa-star-sharp text-muted"></i>
+                      @endfor
+                    </div>
+                    <h3 class="testi-grid_name">{{ $testimonial->name }}</h3>
+                    <span class="testi-grid_desig">{{ $testimonial->designation }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="testi-grid_quote">
-                <img src="assets/img/update1/icon/quote_2.svg" alt="icon" />
+                <div class="testi-grid_quote">
+                  <img src="assets/img/update1/icon/quote_2.svg" alt="icon" />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="testi-grid">
-              <p class="testi-grid_text">
-                â€œEfficiently administrate effective outsourcing before
-                process-centric deliverables. Phosfluorescently grow exceptional
-                quality vectors and excellent core competency. Objectively mesh
-                client-centric interfaces with tactical platforms. Progressively
-                benchmark frictionless.â€
-              </p>
-              <div class="testi-grid_author">
-                <div class="testi-grid_avater">
-                  <img
-                    src="assets/img/update1/testimonial/testi_1_2.jpg"
-                    alt="Avater"
-                  />
-                </div>
-                <div>
-                  <div class="testi-grid_review">
-                    <i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i>
-                  </div>
-                  <h3 class="testi-grid_name">David Milton</h3>
-                  <span class="testi-grid_desig">CEO of Goston</span>
-                </div>
-              </div>
-              <div class="testi-grid_quote">
-                <img src="assets/img/update1/icon/quote_2.svg" alt="icon" />
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="testi-grid">
-              <p class="testi-grid_text">
-                â€œEfficiently administrate effective outsourcing before
-                process-centric deliverables. Phosfluorescently grow exceptional
-                quality vectors and excellent core competency. Objectively mesh
-                client-centric interfaces with tactical platforms. Progressively
-                benchmark frictionless.â€
-              </p>
-              <div class="testi-grid_author">
-                <div class="testi-grid_avater">
-                  <img
-                    src="assets/img/update1/testimonial/testi_1_3.jpg"
-                    alt="Avater"
-                  />
-                </div>
-                <div>
-                  <div class="testi-grid_review">
-                    <i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i
-                    ><i class="fa-solid fa-star-sharp"></i>
-                  </div>
-                  <h3 class="testi-grid_name">Abraham Khalil</h3>
-                  <span class="testi-grid_desig">CEO of Gogonti</span>
-                </div>
-              </div>
-              <div class="testi-grid_quote">
-                <img src="assets/img/update1/icon/quote_2.svg" alt="icon" />
-              </div>
-            </div>
-          </div>
+            @endforeach
+          @endif
         </div>
       </div>
     </section>
@@ -1062,41 +820,5 @@
       </div>
     </div>
 
-    <!-- Start Partner Area -->
-    <div class="partner-area ptb-100">
-      <div class="container">
-        <div class="partner-slider owl-theme owl-carousel">
-          <div class="partner-item">
-            <a href="#">
-              <img src="assets/img/client/cilent_1_1.png" alt="Image" />
-            </a>
-          </div>
 
-          <div class="partner-item">
-            <a href="#">
-              <img src="assets/img/client/cilent_1_2.png" alt="Image" />
-            </a>
-          </div>
-
-          <div class="partner-item">
-            <a href="#">
-              <img src="assets/img/client/cilent_1_3.png" alt="Image" />
-            </a>
-          </div>
-
-          <div class="partner-item">
-            <a href="#">
-              <img src="assets/img/client/cilent_1_4.png" alt="Image" />
-            </a>
-          </div>
-
-          <div class="partner-item">
-            <a href="#">
-              <img src="assets/img/client/cilent_1_5.png" alt="Image" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Partner Area -->
 @endsection

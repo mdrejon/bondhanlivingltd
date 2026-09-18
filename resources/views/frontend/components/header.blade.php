@@ -72,11 +72,11 @@
                   <ul>
                     <li>
                       <i class="fal fa-phone"></i
-                      ><a href="tel:+8801740574490">+8801740 574 490</a>
+                      ><a href="tel:{{ \App\Models\GlobalSetting::get('header_phone', '+8801740 574 490') }}">{{ \App\Models\GlobalSetting::get('header_phone', '+8801740 574 490') }}</a>
                     </li>
                     <li>
                       <i class="fal fa-envelope"></i
-                      ><a href="mailto:info@bondhanlivingltd.com">info@bondhanlivingltd.com</a>
+                      ><a href="mailto:{{ \App\Models\GlobalSetting::get('header_email', 'info@bondhanlivingltd.com') }}">{{ \App\Models\GlobalSetting::get('header_email', 'info@bondhanlivingltd.com') }}</a>
                     </li>
                   </ul>
                 </div>
@@ -86,16 +86,16 @@
                   <ul>
                     <li>
                       <div class="header-social">
-                        <a href="https://www.facebook.com/bondhanlivingltd/"
+                        <a href="{{ \App\Models\GlobalSetting::get('social_facebook', 'https://www.facebook.com/bondhanlivingltd/') }}"
                           ><i class="fab fa-facebook-f"></i
                         ></a>
-                        <a href="https://www.twitter.com/"
+                        <a href="{{ \App\Models\GlobalSetting::get('social_twitter', 'https://www.twitter.com/') }}"
                           ><i class="fab fa-twitter"></i
                         ></a>
-                        <a href="https://www.linkedin.com/"
+                        <a href="{{ \App\Models\GlobalSetting::get('social_linkedin', 'https://www.linkedin.com/') }}"
                           ><i class="fab fa-linkedin-in"></i
                         ></a>
-                        <a href="https://www.instagram.com/"
+                        <a href="{{ \App\Models\GlobalSetting::get('social_instagram', 'https://www.instagram.com/') }}"
                           ><i class="fab fa-instagram"></i
                         ></a>
                       </div>

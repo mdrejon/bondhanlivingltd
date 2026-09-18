@@ -1,12 +1,27 @@
 @extends('frontend.layouts.app')
+@php
+function getImgUrl($path, $default) {
+if (empty($path)) return asset($default);
+if (str_starts_with($path, 'assets/')) return asset($path);
+return asset('storage/' . $path);
+}
+@endphp
+
+@if(isset($projectContent['project_page_seo']))
+@section('title', $projectContent['project_page_seo']['meta_title'] ?? 'Bondhan Living Ltd - Projects')
+@section('meta_description', $projectContent['project_page_seo']['meta_description'] ?? '')
+@section('meta_keywords', $projectContent['project_page_seo']['meta_keywords'] ?? '')
+@section('meta_author', $projectContent['project_page_seo']['meta_author'] ?? '')
+@endif
+
 @section('content')
-<div class="breadcumb-wrapper" data-bg-src="assets/img/bg/breadcumb-bg.jpg">
+<div class="breadcumb-wrapper" data-bg-src="{{ getImgUrl($projectContent['project_page_hero']['bg_image'] ?? null, 'assets/img/bg/breadcumb-bg.jpg') }}">
       <div class="container">
         <div class="breadcumb-content">
-          <h1 class="breadcumb-title">Complete Project</h1>
+          <h1 class="breadcumb-title">Completed Project</h1>
           <ul class="breadcumb-menu">
-            <li><a href="index.html">Home</a></li>
-            <li>Complete Project</li>
+            <li><a href="{{ route('home') }}">Home</a></li>
+            <li>Completed Project</li>
           </ul>
         </div>
       </div>
@@ -17,224 +32,53 @@
         <div class="container">
           <!-- row -->
           <div class="row g-4 ttm-boxes-spacing-30px">
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-1.png"
-                    alt="image"
-                  />
-                </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="benoit-architecture"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-1.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
+            @if(isset($projects) && $projects->count() > 0)
+              @foreach($projects as $project)
+              <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
+                <!-- featured-imagebox-portfolio -->
+                <div class="featured-imagebox featured-imagebox-portfolio style2">
+                  <!-- ttm-box-view-overlay -->
+                  <div class="featured-thumbnail">
+                    <img
+                      class="img-fluid"
+                      src="{{ getImgUrl($project->thumbnail, 'assets/img/project/project-3-1.png') }}"
+                      alt="{{ $project->title }}"
+                    />
+                  </div>
+                  <div class="ttm-box-view-overlay">
+                    <div class="ttm-media-link">
+                      <a
+                        class="ttm_prettyphoto ttm_image"
+                        title="{{ $project->title }}"
+                        data-rel="prettyPhoto"
+                        href="{{ getImgUrl($project->thumbnail, 'assets/img/project/project-3-1.png') }}"
+                      >
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                      </a>
+                      <a href="{{ route('projects.show', $project->slug) }}" class="ttm_link">
+                        <i class="fa-solid fa-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- ttm-box-view-overlay end-->
+                  <div class="featured-content">
+                    <div class="featured-title">
+                      <h3><a href="{{ route('projects.show', $project->slug) }}">{{ $project->title }}</a></h3>
+                    </div>
                   </div>
                 </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3><a href="project-details.html">Interior Texture</a></h3>
-                  </div>
-                </div>
+                <!-- featured-imagebox-portfolio -->
               </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-2.png"
-                    alt="image"
-                  />
-                </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="Benoit Architecture"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-2.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
-                </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3>
-                      <a href="project-details.html">Benoit Architecture</a>
-                    </h3>
-                  </div>
-                </div>
+              @endforeach
+            @else
+              <div class="col-12 text-center text-muted py-5">
+                <p>No completed projects found.</p>
               </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-3.png"
-                    alt="image"
-                  />
-                </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="contemporary-cilla"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-3.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
-                </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3>
-                      <a href="project-details.html">Contemporary Villa</a>
-                    </h3>
-                  </div>
-                </div>
-              </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-4.png"
-                    alt="image"
-                  />
-                </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="house-of-cards"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-4.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
-                </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3><a href="project-details.html">House of Cards</a></h3>
-                  </div>
-                </div>
-              </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-5.png"
-                    alt="image"
-                  />
-                </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="benoit-architecture"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-5.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
-                </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3>
-                      <a href="project-details.html">Kitchen and Living</a>
-                    </h3>
-                  </div>
-                </div>
-              </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ttm-box-col-wrapper pb-0">
-              <!-- featured-imagebox-portfolio -->
-              <div class="featured-imagebox featured-imagebox-portfolio style2">
-                <!-- ttm-box-view-overlay -->
-                <div class="featured-thumbnail">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/project/project-3-1.png"
-                    alt="image"
-                  />
-                </div>
-                <div class="ttm-box-view-overlay">
-                  <div class="ttm-media-link">
-                    <a
-                      class="ttm_prettyphoto ttm_image"
-                      title="contemporary-cilla"
-                      data-rel="prettyPhoto"
-                      href="assets/img/project/project-3-1.png"
-                    >
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
-                    <a href="project-details.html" class="ttm_link">
-                      <i class="fa-solid fa-link"></i>
-                    </a>
-                  </div>
-                </div>
-                <!-- ttm-box-view-overlay end-->
-                <div class="featured-content">
-                  <div class="featured-title">
-                    <h3>
-                      <a href="project-details.html">Contemporary Villa</a>
-                    </h3>
-                  </div>
-                </div>
-              </div>
-              <!-- featured-imagebox-portfolio -->
-            </div>
+            @endif
+          </div>
+          
+          <div class="mt-4 text-center">
+            {{ $projects->links() ?? '' }}
           </div>
           <!-- row end -->
         </div>
