@@ -58,15 +58,10 @@
                 </div>
 
                 <!-- Star label + rating + order + active -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Star Label</label>
                         <input v-model="form.star_label" type="text" class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-blue-400 focus:outline-none" placeholder="3-Star Standard Hotel" />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Star Rating <span class="text-gray-400 font-normal">(0–5)</span></label>
-                        <input v-model.number="form.star_rating" type="number" min="0" max="5" class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-blue-400 focus:outline-none" />
-                        <InputError :message="form.errors.star_rating" />
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Sort Order</label>
@@ -105,7 +100,6 @@ const form = useForm({
     button_text:      'Explore Rooms',
     button_url:       '#',
     star_label:       '',
-    star_rating:      5,
     sort_order:       0,
     is_active:        true,
     background_image: null,

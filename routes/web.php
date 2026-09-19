@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\WebsiteSettings\SliderController;
 use App\Http\Controllers\Admin\WebsiteSettings\MailSettingController;
 use App\Http\Controllers\Admin\BackupController;
@@ -13,6 +14,8 @@ use App\Http\Controllers\Admin\WebsiteSettings\HistoryPageContentController;
 use App\Http\Controllers\Admin\WebsiteSettings\ChairmanMessageContentController;
 use App\Http\Controllers\Admin\WebsiteSettings\CorporateBackgroundContentController;
 use App\Http\Controllers\Admin\WebsiteSettings\ContactPageContentController;
+use App\Http\Controllers\Admin\WebsiteSettings\TermsConditionContentController;
+use App\Http\Controllers\Admin\WebsiteSettings\GalleryPageContentController;
 use App\Http\Controllers\Admin\WebsiteSettings\HeaderSettingController;
 use App\Http\Controllers\Admin\WebsiteSettings\FooterSettingController;
 use App\Http\Controllers\Admin\WebsiteSettings\FeatureAmenitySettingController;
@@ -56,6 +59,7 @@ Route::get('/features-amenities', [FrontendController::class, 'featuresAmenities
 Route::get('/gallery', [FrontendController::class, 'gallery'])->name('gallery');
 Route::get('/team', [FrontendController::class, 'team'])->name('team');
 Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
+Route::get('/blog/{slug}', [FrontendController::class, 'blogDetails'])->name('blog.details');
 Route::get('/loan-calculator', [FrontendController::class, 'loanCalculator'])->name('loan-calculator');
 Route::get('/terms-and-conditions', [FrontendController::class, 'termsAndConditions'])->name('terms-and-conditions');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
@@ -98,6 +102,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'module.
     Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class)->except(['show']);
     Route::put('testimonials/{testimonial}/toggle-status', [\App\Http\Controllers\Admin\TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
 
+    // Blogs Management
+    Route::resource('blogs', BlogController::class)->except(['show']);
+    Route::patch('blogs/{blog}/toggle', [BlogController::class, 'toggleStatus'])->name('blogs.toggle');
 
     // Website Settings
     Route::prefix('website-settings')->name('website-settings.')->group(function () {
@@ -127,6 +134,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'module.
 
         Route::get('/contact-content', [ContactPageContentController::class, 'edit'])->name('contact-content.edit');
         Route::post('/contact-content', [ContactPageContentController::class, 'update'])->name('contact-content.update');
+
+        Route::get('/terms-content', [TermsConditionContentController::class, 'edit'])->name('terms-content.edit');
+        Route::post('/terms-content', [TermsConditionContentController::class, 'update'])->name('terms-content.update');
+
+        Route::get('/gallery-content', [GalleryPageContentController::class, 'edit'])->name('gallery-content.edit');
+        Route::post('/gallery-content', [GalleryPageContentController::class, 'update'])->name('gallery-content.update');
 
         Route::get('/service-content', [App\Http\Controllers\Admin\WebsiteSettings\ServicePageContentController::class, 'edit'])->name('service-content.edit');
         Route::post('/service-content', [App\Http\Controllers\Admin\WebsiteSettings\ServicePageContentController::class, 'update'])->name('service-content.update');

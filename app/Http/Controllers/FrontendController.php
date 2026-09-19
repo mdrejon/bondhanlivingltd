@@ -8,9 +8,9 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $sliders = \App\Models\Slider::active()->get();
-        
         $keys = [
+            'home_page_seo',
+            'home_page_hero',
             'home_page_why_choose_us',
             'home_page_service',
             'home_page_cta',
@@ -18,26 +18,42 @@ class FrontendController extends Controller
             'home_page_project',
             'home_page_achievements',
             'home_page_testimonial',
-            'home_page_blog',
-            'home_page_seo',
+            'home_page_blog'
         ];
         
+        $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
+            ->pluck('value', 'key')
+            ->toArray();
+
         $homeContent = [];
         foreach ($keys as $key) {
-            $raw = \App\Models\GlobalSetting::get($key);
-            $homeContent[$key] = $raw ? json_decode($raw, true) : null;
+            $homeContent[$key] = isset($settings[$key]) ? json_decode($settings[$key], true) : null;
         }
 
-        $services = \App\Models\Service::where('status', true)->get();
-        $servicesByCategory = $services->groupBy('category');
-
+        $sliders = \App\Models\Slider::active()->get();
         $projects = \App\Models\Project::active()->latest()->take(6)->get();
+        $testimonials = \App\Models\Testimonial::active()->latest()->take(6)->get();
+        $teams = \App\Models\Team::active()->orderBy('order')->take(8)->get();
         
-        $teams = \App\Models\Team::active()->orderBy('order', 'asc')->get();
-        
-        $testimonials = \App\Models\Testimonial::active()->latest()->get();
+        // Fetch active services grouped by category
+        $servicesByCategory = \App\Models\Service::where('status', 'active')
+            ->latest()
+            ->get()
+            ->groupBy(function($service) {
+                return $service->category ?? 'Other';
+            });
+            
+        $blogs = \App\Models\Blog::active()->latest('published_at')->take(6)->get();
 
-        return view('frontend.pages.index', compact('sliders', 'homeContent', 'servicesByCategory', 'projects', 'teams', 'testimonials'));
+        return view('frontend.pages.index', compact(
+            'homeContent', 
+            'sliders', 
+            'projects', 
+            'testimonials',
+            'teams',
+            'servicesByCategory',
+            'blogs'
+        ));
     }
 
     public function about()
@@ -223,7 +239,22 @@ class FrontendController extends Controller
 
     public function gallery()
     {
-        return view('frontend.pages.gallery');
+        $keys = [
+            'gallery_page_hero',
+            'gallery_page_images',
+            'gallery_page_seo',
+        ];
+        
+        $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
+            ->pluck('value', 'key')
+            ->toArray();
+
+        $galleryContent = [];
+        foreach ($keys as $key) {
+            $galleryContent[$key] = isset($settings[$key]) ? json_decode($settings[$key], true) : null;
+        }
+
+        return view('frontend.pages.gallery', compact('galleryContent'));
     }
 
     public function team()
@@ -234,7 +265,15 @@ class FrontendController extends Controller
 
     public function blog()
     {
-        return view('frontend.pages.blog');
+        $blogs = \App\Models\Blog::active()->latest('published_at')->paginate(9);
+        return view('frontend.pages.blog', compact('blogs'));
+    }
+
+    public function blogDetails($slug)
+    {
+        $blog = \App\Models\Blog::active()->where('slug', $slug)->firstOrFail();
+        $recentBlogs = \App\Models\Blog::active()->where('id', '!=', $blog->id)->latest('published_at')->take(4)->get();
+        return view('frontend.pages.blog-details', compact('blog', 'recentBlogs'));
     }
 
     public function loanCalculator()
@@ -244,7 +283,22 @@ class FrontendController extends Controller
 
     public function termsAndConditions()
     {
-        return view('frontend.pages.terms-condition');
+        $keys = [
+            'terms_page_hero',
+            'terms_page_items',
+            'terms_page_seo',
+        ];
+        
+        $settings = \App\Models\GlobalSetting::whereIn('key', $keys)
+            ->pluck('value', 'key')
+            ->toArray();
+
+        $termsContent = [];
+        foreach ($keys as $key) {
+            $termsContent[$key] = isset($settings[$key]) ? json_decode($settings[$key], true) : null;
+        }
+
+        return view('frontend.pages.terms-condition', compact('termsContent'));
     }
 
     public function contact()

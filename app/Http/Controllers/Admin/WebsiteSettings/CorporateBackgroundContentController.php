@@ -19,7 +19,6 @@ class CorporateBackgroundContentController extends Controller
         ];
 
         $settings = GlobalSetting::whereIn('key', $keys)
-            ->where('hotel_id', 0)
             ->pluck('value', 'key')
             ->toArray();
 

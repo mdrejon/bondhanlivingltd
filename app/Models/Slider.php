@@ -8,7 +8,6 @@ class Slider extends Model
 {
 
     protected $fillable = [
-        'hotel_id',
         'label',
         'title',
         'subtitle',
@@ -17,7 +16,6 @@ class Slider extends Model
         'button_url',
         'background_image',
         'star_label',
-        'star_rating',
         'sort_order',
         'is_active',
     ];
@@ -25,7 +23,6 @@ class Slider extends Model
     protected $casts = [
         'is_active'   => 'boolean',
         'sort_order'  => 'integer',
-        'star_rating' => 'integer',
     ];
 
     public function scopeActive($query)

@@ -40,10 +40,10 @@
                 </div>
                 <div>
                   <label class="block text-sm font-medium mb-1">Background Image</label>
-                  <input type="file" @change="e => form.corporate_page_hero.bg_image_file = e.target.files[0]" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
-                  <div class="mt-2" v-if="form.corporate_page_hero.bg_image">
-                    <img :src="getImgUrl(form.corporate_page_hero.bg_image)" class="w-32 h-auto rounded border" />
-                  </div>
+                  <DropZone
+                    @change="file => form.corporate_page_hero.bg_image_file = file"
+                    :existingPreview="form.corporate_page_hero.bg_image ? getImgUrl(form.corporate_page_hero.bg_image) : null"
+                  />
                 </div>
               </div>
             </div>
@@ -68,10 +68,10 @@
                 </div>
                 <div>
                   <label class="block text-sm font-medium mb-1">Background Shape Image</label>
-                  <input type="file" @change="e => form.corporate_page_main.bg_image_file = e.target.files[0]" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700" />
-                  <div class="mt-2" v-if="form.corporate_page_main.bg_image">
-                    <img :src="getImgUrl(form.corporate_page_main.bg_image)" class="w-32 h-auto rounded border" />
-                  </div>
+                  <DropZone
+                    @change="file => form.corporate_page_main.bg_image_file = file"
+                    :existingPreview="form.corporate_page_main.bg_image ? getImgUrl(form.corporate_page_main.bg_image) : null"
+                  />
                 </div>
                 <div>
                   <label class="block text-sm font-medium mb-1">Description</label>
@@ -79,10 +79,10 @@
                 </div>
                 <div>
                   <label class="block text-sm font-medium mb-1">Content Image</label>
-                  <input type="file" @change="e => form.corporate_page_main.image_file = e.target.files[0]" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700" />
-                  <div class="mt-2" v-if="form.corporate_page_main.image">
-                    <img :src="getImgUrl(form.corporate_page_main.image)" class="w-32 h-auto rounded border" />
-                  </div>
+                  <DropZone
+                    @change="file => form.corporate_page_main.image_file = file"
+                    :existingPreview="form.corporate_page_main.image ? getImgUrl(form.corporate_page_main.image) : null"
+                  />
                 </div>
               </div>
             </div>
@@ -120,6 +120,7 @@
 import { ref } from 'vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/Admin/AdminLayout.vue';
+import DropZone from '@/Components/Admin/Shared/DropZone.vue';
 
 const props = defineProps({
   content: Object

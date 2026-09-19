@@ -1,4 +1,13 @@
 @extends('frontend.layouts.app')
+<?php
+    if (!function_exists('getImgUrl')) {
+        function getImgUrl($path, $default) {
+            if (!$path) return asset($default);
+            if (str_starts_with($path, 'assets/')) return asset($path);
+            return asset('storage/' . $path);
+        }
+    }
+?>
 @section('content')
 <div class="breadcumb-wrapper" data-bg-src="assets/img/bg/breadcumb-bg.jpg">
       <div class="container">

@@ -23,7 +23,7 @@ class CompanyPagesSeeder extends Seeder
             'history_page_main' => [
                 'subtitle' => 'Journey of Bondhan Living',
                 'title' => 'Our Glorious History',
-                'description' => 'From a humble beginning to becoming one of the most trusted real estate developers in the country, explore the milestones that defined our success.',
+                'description' => 'Bondhan Living Limited is involved in Real Estate Marketing Development and Construction Company since 2010. It is a combination of product and service oriented company. Bondhan Living Ltd is one of the growing property management companies of the country, currently conducting its major activities within the priority of Chittagong, the commercial capital of Bangladesh. Strategic market planning, sales promotion, direct marketing, interactive capabilities, maintaining public relation and publicity is our specialty. In the emerging shape of Chittagong present urban outlook & life style, our company is committed in maintaining quality while emphasis on efficiency & style. We have already started a number of projects. Our site selection, design & planning are always based on professional methodology and business acumen. At every level of our work we rely on actual field test and standard friction of all raw materials. Overall supervision and monitoring fed into our Management Information System (MIS) allows us to plan, predict and implement our work schedule in a seamless and efficient manner. We also honor the advice & desires of our valued clients.',
             ],
             'history_page_timeline' => [
                 [

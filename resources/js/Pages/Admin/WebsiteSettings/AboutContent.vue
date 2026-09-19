@@ -44,8 +44,10 @@
                                     </div>
                                     <div>
                                         <InputLabel for="hero_bg" value="Background Image" />
-                                        <input id="hero_bg" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'about_page_hero', 'bg_image')" />
-                                        <p v-if="content.about_page_hero?.bg_image" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.about_page_hero.bg_image)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'about_page_hero', 'bg_image')"
+    :existingPreview="getImageUrl(content.about_page_hero.bg_image)"
+/>
                                     </div>
                                 </div>
                             </div>
@@ -83,18 +85,24 @@
                                     </div>
                                     <div>
                                         <InputLabel for="ac_img1" value="Image 1" />
-                                        <input id="ac_img1" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'about_page_company', 'image1')" />
-                                        <p v-if="content.about_page_company?.image1" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.about_page_company.image1)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'about_page_company', 'image1')"
+    :existingPreview="getImageUrl(content.about_page_company.image1)"
+/>
                                     </div>
                                     <div>
                                         <InputLabel for="ac_img2" value="Image 2" />
-                                        <input id="ac_img2" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'about_page_company', 'image2')" />
-                                        <p v-if="content.about_page_company?.image2" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.about_page_company.image2)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'about_page_company', 'image2')"
+    :existingPreview="getImageUrl(content.about_page_company.image2)"
+/>
                                     </div>
                                     <div>
                                         <InputLabel for="ac_shape" value="Shape Image" />
-                                        <input id="ac_shape" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'about_page_company', 'shape_image')" />
-                                        <p v-if="content.about_page_company?.shape_image" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.about_page_company.shape_image)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'about_page_company', 'shape_image')"
+    :existingPreview="getImageUrl(content.about_page_company.shape_image)"
+/>
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +214,9 @@
                                     </div>
                                     <div>
                                         <InputLabel for="mis_bg" value="Background Shape Image" />
-                                        <input id="mis_bg" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'about_page_mission', 'bg_shape')" />
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'about_page_mission', 'bg_shape')"
+/>
                                     </div>
                                 </div>
                             </div>
@@ -386,6 +396,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/Admin/AdminLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
+import DropZone from '@/Components/Admin/Shared/DropZone.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
@@ -458,16 +469,12 @@ const forms = {
     })
 };
 
-function handleFileUpload(e, formKey, fieldName) {
-    if (e.target.files && e.target.files.length > 0) {
-        forms[formKey][fieldName] = e.target.files[0];
-    }
+function handleFileUpload(file, formKey, fieldName) {
+    forms[formKey][fieldName] = file;
 }
 
-function handleArrayFileUpload(e, formKey, arrayName, index, fieldName) {
-    if (e.target.files && e.target.files.length > 0) {
-        forms[formKey][arrayName][index][fieldName] = e.target.files[0];
-    }
+function handleArrayFileUpload(file, formKey, arrayName, index, fieldName) {
+    forms[formKey][arrayName][index][fieldName] = file;
 }
 
 function handleTabFileUpload(e, tIndex) {

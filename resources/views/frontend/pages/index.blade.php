@@ -70,7 +70,7 @@
                 <h1>{!! $slider->title !!}</h1>
                 
                 @if($slider->description)
-                <p>{{ $slider->description }}</p>
+                <p>{!! $slider->description !!}</p>
                 @endif
 
                 @if($slider->button_text)
@@ -528,204 +528,43 @@
           data-sm-slide-show="1"
           data-arrows="true"
         >
-          <div class="col-md-6 col-xl-4">
-            <div class="th-blog blog-single style4 th-ani">
-              <div class="blog-img">
-                <a href="blog-details.html"
-                  ><img
-                    src="assets/img/update2/blog/blog_1_1.jpg"
-                    alt="Blog Image"
-                /></a>
-                <div class="blog-date">
-                  <span class="date">05</span> Jul, 2024
+          @if(isset($blogs) && $blogs->count() > 0)
+            @foreach($blogs as $blog)
+            <div class="col-md-6 col-xl-4">
+              <div class="th-blog blog-single style4 th-ani">
+                <div class="blog-img">
+                  <a href="{{ route('blog') }}"
+                    ><img
+                      src="{{ getImgUrl($blog->image, 'assets/img/update2/blog/blog_1_1.jpg') }}"
+                      alt="{{ $blog->title }}"
+                  /></a>
+                  <div class="blog-date">
+                    <span class="date">{{ optional($blog->published_at)->format('d') ?? '01' }}</span> {{ optional($blog->published_at)->format('M, Y') ?? 'Jan, 2024' }}
+                  </div>
+                  <div class="blog-shape"></div>
                 </div>
-                <div class="blog-shape"></div>
-              </div>
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <a href="blog.html"
-                    ><i class="fa-solid fa-user"></i>By Bondhon</a
-                  >
-                  <a class="author" href="blog.html"
-                    ><i class="fa-solid fa-tags"></i>INDUSTRY</a
-                  >
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <a href="{{ route('blog') }}"
+                      ><i class="fa-solid fa-user"></i>By {{ $blog->author }}</a
+                    >
+                    <a class="author" href="{{ route('blog') }}"
+                      ><i class="fa-solid fa-tags"></i>{{ $blog->category }}</a
+                    >
+                  </div>
+                  <h4 class="box-title">
+                    <a href="{{ route('blog') }}"
+                      >{{ $blog->title }}</a
+                    >
+                  </h4>
+                  <a href="{{ route('blog') }}" class="link-btn style2"
+                    >Read More <i class="fas fa-arrow-right ms-1"></i
+                  ></a>
                 </div>
-                <h4 class="box-title">
-                  <a href="blog-details.html"
-                    >The beast team around and how we make it work</a
-                  >
-                </h4>
-                <a href="blog-details.html" class="link-btn style2"
-                  >Read More <i class="fas fa-arrow-right ms-1"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <div class="th-blog blog-single style4 th-ani">
-              <div class="blog-img">
-                <a href="blog-details.html"
-                  ><img
-                    src="assets/img/update2/blog/blog_1_2.jpg"
-                    alt="Blog Image"
-                /></a>
-                <div class="blog-date">
-                  <span class="date">06</span> Jul, 2024
-                </div>
-                <div class="blog-shape"></div>
-              </div>
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <a href="blog.html"
-                    ><i class="fa-solid fa-user"></i>By Bondhon</a
-                  >
-                  <a class="author" href="blog.html"
-                    ><i class="fa-solid fa-tags"></i>INDUSTRY</a
-                  >
-                </div>
-                <h4 class="box-title">
-                  <a href="blog-details.html"
-                    >Interior design is the Art and science Of Design</a
-                  >
-                </h4>
-                <a href="blog-details.html" class="link-btn style2"
-                  >Read More <i class="fas fa-arrow-right ms-1"></i
-                ></a>
               </div>
             </div>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <div class="th-blog blog-single style4 th-ani">
-              <div class="blog-img">
-                <a href="blog-details.html"
-                  ><img
-                    src="assets/img/update2/blog/blog_1_3.jpg"
-                    alt="Blog Image"
-                /></a>
-                <div class="blog-date">
-                  <span class="date">07</span> Jul, 2024
-                </div>
-                <div class="blog-shape"></div>
-              </div>
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <a href="blog.html"
-                    ><i class="fa-solid fa-user"></i>By Bondhon</a
-                  >
-                  <a class="author" href="blog.html"
-                    ><i class="fa-solid fa-tags"></i>INDUSTRY</a
-                  >
-                </div>
-                <h4 class="box-title">
-                  <a href="blog-details.html"
-                    >Redefining Organizational Dynamics by Embracing</a
-                  >
-                </h4>
-                <a href="blog-details.html" class="link-btn style2"
-                  >Read More <i class="fas fa-arrow-right ms-1"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <div class="th-blog blog-single style4 th-ani">
-              <div class="blog-img">
-                <a href="blog-details.html"
-                  ><img
-                    src="assets/img/update2/blog/blog_1_1.jpg"
-                    alt="Blog Image"
-                /></a>
-                <div class="blog-date">
-                  <span class="date">09</span> Jul, 2024
-                </div>
-                <div class="blog-shape"></div>
-              </div>
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <a href="blog.html"
-                    ><i class="fa-solid fa-user"></i>By Bondhon</a
-                  >
-                  <a class="author" href="blog.html"
-                    ><i class="fa-solid fa-tags"></i>INDUSTRY</a
-                  >
-                </div>
-                <h4 class="box-title">
-                  <a href="blog-details.html"
-                    >The beast team around and how we make it work</a
-                  >
-                </h4>
-                <a href="blog-details.html" class="link-btn style2"
-                  >Read More <i class="fas fa-arrow-right ms-1"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <div class="th-blog blog-single style4 th-ani">
-              <div class="blog-img">
-                <a href="blog-details.html"
-                  ><img
-                    src="assets/img/update2/blog/blog_1_2.jpg"
-                    alt="Blog Image"
-                /></a>
-                <div class="blog-date">
-                  <span class="date">10</span> Jul, 2024
-                </div>
-                <div class="blog-shape"></div>
-              </div>
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <a href="blog.html"
-                    ><i class="fa-solid fa-user"></i>By Bondhon</a
-                  >
-                  <a class="author" href="blog.html"
-                    ><i class="fa-solid fa-tags"></i>INDUSTRY</a
-                  >
-                </div>
-                <h4 class="box-title">
-                  <a href="blog-details.html"
-                    >Interior design is the Art and science Of Design</a
-                  >
-                </h4>
-                <a href="blog-details.html" class="link-btn style2"
-                  >Read More <i class="fas fa-arrow-right ms-1"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <div class="th-blog blog-single style4 th-ani">
-              <div class="blog-img">
-                <a href="blog-details.html"
-                  ><img
-                    src="assets/img/update2/blog/blog_1_3.jpg"
-                    alt="Blog Image"
-                /></a>
-                <div class="blog-date">
-                  <span class="date">12</span> Jul, 2024
-                </div>
-                <div class="blog-shape"></div>
-              </div>
-              <div class="blog-content">
-                <div class="blog-meta">
-                  <a href="blog.html"
-                    ><i class="fa-solid fa-user"></i>By Bondhon</a
-                  >
-                  <a class="author" href="blog.html"
-                    ><i class="fa-solid fa-tags"></i>INDUSTRY</a
-                  >
-                </div>
-                <h4 class="box-title">
-                  <a href="blog-details.html"
-                    >Redefining Organizational Dynamics by Embracing</a
-                  >
-                </h4>
-                <a href="blog-details.html" class="link-btn style2"
-                  >Read More <i class="fas fa-arrow-right ms-1"></i
-                ></a>
-              </div>
-            </div>
-          </div>
+            @endforeach
+          @endif
         </div>
       </div>
     </section>

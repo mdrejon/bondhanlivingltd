@@ -49,7 +49,7 @@
             <li class="menu-item-has-children">
               <a href="#">Media Center</a>
               <ul class="sub-menu">
-                <li><a href="#">News & Events</a></li>
+                <li><a href="{{ route('blog') }}">News & Events</a></li>
                 <li><a href="#">Our Associate</a></li>
                 <li><a href="#">Career</a></li>
                 <li><a href="{{ route('loan-calculator') }}">Loan Calculator</a></li>
@@ -154,7 +154,7 @@
                           <li class="menu-item-has-children">
                             <a href="#">Media Center</a>
                             <ul class="sub-menu">
-                              <li><a href="#">News & Events</a></li>
+                              <li><a href="{{ route('blog') }}">News & Events</a></li>
                               <li><a href="#">Our Associate</a></li>
                               <li><a href="#">Career</a></li>
                               <li><a href="{{ route('loan-calculator') }}">Loan Calculator</a></li>

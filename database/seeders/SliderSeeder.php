@@ -11,25 +11,35 @@ class SliderSeeder extends Seeder
     {
         \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
 
-        Slider::updateOrCreate(['id' => 1], [
-            'hotel_id'         => 0,
-            'label'            => 'BONDHON',
-            'title'            => 'We are providing best <span>construction</span> service',
-            'description'      => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio architecto culpa, eveniet inventore veritatis minus. Corporis molestias velit ab asperiores amet doloremque expedita in eos quasi',
-            'button_text'      => 'View more',
-            'button_url'       => 'about.html',
+        Slider::truncate();
+
+        Slider::create([
+            'title'            => 'we care & we share ...',
+            'description'      => 'Bondhan Living Ltd. have reputation as a reliable real estate company that gives high priority to customer desire and needs, <br /> has been created through the hard work and dedication of its work force.',
+            'button_text'      => 'Read More',
+            'button_url'       => '#.',
+            'background_image' => 'images/banner-4.jpg',
             'sort_order'       => 1,
             'is_active'        => true,
         ]);
 
-        Slider::updateOrCreate(['id' => 2], [
-            'hotel_id'         => 0,
-            'label'            => 'BONDHON',
-            'title'            => '<span>Construction</span> & infrastructure services company',
-            'description'      => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio architecto culpa, eveniet inventore veritatis minus. Corporis molestias velit ab asperiores amet doloremque expedita in eos quasi',
-            'button_text'      => 'View more',
-            'button_url'       => 'about.html',
+        Slider::create([
+            'title'            => 'we care & we share ...',
+            'description'      => 'Bondhan Living Ltd. have reputation as a reliable real estate company that gives high priority to customer desire and needs, <br /> has been created through the hard work and dedication of its work force.',
+            'button_text'      => 'Read More',
+            'button_url'       => '#.',
+            'background_image' => 'images/banner-5.jpg',
             'sort_order'       => 2,
+            'is_active'        => true,
+        ]);
+
+        Slider::create([
+            'title'            => 'we care & we share ...',
+            'description'      => 'Bondhan Living Ltd. have reputation as a reliable real estate company that gives high priority to customer desire and needs, <br /> has been created through the hard work and dedication of its work force.',
+            'button_text'      => 'Read More',
+            'button_url'       => '#.',
+            'background_image' => 'images/banner-6.jpg',
+            'sort_order'       => 3,
             'is_active'        => true,
         ]);
 

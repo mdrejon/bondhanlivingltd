@@ -30,15 +30,10 @@
 
                                     <div class="col-span-2">
                                         <InputLabel for="hero_bg_image" value="Background Image" />
-                                        <input
-                                            type="file"
-                                            id="hero_bg_image"
-                                            @change="e => form.service_page_hero.bg_image_file = e.target.files[0]"
-                                            class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        <DropZone
+                                            @change="file => form.service_page_hero.bg_image_file = file"
+                                            :existingPreview="form.service_page_hero.bg_image ? `/storage/${form.service_page_hero.bg_image}` : null"
                                         />
-                                        <div v-if="form.service_page_hero.bg_image" class="mt-2">
-                                            <img :src="`/storage/${form.service_page_hero.bg_image}`" class="h-20 object-cover rounded" />
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -111,6 +106,7 @@ import AdminLayout from '@/Layouts/Admin/AdminLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import DropZone from '@/Components/Admin/Shared/DropZone.vue';
 
 const props = defineProps({
     content: Object,

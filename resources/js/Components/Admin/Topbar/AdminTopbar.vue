@@ -14,6 +14,19 @@
 
         <!-- Right actions -->
         <div class="flex items-center gap-3">
+            <!-- Go to Live Site -->
+            <a
+                href="/"
+                target="_blank"
+                class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-green-50 text-green-700 hover:bg-green-100"
+                title="Go to Live Site"
+            >
+                <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+                Go to live site
+            </a>
+
             <!-- Super Admin: acting-as-hotel switcher -->
             <div v-if="actingHotel" class="relative">
                 <button

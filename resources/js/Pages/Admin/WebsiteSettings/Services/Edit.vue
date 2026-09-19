@@ -47,19 +47,23 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <InputLabel for="icon" value="Icon (SVG/Image for card)" />
-                                    <input type="file" id="icon" @change="e => form.icon = e.target.files[0]" class="mt-1 block w-full" />
-                                    <div v-if="service.icon" class="mt-2">
-                                        <img :src="`/storage/${service.icon}`" class="h-12 object-contain" />
-                                    </div>
+                                    <DropZone
+                                        id="icon"
+                                        @change="file => form.icon = file"
+                                        class="mt-1 block w-full"
+                                        :existingPreview="service.icon ? `/storage/${service.icon}` : null"
+                                    />
                                     <InputError class="mt-2" :message="form.errors.icon" />
                                 </div>
 
                                 <div>
                                     <InputLabel for="image" value="Main Image (for details page)" />
-                                    <input type="file" id="image" @change="e => form.image = e.target.files[0]" class="mt-1 block w-full" />
-                                    <div v-if="service.image" class="mt-2">
-                                        <img :src="`/storage/${service.image}`" class="h-20 object-cover rounded" />
-                                    </div>
+                                    <DropZone
+                                        id="image"
+                                        @change="file => form.image = file"
+                                        class="mt-1 block w-full"
+                                        :existingPreview="service.image ? `/storage/${service.image}` : null"
+                                    />
                                     <InputError class="mt-2" :message="form.errors.image" />
                                 </div>
                             </div>
@@ -113,6 +117,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import DropZone from '@/Components/Admin/Shared/DropZone.vue';
 
 const props = defineProps({
     service: Object,

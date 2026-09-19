@@ -47,13 +47,13 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <InputLabel for="icon" value="Icon (SVG/Image for card)" />
-                                    <input type="file" id="icon" @change="e => form.icon = e.target.files[0]" class="mt-1 block w-full" />
+                                    <DropZone id="icon" @change="file => form.icon = file" class="mt-1 block w-full" />
                                     <InputError class="mt-2" :message="form.errors.icon" />
                                 </div>
 
                                 <div>
                                     <InputLabel for="image" value="Main Image (for details page)" />
-                                    <input type="file" id="image" @change="e => form.image = e.target.files[0]" class="mt-1 block w-full" />
+                                    <DropZone id="image" @change="file => form.image = file" class="mt-1 block w-full" />
                                     <InputError class="mt-2" :message="form.errors.image" />
                                 </div>
                             </div>
@@ -107,6 +107,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import DropZone from '@/Components/Admin/Shared/DropZone.vue';
 
 const form = useForm({
     title: '',

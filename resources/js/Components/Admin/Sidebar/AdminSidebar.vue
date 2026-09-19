@@ -160,6 +160,17 @@ const navItems = [
         ],
     },
 
+    // Blogs
+    {
+        name: "Blogs",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15M9 11l3 3L22 4" /></svg>`,
+        module: "blogs",
+        children: [
+            { name: "All Blogs", route: "admin.blogs.index" },
+            { name: "Add Blog", route: "admin.blogs.create" },
+        ],
+    },
+
     // ── Global Settings ─────────────────────────────────────────────────────
     {
         name: "Global Settings",
@@ -194,6 +205,14 @@ const navItems = [
             {
                 name: "Contact Page Content",
                 route: "admin.website-settings.contact-content.edit",
+            },
+            {
+                name: "Terms & Conditions",
+                route: "admin.website-settings.terms-content.edit",
+            },
+            {
+                name: "Gallery Page Content",
+                route: "admin.website-settings.gallery-content.edit",
             },
             {
                 name: "Header Settings",

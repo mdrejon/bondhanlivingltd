@@ -1,173 +1,249 @@
 <template>
-  <Head title="Chairman Message Content" />
+    <AdminLayout>
+        <Head title="Chairman Message Content" />
 
-  <AdminLayout>
-    <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-      <div class="sm:flex sm:justify-between sm:items-center mb-8">
-        <div class="mb-4 sm:mb-0">
-          <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Chairman Message Content ✨</h1>
-        </div>
-        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-          <button @click="submitForm" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-            <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-              <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-            </svg>
-            <span class="hidden xs:block ml-2">Save Changes</span>
-          </button>
-        </div>
-      </div>
-
-      <div v-if="$page.props.flash.success" class="mb-4 p-4 bg-emerald-100 text-emerald-600 border border-emerald-200 rounded">
-        {{ $page.props.flash.success }}
-      </div>
-
-      <div class="bg-white shadow-lg rounded-sm border border-slate-200">
-        <div class="flex flex-wrap border-b border-slate-200">
-          <button @click="activeTab = 'hero'" :class="{'text-indigo-500 border-indigo-500': activeTab === 'hero', 'text-slate-600 hover:text-slate-800 border-transparent': activeTab !== 'hero'}" class="px-4 py-3 border-b-2 font-medium text-sm">Hero Section</button>
-          <button @click="activeTab = 'main'" :class="{'text-indigo-500 border-indigo-500': activeTab === 'main', 'text-slate-600 hover:text-slate-800 border-transparent': activeTab !== 'main'}" class="px-4 py-3 border-b-2 font-medium text-sm">Main Area</button>
-          <button @click="activeTab = 'info'" :class="{'text-indigo-500 border-indigo-500': activeTab === 'info', 'text-slate-600 hover:text-slate-800 border-transparent': activeTab !== 'info'}" class="px-4 py-3 border-b-2 font-medium text-sm">Chairman Info</button>
-          <button @click="activeTab = 'seo'" :class="{'text-indigo-500 border-indigo-500': activeTab === 'seo', 'text-slate-600 hover:text-slate-800 border-transparent': activeTab !== 'seo'}" class="px-4 py-3 border-b-2 font-medium text-sm">SEO Config</button>
-        </div>
-
-        <div class="p-6">
-          <form @submit.prevent="submitForm">
-            <!-- Hero Tab -->
-            <div v-show="activeTab === 'hero'">
-              <h2 class="text-xl font-bold text-slate-800 mb-4">Hero/Breadcrumb Section</h2>
-              <div class="grid gap-5">
-                <div>
-                  <label class="block text-sm font-medium mb-1">Title</label>
-                  <input v-model="form.chairman_page_hero.title" type="text" class="form-input w-full" />
+        <div class="max-w-6xl mx-auto space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-800">Chairman Message Sections</h2>
+                <!-- Flash Message -->
+                <div v-if="$page.props.flash.success" class="px-4 py-2 bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-md text-sm font-medium">
+                    {{ $page.props.flash.success }}
                 </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Background Image</label>
-                  <input type="file" @change="e => form.chairman_page_hero.bg_image_file = e.target.files[0]" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
-                  <div class="mt-2" v-if="form.chairman_page_hero.bg_image">
-                    <img :src="getImgUrl(form.chairman_page_hero.bg_image)" class="w-32 h-auto rounded border" />
-                  </div>
-                </div>
-              </div>
             </div>
 
-            <!-- Main Tab -->
-            <div v-show="activeTab === 'main'">
-              <h2 class="text-xl font-bold text-slate-800 mb-4">Main Content Area</h2>
-              <div class="grid gap-5">
-                <div>
-                  <label class="block text-sm font-medium mb-1">Subtitle</label>
-                  <input v-model="form.chairman_page_main.subtitle" type="text" class="form-input w-full" />
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                      <label class="block text-sm font-medium mb-1">Title</label>
-                      <input v-model="form.chairman_page_main.title" type="text" class="form-input w-full" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-medium mb-1">Title Highlight (Red text)</label>
-                      <input v-model="form.chairman_page_main.highlight" type="text" class="form-input w-full" />
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Sidebar Tabs -->
+                <div class="w-full md:w-1/4">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                        <ul class="flex flex-col">
+                            <li v-for="tab in tabs" :key="tab.key">
+                                <button
+                                    @click="activeTab = tab.key"
+                                    :class="[
+                                        'w-full text-left px-4 py-3 text-sm font-medium transition-colors',
+                                        activeTab === tab.key 
+                                            ? 'bg-indigo-50 text-indigo-700 border-l-4 border-indigo-600' 
+                                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-transparent'
+                                    ]"
+                                >
+                                    {{ tab.label }}
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Background Shape Image</label>
-                  <input type="file" @change="e => form.chairman_page_main.bg_image_file = e.target.files[0]" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700" />
-                  <div class="mt-2" v-if="form.chairman_page_main.bg_image">
-                    <img :src="getImgUrl(form.chairman_page_main.bg_image)" class="w-32 h-auto rounded border" />
-                  </div>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Message Description</label>
-                  <textarea v-model="form.chairman_page_main.description" rows="8" class="form-textarea w-full"></textarea>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Chairman Image</label>
-                  <input type="file" @change="e => form.chairman_page_main.image_file = e.target.files[0]" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700" />
-                  <div class="mt-2" v-if="form.chairman_page_main.image">
-                    <img :src="getImgUrl(form.chairman_page_main.image)" class="w-32 h-auto rounded border" />
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <!-- Chairman Info Tab -->
-            <div v-show="activeTab === 'info'">
-              <h2 class="text-xl font-bold text-slate-800 mb-4">Chairman Info</h2>
-              <div class="grid gap-5">
-                <div>
-                  <label class="block text-sm font-medium mb-1">Salutation (e.g. Thanking you.)</label>
-                  <input v-model="form.chairman_page_info.salutation" type="text" class="form-input w-full" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Name</label>
-                  <input v-model="form.chairman_page_info.name" type="text" class="form-input w-full" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Designation</label>
-                  <input v-model="form.chairman_page_info.designation" type="text" class="form-input w-full" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Company</label>
-                  <input v-model="form.chairman_page_info.company" type="text" class="form-input w-full" />
-                </div>
-              </div>
-            </div>
+                <!-- Tab Content -->
+                <div class="w-full md:w-3/4">
+                    
+                    <!-- 1. Hero -->
+                    <div v-if="activeTab === 'chairman_page_hero'">
+                        <form @submit.prevent="submit('chairman_page_hero')" class="space-y-6">
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h3 class="text-lg font-medium text-gray-800 mb-4 border-b pb-2">Hero / Breadcrumb</h3>
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div>
+                                        <InputLabel for="hero_title" value="Page Title" />
+                                        <TextInput id="hero_title" v-model="forms.chairman_page_hero.chairman_page_hero.title" class="block w-full mt-1" />
+                                    </div>
+                                    <div>
+                                        <InputLabel for="hero_bg" value="Background Image" />
+                                        <DropZone
+                                            @change="file => forms.chairman_page_hero.chairman_page_hero.bg_image_file = file"
+                                            :existingPreview="getImageUrl(content.chairman_page_hero?.bg_image)"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <PrimaryButton :disabled="forms.chairman_page_hero.processing">Save Section</PrimaryButton>
+                            </div>
+                        </form>
+                    </div>
 
-            <!-- SEO Tab -->
-            <div v-show="activeTab === 'seo'">
-              <h2 class="text-xl font-bold text-slate-800 mb-4">SEO Configuration</h2>
-              <div class="grid gap-5">
-                <div>
-                  <label class="block text-sm font-medium mb-1">Meta Title</label>
-                  <input v-model="form.chairman_page_seo.meta_title" type="text" class="form-input w-full" />
+                    <!-- 2. Main Area -->
+                    <div v-if="activeTab === 'chairman_page_main'">
+                        <form @submit.prevent="submit('chairman_page_main')" class="space-y-6">
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h3 class="text-lg font-medium text-gray-800 mb-4 border-b pb-2">Main Content Area</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="md:col-span-2">
+                                        <InputLabel for="main_subtitle" value="Subtitle" />
+                                        <TextInput id="main_subtitle" v-model="forms.chairman_page_main.chairman_page_main.subtitle" class="block w-full mt-1" />
+                                    </div>
+                                    <div>
+                                        <InputLabel for="main_title" value="Title" />
+                                        <TextInput id="main_title" v-model="forms.chairman_page_main.chairman_page_main.title" class="block w-full mt-1" />
+                                    </div>
+                                    <div>
+                                        <InputLabel for="main_highlight" value="Title Highlight (Red text)" />
+                                        <TextInput id="main_highlight" v-model="forms.chairman_page_main.chairman_page_main.highlight" class="block w-full mt-1" />
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <InputLabel for="main_desc" value="Message Description" />
+                                        <textarea id="main_desc" v-model="forms.chairman_page_main.chairman_page_main.description" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full mt-1" rows="8"></textarea>
+                                    </div>
+                                    <div>
+                                        <InputLabel value="Chairman Image" />
+                                        <DropZone
+                                            @change="file => forms.chairman_page_main.chairman_page_main.image_file = file"
+                                            :existingPreview="getImageUrl(content.chairman_page_main?.image)"
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel value="Background Shape Image" />
+                                        <DropZone
+                                            @change="file => forms.chairman_page_main.chairman_page_main.bg_image_file = file"
+                                            :existingPreview="getImageUrl(content.chairman_page_main?.bg_image)"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <PrimaryButton :disabled="forms.chairman_page_main.processing">Save Section</PrimaryButton>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 3. Chairman Info -->
+                    <div v-if="activeTab === 'chairman_page_info'">
+                        <form @submit.prevent="submit('chairman_page_info')" class="space-y-6">
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h3 class="text-lg font-medium text-gray-800 mb-4 border-b pb-2">Chairman Info</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="md:col-span-2">
+                                        <InputLabel for="info_salutation" value="Salutation (e.g. Thanking you.)" />
+                                        <TextInput id="info_salutation" v-model="forms.chairman_page_info.chairman_page_info.salutation" class="block w-full mt-1" />
+                                    </div>
+                                    <div>
+                                        <InputLabel for="info_name" value="Name" />
+                                        <TextInput id="info_name" v-model="forms.chairman_page_info.chairman_page_info.name" class="block w-full mt-1" />
+                                    </div>
+                                    <div>
+                                        <InputLabel for="info_designation" value="Designation" />
+                                        <TextInput id="info_designation" v-model="forms.chairman_page_info.chairman_page_info.designation" class="block w-full mt-1" />
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <InputLabel for="info_company" value="Company" />
+                                        <TextInput id="info_company" v-model="forms.chairman_page_info.chairman_page_info.company" class="block w-full mt-1" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <PrimaryButton :disabled="forms.chairman_page_info.processing">Save Section</PrimaryButton>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 4. SEO -->
+                    <div v-if="activeTab === 'chairman_page_seo'">
+                        <form @submit.prevent="submit('chairman_page_seo')" class="space-y-6">
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h3 class="text-lg font-medium text-gray-800 mb-4 border-b pb-2">SEO Configuration</h3>
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div>
+                                        <InputLabel for="seo_title" value="Meta Title" />
+                                        <TextInput id="seo_title" v-model="forms.chairman_page_seo.chairman_page_seo.meta_title" class="block w-full mt-1" />
+                                    </div>
+                                    <div>
+                                        <InputLabel for="seo_desc" value="Meta Description" />
+                                        <textarea id="seo_desc" v-model="forms.chairman_page_seo.chairman_page_seo.meta_description" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full mt-1" rows="3"></textarea>
+                                    </div>
+                                    <div>
+                                        <InputLabel for="seo_keywords" value="Meta Keywords" />
+                                        <TextInput id="seo_keywords" v-model="forms.chairman_page_seo.chairman_page_seo.meta_keywords" class="block w-full mt-1" />
+                                    </div>
+                                    <div>
+                                        <InputLabel for="seo_author" value="Meta Author" />
+                                        <TextInput id="seo_author" v-model="forms.chairman_page_seo.chairman_page_seo.meta_author" class="block w-full mt-1" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <PrimaryButton :disabled="forms.chairman_page_seo.processing">Save Section</PrimaryButton>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Meta Description</label>
-                  <textarea v-model="form.chairman_page_seo.meta_description" rows="3" class="form-textarea w-full"></textarea>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Meta Keywords</label>
-                  <input v-model="form.chairman_page_seo.meta_keywords" type="text" class="form-input w-full" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Meta Author</label>
-                  <input v-model="form.chairman_page_seo.meta_author" type="text" class="form-input w-full" />
-                </div>
-              </div>
             </div>
-          </form>
         </div>
-      </div>
-    </div>
-  </AdminLayout>
+    </AdminLayout>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/Admin/AdminLayout.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import DropZone from '@/Components/Admin/Shared/DropZone.vue';
 
 const props = defineProps({
-  content: Object
+    content: {
+        type: Object,
+        default: () => ({})
+    }
 });
 
-const activeTab = ref('hero');
+const tabs = [
+    { key: 'chairman_page_hero', label: 'Hero Section' },
+    { key: 'chairman_page_main', label: 'Main Content Area' },
+    { key: 'chairman_page_info', label: 'Chairman Info' },
+    { key: 'chairman_page_seo', label: 'SEO Configuration' }
+];
 
-const form = useForm({
-  chairman_page_hero: props.content.chairman_page_hero || { title: '', bg_image: '', bg_image_file: null },
-  chairman_page_main: props.content.chairman_page_main || { subtitle: '', title: '', highlight: '', description: '', bg_image: '', image: '', bg_image_file: null, image_file: null },
-  chairman_page_info: props.content.chairman_page_info || { salutation: '', name: '', designation: '', company: '' },
-  chairman_page_seo: props.content.chairman_page_seo || { meta_title: '', meta_description: '', meta_keywords: '', meta_author: '' }
-});
+const activeTab = ref('chairman_page_hero');
 
-const submitForm = () => {
-  form.post(route('admin.website-settings.chairman-content.update'), {
-    preserveScroll: true,
-    forceFormData: true,
-  });
+const forms = {
+    chairman_page_hero: useForm({
+        chairman_page_hero: {
+            title: props.content.chairman_page_hero?.title || '',
+            bg_image: props.content.chairman_page_hero?.bg_image || '',
+            bg_image_file: null
+        }
+    }),
+    chairman_page_main: useForm({
+        chairman_page_main: {
+            subtitle: props.content.chairman_page_main?.subtitle || '',
+            title: props.content.chairman_page_main?.title || '',
+            highlight: props.content.chairman_page_main?.highlight || '',
+            description: props.content.chairman_page_main?.description || '',
+            bg_image: props.content.chairman_page_main?.bg_image || '',
+            image: props.content.chairman_page_main?.image || '',
+            bg_image_file: null,
+            image_file: null
+        }
+    }),
+    chairman_page_info: useForm({
+        chairman_page_info: {
+            salutation: props.content.chairman_page_info?.salutation || '',
+            name: props.content.chairman_page_info?.name || '',
+            designation: props.content.chairman_page_info?.designation || '',
+            company: props.content.chairman_page_info?.company || ''
+        }
+    }),
+    chairman_page_seo: useForm({
+        chairman_page_seo: {
+            meta_title: props.content.chairman_page_seo?.meta_title || '',
+            meta_description: props.content.chairman_page_seo?.meta_description || '',
+            meta_keywords: props.content.chairman_page_seo?.meta_keywords || '',
+            meta_author: props.content.chairman_page_seo?.meta_author || ''
+        }
+    })
 };
 
-const getImgUrl = (path) => {
-  if (!path) return '';
-  if (path.startsWith('assets/')) return '/' + path;
-  return '/storage/' + path;
+const submit = (formKey) => {
+    forms[formKey].post(route('admin.website-settings.chairman-content.update'), {
+        preserveScroll: true,
+        forceFormData: true
+    });
+};
+
+const getImageUrl = (path) => {
+    if (!path) return '';
+    if (path.startsWith('assets/')) return '/' + path;
+    return '/storage/' + path;
 };
 </script>

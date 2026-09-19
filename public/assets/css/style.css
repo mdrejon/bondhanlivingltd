@@ -28259,7 +28259,7 @@ span.select2-selection.select2-selection--single:focus {
   color: #888c97;
 }
 .mission-content .checklist li {
-  color: var(--white-color);
+  color: var(--body-color);
 }
 .mission-content .mission-text {
   color: var(--gray-color);

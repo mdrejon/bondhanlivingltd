@@ -61,16 +61,10 @@
                                     </div>
                                     <div class="md:col-span-2">
                                         <InputLabel for="wcu_image" value="Main Image (Side Illustration)" />
-                                        <input
-                                            id="wcu_image"
-                                            type="file"
-                                            accept="image/*"
-                                            class="block w-full mt-1 file-input"
-                                            @change="e => handleFileUpload(e, 'home_page_why_choose_us', 'image')"
-                                        />
-                                        <p v-if="content.home_page_why_choose_us?.image" class="mt-2 text-sm text-gray-500">
-                                            Current image: <a :href="getImageUrl(content.home_page_why_choose_us.image)" target="_blank" class="text-indigo-600 hover:underline">View</a>
-                                        </p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'home_page_why_choose_us', 'image')"
+    :existingPreview="getImageUrl(content.home_page_why_choose_us.image)"
+/>
                                     </div>
                                 </div>
                             </div>
@@ -98,8 +92,10 @@
                                             </div>
                                             <div class="md:col-span-2">
                                                 <InputLabel :for="'f_icon_'+index" value="Icon" />
-                                                <input type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleArrayFileUpload(e, 'home_page_why_choose_us', 'features', index, 'icon_file')" />
-                                                <p v-if="feature.icon && !feature.icon_file" class="mt-1 text-xs text-gray-500">Current icon uploaded.</p>
+                                                <DropZone
+    @change="file => handleArrayFileUpload(file, 'home_page_why_choose_us', 'features', index, 'icon_file')"
+    :existingPreview="getImageUrl(feature.icon || counter.icon)"
+/>
                                             </div>
                                         </div>
                                     </div>
@@ -127,8 +123,10 @@
                                     </div>
                                     <div>
                                         <InputLabel for="srv_bg" value="Background Image" />
-                                        <input id="srv_bg" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'home_page_service', 'bg_image')" />
-                                        <p v-if="content.home_page_service?.bg_image" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.home_page_service.bg_image)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'home_page_service', 'bg_image')"
+    :existingPreview="getImageUrl(content.home_page_service.bg_image)"
+/>
                                     </div>
                                 </div>
                             </div>
@@ -158,8 +156,10 @@
                                     </div>
                                     <div class="md:col-span-2">
                                         <InputLabel for="cta_bg" value="Background Image" />
-                                        <input id="cta_bg" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'home_page_cta', 'bg_image')" />
-                                        <p v-if="content.home_page_cta?.bg_image" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.home_page_cta.bg_image)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'home_page_cta', 'bg_image')"
+    :existingPreview="getImageUrl(content.home_page_cta.bg_image)"
+/>
                                     </div>
                                 </div>
                             </div>
@@ -185,8 +185,10 @@
                                     </div>
                                     <div>
                                         <InputLabel for="team_bg" value="Background Image" />
-                                        <input id="team_bg" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'home_page_team', 'bg_image')" />
-                                        <p v-if="content.home_page_team?.bg_image" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.home_page_team.bg_image)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'home_page_team', 'bg_image')"
+    :existingPreview="getImageUrl(content.home_page_team.bg_image)"
+/>
                                     </div>
                                 </div>
                             </div>
@@ -212,8 +214,10 @@
                                     </div>
                                     <div>
                                         <InputLabel for="proj_bg" value="Background Image" />
-                                        <input id="proj_bg" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'home_page_project', 'bg_image')" />
-                                        <p v-if="content.home_page_project?.bg_image" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.home_page_project.bg_image)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'home_page_project', 'bg_image')"
+    :existingPreview="getImageUrl(content.home_page_project.bg_image)"
+/>
                                     </div>
                                 </div>
                             </div>
@@ -243,13 +247,17 @@
                                     </div>
                                     <div>
                                         <InputLabel for="ach_bg" value="Background Image" />
-                                        <input id="ach_bg" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'home_page_achievements', 'bg_image')" />
-                                        <p v-if="content.home_page_achievements?.bg_image" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.home_page_achievements.bg_image)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'home_page_achievements', 'bg_image')"
+    :existingPreview="getImageUrl(content.home_page_achievements.bg_image)"
+/>
                                     </div>
                                     <div>
                                         <InputLabel for="ach_side" value="Side Image" />
-                                        <input id="ach_side" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'home_page_achievements', 'side_image')" />
-                                        <p v-if="content.home_page_achievements?.side_image" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.home_page_achievements.side_image)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'home_page_achievements', 'side_image')"
+    :existingPreview="getImageUrl(content.home_page_achievements.side_image)"
+/>
                                     </div>
                                 </div>
                             </div>
@@ -305,8 +313,10 @@
                                     </div>
                                     <div>
                                         <InputLabel for="testi_bg" value="Background Image" />
-                                        <input id="testi_bg" type="file" accept="image/*" class="block w-full mt-1 file-input" @change="e => handleFileUpload(e, 'home_page_testimonial', 'bg_image')" />
-                                        <p v-if="content.home_page_testimonial?.bg_image" class="mt-2 text-sm text-gray-500">Current: <a :href="getImageUrl(content.home_page_testimonial.bg_image)" target="_blank" class="text-indigo-600 hover:underline">View</a></p>
+                                        <DropZone
+    @change="file => handleFileUpload(file, 'home_page_testimonial', 'bg_image')"
+    :existingPreview="getImageUrl(content.home_page_testimonial.bg_image)"
+/>
                                     </div>
                                 </div>
                             </div>
@@ -380,6 +390,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/Admin/AdminLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
+import DropZone from '@/Components/Admin/Shared/DropZone.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
@@ -466,16 +477,12 @@ const forms = {
     })
 };
 
-function handleFileUpload(e, formKey, fieldName) {
-    if (e.target.files && e.target.files.length > 0) {
-        forms[formKey][fieldName] = e.target.files[0];
-    }
+function handleFileUpload(file, formKey, fieldName) {
+    forms[formKey][fieldName] = file;
 }
 
-function handleArrayFileUpload(e, formKey, arrayName, index, fieldName) {
-    if (e.target.files && e.target.files.length > 0) {
-        forms[formKey][arrayName][index][fieldName] = e.target.files[0];
-    }
+function handleArrayFileUpload(file, formKey, arrayName, index, fieldName) {
+    forms[formKey][arrayName][index][fieldName] = file;
 }
 
 function addFeature() {
